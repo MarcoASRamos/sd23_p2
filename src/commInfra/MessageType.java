@@ -9,60 +9,104 @@ package commInfra;
 
 public class MessageType
 {
-    /**
-     *  Initialization of the logging file name (service request).
-     */
-
-    public static final int LOGF = 1;
-
-    /**
-     *  Logging file was initialized (reply).
-     */
-
-    public static final int LOGFDONE = 2;
+    // repos functions 
 
     /**
      *  Server shutdown (service request).
      */
 
-    public static final int SHUT = 3;
+    public static final int SHUT = 1;
 
     /**
      *  Server was shutdown (reply).
      */
 
-    public static final int SHUTDONE = 4;
+    public static final int SHUTDONE = 2;
 
     /**
      *  End of work - master (service request).
      */
 
-     public static final int ENDOP = 5;
+     public static final int ENDOP = 3;
 
      /**
       *  master goes home (reply).
       */
  
-     public static final int EOPDONE = 6;
+     public static final int EOPDONE = 4;
 
 
     /**
      *  Set master state (service request).
      */
 
-    public static final int STMST = 7;
+    public static final int STMST = 5;
 
     /**
      *  Set ordinary state (service request).
      */
 
-    public static final int STOST = 8;
+    public static final int STOST = 6;
+
+    /**
+     *  Set ordinary situation (service request).
+     */
+
+     public static final int STOSIT = 7;
+
+    /**
+     *  Set ordinary md (service request).
+     */
+
+     public static final int STOMD = 8;
+
+    /**
+     *  Set ap room (service request).
+     */
+
+     public static final int STAPR = 9;
+
+    /**
+     *  Set ap element (service request).
+     */
+
+     public static final int STAPE = 10;
+
+    /**
+     *  Set canvas (service request).
+     */
+
+     public static final int STCVS = 11;
+
+    /**
+     *  Set position (service request).
+     */
+
+     public static final int STPOS = 12;
+
+    /**
+     *  Set room paitings (service request).
+     */
+
+     public static final int STRMP = 13;
+
+    /**
+     *  Set room distances (service request).
+     */
+
+     public static final int STRD = 14;
+
+    /**
+     *  Set robbed paitings (service request).
+     */
+
+     public static final int STRBP = 15;
 
     /**
      *  Setting acknowledged (reply).
      */
 
-    public static final int SACK = 9;
+    public static final int SACK = 16;
 
 
 
@@ -70,6 +114,11 @@ public class MessageType
 
 
 
+
+
+
+
+    //entities functions
 
     /**
      *  Request start operation (service request).
@@ -298,6 +347,6 @@ public class MessageType
 
     public static final int HACDONE = 48;
 
-    
+
 
 }
