@@ -1,13 +1,9 @@
 package clientSide.entities;
 
 import clientSide.stubs.*;
+import serverSide.main.SimulConsts.*;
 
 public class Master extends Thread {
-
-    /**
-     * Master Name
-     */
-    private String name;
 
     /**
      * Master Id
@@ -42,7 +38,6 @@ public class Master extends Thread {
     /**
      * Instantiation of a master thread.
      * 
-     * @param name        master Name
      * @param masterId    master Id
      * @param masterState master state
      * @param partyStub       Reference to AssaultpartyStub
@@ -50,8 +45,7 @@ public class Master extends Thread {
      * @param ccsStub         Reference to ControlCollectionSite
      * @param reposStub       Reference to GeneralreposStub
      */
-    public Master(String name, int masterId, int masterState, GeneralReposStub reposStub, ConcentrationSiteStub csStub, ControlCollectionSiteStub ccsStub, AssaultPartyStub[] partyStub) {
-        this.name = name;
+    public Master(int masterId, int masterState, GeneralReposStub reposStub, ConcentrationSiteStub csStub, ControlCollectionSiteStub ccsStub, AssaultPartyStub[] partyStub) {
         this.masterState = masterState;
         this.masterId = masterId;
         this.partyStub = partyStub;

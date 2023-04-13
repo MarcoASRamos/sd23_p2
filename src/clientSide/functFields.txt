@@ -1,0 +1,42 @@
+#ap
+int assignMember(int ap, int ordId)
+int getRoom()
+void reverseDirection(int member, int ordId, int ordStt)
+void sendAssaultParty(int room, int masterStt)
+boolean crawlIn(int ap, int member, int md, int ordId, int ordStt)
+boolean crawlOut(int ap, int member, int md, int ordId, int ordStt)
+
+#cs
+int getRoom(int ap)
+int getAssautlParty()
+int appraiseSit(boolean roomState)
+void prepareAssaultParty(int ap, int room, int masterStt)
+int prepareExcursion(int ordId, int ordStt)
+boolean amINeeded(int ap, int ordId, int ordStt)
+void sumUpResults(int masterStt)
+
+#ccs
+int getRoomIdx()
+void startOperation(int masterStt)
+void takeARest(int masterStt)
+void handACanvas(int canvas, int room, int ap, int members)
+void collectACanvas(int masterStt)
+
+#museum
+int rollACanvas(int room, int ap, int members)
+
+#repos
+void setMasterState(int state)
+void setOrdinaryState(int id, int state)
+void setOrdinarySituation(int id, char sit)
+void setOrdinariesMD(int id, int md)
+void setApRoom(int ap, int room)
+void setApElement(int elem, int tid)
+void setCanvas(int elem, int canvas)
+void setPosition(int elem, int pos)
+void setRoomPaitings(int[] paitings)
+void setRoomDistances(int[] distances)
+void setRobbedPaintings()
+void reportInitialStatus()
+void reportFinalStatus()
+void reportStatus()
