@@ -22,90 +22,146 @@ public class ClientMuseumHeistMaster {
      *        args[1] - port nunber for listening to service requests
      *        args[2] - name of the platform where is located the kitchen server
      *        args[3] - port nunber for listening to service requests
-     *        args[4] - name of the platform where is located the general repository server
+     *        args[4] - name of the platform where is located the bar server
      *        args[5] - port nunber for listening to service requests
+     *        args[6] - name of the platform where is located the kitchen server
+     *        args[7] - port nunber for listening to service requests
+     *        args[8] - name of the platform where is located the general repository server
+     *        args[9] - port nunber for listening to service requests
      */
 
      public static void main (String [] args)
      {
-         String barServerHostName;                                       // name of the platform where is located the bar server
-         int barServerPortNumb = -1;                                     // port number for listening to service requests
-         String kitServerHostName;                                       // name of the platform where is located the kitchen server
-         int kitServerPortNumb = -1;                                     // port number for listening to service requests
-         String genReposServerHostName;                                  // name of the platform where is located the general repository server
-         int genReposServerPortNumb = -1;                                // port number for listening to service requests
-         BarStub barStub;
-         KitchenStub kitStub;
-         GeneralReposStub genReposStub;                                  // remote reference to the general repository
+         String[] apServerHostName = new String[2];                     // name of the platform where is located the bar server
+         int[] apServerPortNumb = new int[2];                           // port number for listening to service requests
+
+         String csServerHostName;                                       // name of the platform where is located the kitchen server
+         int csServerPortNumb = -1;                                     // port number for listening to service requests
+
+         String ccsServerHostName;                                      // name of the platform where is located the bar server
+         int ccsServerPortNumb = -1;                                    // port number for listening to service requests
+
+         String genReposServerHostName;                                 // name of the platform where is located the general repository server
+         int genReposServerPortNumb = -1;                               // port number for listening to service requests
+
+
+         AssaultPartyStub[] apStub = new AssaultPartyStub[2];           // remote reference to the assault parties
+         ConcentrationSiteStub csStub;                                  // remote reference to the concentration site
+         ControlCollectionSiteStub ccsStub;                             // remote reference to the control collection site
+         GeneralReposStub genReposStub;                                 // remote reference to the general repository
  
  
          /* getting problem runtime parameters */
  
-         if (args.length != 6)
+         if (args.length != 10)
          { GenericIO.writelnString ("Wrong number of parameters!");
              System.exit (1);
          }
-         barServerHostName = args[0];
+
+
+
+         apServerHostName[0] = args[0];
          try
-         { barServerPortNumb = Integer.parseInt (args[1]);
+         { apServerPortNumb[0] = Integer.parseInt (args[1]);
          }
          catch (NumberFormatException e)
          { GenericIO.writelnString ("args[1] is not a number!");
              System.exit (1);
          }
-         if ((barServerPortNumb < 4000) || (barServerPortNumb >= 65536))
+         if ((apServerPortNumb[0] < 4000) || (apServerPortNumb[0] >= 65536))
          { GenericIO.writelnString ("args[1] is not a valid port number!");
              System.exit (1);
          }
-         kitServerHostName = args[2];
+
+
+
+         apServerHostName[1] = args[2];
          try
-         { kitServerPortNumb = Integer.parseInt (args[3]);
-         }
-         catch (NumberFormatException e)
-         { GenericIO.writelnString ("args[1] is not a number!");
-             System.exit (1);
-         }
-         if ((kitServerPortNumb < 4000) || (kitServerPortNumb >= 65536))
-         { GenericIO.writelnString ("args[1] is not a valid port number!");
-             System.exit (1);
-         }
-         genReposServerHostName = args[4];
-         try
-         { genReposServerPortNumb = Integer.parseInt (args[5]);
+         { apServerPortNumb[1] = Integer.parseInt (args[3]);
          }
          catch (NumberFormatException e)
          { GenericIO.writelnString ("args[3] is not a number!");
              System.exit (1);
          }
-         if ((genReposServerPortNumb < 4000) || (genReposServerPortNumb >= 65536))
+         if ((apServerPortNumb[1] < 4000) || (apServerPortNumb[1] >= 65536))
          { GenericIO.writelnString ("args[3] is not a valid port number!");
+             System.exit (1);
+         }
+
+
+
+         csServerHostName = args[4];
+         try
+         { csServerPortNumb = Integer.parseInt (args[5]);
+         }
+         catch (NumberFormatException e)
+         { GenericIO.writelnString ("args[5] is not a number!");
+             System.exit (1);
+         }
+         if ((csServerPortNumb < 4000) || (csServerPortNumb >= 65536))
+         { GenericIO.writelnString ("args[5] is not a valid port number!");
+             System.exit (1);
+         }
+
+
+
+         ccsServerHostName = args[6];
+         try
+         { ccsServerPortNumb = Integer.parseInt (args[7]);
+         }
+         catch (NumberFormatException e)
+         { GenericIO.writelnString ("args[7] is not a number!");
+             System.exit (1);
+         }
+         if ((ccsServerPortNumb < 4000) || (ccsServerPortNumb >= 65536))
+         { GenericIO.writelnString ("args[7] is not a valid port number!");
+             System.exit (1);
+         }
+
+
+
+         genReposServerHostName = args[8];
+         try
+         { genReposServerPortNumb = Integer.parseInt (args[9]);
+         }
+         catch (NumberFormatException e)
+         { GenericIO.writelnString ("args[9] is not a number!");
+             System.exit (1);
+         }
+         if ((genReposServerPortNumb < 4000) || (genReposServerPortNumb >= 65536))
+         { GenericIO.writelnString ("args[9] is not a valid port number!");
              System.exit (1);
          }
  
  
          /* problem initialization */
  
-         barStub = new BarStub (barServerHostName, barServerPortNumb);
-         kitStub = new KitchenStub (kitServerHostName, kitServerPortNumb);
+         AssaultPartyStub[0] = new AssaultPartyStub (apServerHostName[0], apServerPortNumb[0]);
+         AssaultPartyStub[1] = new AssaultPartyStub (apServerHostName[1], apServerPortNumb[1]);
+         ConcentrationSiteStub = new ConcentrationSiteStub (csServerHostName, csServerPortNumb);
+         ControlCollectionSiteStub = new ControlCollectionSiteStub (ccsServerHostName, ccsServerPortNumb);
+
          genReposStub = new GeneralReposStub (genReposServerHostName, genReposServerPortNumb);
-         Chef chef = new Chef ("chef", 0, barStub, kitStub);
+         Master master = new Master ("ordinary", 0, , );
  
          /* start of the simulation */
  
-         chef.start ();
+         master.start ();
  
          /* waiting for the end of the simulation */
  
          GenericIO.writelnString ();
  
          try {
-             chef.join();
+             master.join();
          } catch (InterruptedException e) {}
-         GenericIO.writelnString ("The chef has terminated.");
+         GenericIO.writelnString ("The master has terminated.");
  
          GenericIO.writelnString ();
-         barStub.shutdown ();
-         kitStub.shutdown ();
+         apStub[0].shutdown ();
+         apStub[1].shutdown ();
+         csStub.shutdown ();
+         ccsStub.shutdown ();
          genReposStub.shutdown ();
      }
 }

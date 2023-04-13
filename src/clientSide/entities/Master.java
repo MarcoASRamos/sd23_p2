@@ -1,0 +1,142 @@
+package clientSide.entities;
+
+import clientSide.stubs.*;
+
+public class Master extends Thread {
+
+    /**
+     * Master Name
+     */
+    private String name;
+
+    /**
+     * Master Id
+     */
+    private int masterId;
+
+    /**
+     * Master State
+     */
+    private int masterState;
+
+    /**
+     * Reference to the Assault partyStub 
+     */
+    private final AssaultPartyStub[] partyStub;
+
+    /**
+     * Reference to the Concentration Site
+     */
+    private final ConcentrationSiteStub csStub;
+
+    /**
+     * Reference to the Control and Collection Site
+     */
+    private final ControlCollectionSiteStub ccsStub;
+
+    /**
+     * Reference to the general reposStubitory
+     */
+    private final GeneralReposStub reposStub;
+
+    /**
+     * Instantiation of a master thread.
+     * 
+     * @param name        master Name
+     * @param masterId    master Id
+     * @param masterState master state
+     * @param partyStub       Reference to AssaultpartyStub
+     * @param csStub          Reference to ConcentrationSite
+     * @param ccsStub         Reference to ControlCollectionSite
+     * @param reposStub       Reference to GeneralreposStub
+     */
+    public Master(String name, int masterId, int masterState, GeneralReposStub reposStub, ConcentrationSiteStub csStub, ControlCollectionSiteStub ccsStub, AssaultPartyStub[] partyStub) {
+        this.name = name;
+        this.masterState = masterState;
+        this.masterId = masterId;
+        this.partyStub = partyStub;
+        this.csStub = csStub;
+        this.ccsStub = ccsStub;
+        this.reposStub = reposStub;
+    }
+
+
+    /**
+     * Get master Id
+     * 
+     * @return master Id
+     */
+    public int getMasterId() {
+        return masterId;
+    }
+
+    /**
+     * Set master Id
+     * 
+     * @param masterId master Id
+     */
+    public void setMasterId(int masterId) {
+        this.masterId = masterId;
+    }
+
+    /**
+     * Get master State
+     * 
+     * @return master state
+     */
+    public int getMasterState() {
+        return masterState;
+    }
+
+    /**
+     * Set master State
+     * 
+     * @param masterState master state
+     */
+    public void setMasterState(int masterState) {
+        this.masterState = masterState;
+    }
+
+    /**
+     * @return GeneralreposStub
+     */
+    public GeneralReposStub getReposStub() {
+        return reposStub;
+    }
+
+    /**
+     * Life cycle of the master.
+     */
+    @Override
+    public void run() {
+        int room;
+        ccsStub.startOperation();
+        
+        boolean assault = true;
+        while (assault) {
+            room = ccsStub.getRoomIdx();
+            switch (csStub.appraiseSit(room>=SimulConsts.N)){
+                case 1:
+                    int ap = csStub.getAssautlParty();
+                    csStub.prepareAssaultParty(ap, room);
+                    partyStub[ap].sendAssaultParty(csStub.getRoom(ap));
+                    break;
+
+
+                case 2:
+                    ccsStub.takeARest();
+                    ccsStub.collectACanvas();
+                    break;
+
+
+
+                case 3:
+                    csStub.sumUpResults();
+                    assault = false;
+                    break;
+            }
+        }
+
+    }
+
+}

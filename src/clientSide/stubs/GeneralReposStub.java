@@ -71,102 +71,24 @@ public class GeneralReposStub {
          com.close ();
      }
  
-     /**
-      *   Increment number of Portions.
-      */
+     
  
-     public synchronized void updateNPortions () {
-         ClientCom com;                                                 // communication channel
-         Message outMessage,                                            // outgoing message
-                 inMessage;                                             // incoming message
+     
  
-         com = new ClientCom (serverHostName, serverPortNumb);
-         while (!com.open ())
-         { try
-         { Thread.sleep ((long) (1000));
-         }
-         catch (InterruptedException e) {}
-         }
-         outMessage = new Message (MessageType.UPNPRT);
-         com.writeObject (outMessage);
-         inMessage = (Message) com.readObject ();
-         if (inMessage.getMsgType() != MessageType.UPNPRTDONE)
-         { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
-             GenericIO.writelnString (inMessage.toString ());
-             System.exit (1);
-         }
-         com.close ();
-     }
+ 
+
+ 
+ 
+ 
  
      /**
-      *   Increment number of nCourses.
-      */
- 
-     public synchronized void updateNCourses () {
-         ClientCom com;                                                 // communication channel
-         Message outMessage,                                            // outgoing message
-                 inMessage;                                             // incoming message
- 
-         com = new ClientCom (serverHostName, serverPortNumb);
-         while (!com.open ())
-         { try
-         { Thread.sleep ((long) (1000));
-         }
-         catch (InterruptedException e) {}
-         }
-         outMessage = new Message (MessageType.UPNCRS);
-         com.writeObject (outMessage);
-         inMessage = (Message) com.readObject ();
-         if (inMessage.getMsgType() != MessageType.UPNCRSDONE)
-         { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
-             GenericIO.writelnString (inMessage.toString ());
-             System.exit (1);
-         }
-         com.close ();
-     }
- 
-     /**
-      *   Set seating.
+      *   Set master state.
       *
-      *     @param id value integer
+      *     @param id merter id
+      *     @param state master state
       */
  
-     public synchronized void setNSeats (int id) {
-         ClientCom com;                                                 // communication channel
-         Message outMessage,                                            // outgoing message
-                 inMessage;                                             // incoming message
- 
-         com = new ClientCom (serverHostName, serverPortNumb);
-         while (!com.open ())
-         { try
-         { Thread.sleep ((long) (1000));
-         }
-         catch (InterruptedException e) {}
-         }
-         outMessage = new Message (MessageType.SETNST, id);
-         com.writeObject (outMessage);
-         inMessage = (Message) com.readObject ();
-         if (inMessage.getMsgType() != MessageType.SETNSTDONE)
-         { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
-             GenericIO.writelnString (inMessage.toString ());
-             System.exit (1);
-         }
-         com.close ();
-     }
- 
- 
- 
- 
- 
- 
-     /**
-      *   Set student state.
-      *
-      *     @param id student id
-      *     @param state student state
-      */
- 
-     public void setStudentState (int id, int state)
+     public void setMasterState (int id, int state)
      {
          ClientCom com;                                                 // communication channel
          Message outMessage,                                            // outgoing message
@@ -179,7 +101,7 @@ public class GeneralReposStub {
          }
          catch (InterruptedException e) {}
          }
-         outMessage = new Message (MessageType.STSST, id, state);
+         outMessage = new Message (MessageType.SMS, id, state);
          com.writeObject (outMessage);
          inMessage = (Message) com.readObject ();
          if (inMessage.getMsgType() != MessageType.SACK)
@@ -191,13 +113,13 @@ public class GeneralReposStub {
      }
  
      /**
-      *   Set waiter state.
+      *   Set Ordinary state.
       *
-      *     @param id waiter id
-      *     @param state waiter state
+      *     @param id Ordinary id
+      *     @param state Ordinary state
       */
  
-     public void setWaiterState (int id, int state)
+     public void setOrdinaryState (int id, int state)
      {
          ClientCom com;                                                 // communication channel
          Message outMessage,                                            // outgoing message
@@ -210,7 +132,7 @@ public class GeneralReposStub {
          }
          catch (InterruptedException e) {}
          }
-         outMessage = new Message (MessageType.STWST, id, state);
+         outMessage = new Message (MessageType.SOS, id, state);
          com.writeObject (outMessage);
          inMessage = (Message) com.readObject ();
          if (inMessage.getMsgType() != MessageType.SACK)
@@ -221,14 +143,16 @@ public class GeneralReposStub {
          com.close ();
      }
  
-     /**
-      *   Set chef state.
-      *
-      *     @param id chef id
-      *     @param state chef state
+     
+
+      /**
+      * Set Ordinary situation
+      * 
+      * @param id ordinary
+      * @param sit ordinary situation
       */
- 
-     public void setChefState (int id, int state)
+
+      public void setOrdinarySituation (int id, char sit)
      {
          ClientCom com;                                                 // communication channel
          Message outMessage,                                            // outgoing message
@@ -241,7 +165,7 @@ public class GeneralReposStub {
          }
          catch (InterruptedException e) {}
          }
-         outMessage = new Message (MessageType.STCST, id, state);    //alterar para stcst - set chef state
+         outMessage = new Message (MessageType.SOSIT, id, sit);
          com.writeObject (outMessage);
          inMessage = (Message) com.readObject ();
          if (inMessage.getMsgType() != MessageType.SACK)
@@ -251,6 +175,239 @@ public class GeneralReposStub {
          }
          com.close ();
      }
+
+
+
+    /**
+     * Set ordinary thieves maximum distances
+     * 
+     * @param id of the ordinary thieve
+     * @param md of the ordinary thieve
+     */
+    public synchronized void setOrdinariesMD(int id, int md) {
+        ClientCom com;                                                 // communication channel
+        Message outMessage,                                            // outgoing message
+                inMessage;                                             // incoming message
+
+        com = new ClientCom (serverHostName, serverPortNumb);
+        while (!com.open ())
+        { try
+        { Thread.sleep ((long) (1000));
+        }
+        catch (InterruptedException e) {}
+        }
+        outMessage = new Message (MessageType.SOMD, id, md);
+        com.writeObject (outMessage);
+        inMessage = (Message) com.readObject ();
+        if (inMessage.getMsgType() != MessageType.SACK)
+        { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+            GenericIO.writelnString (inMessage.toString ());
+            System.exit (1);
+        }
+        com.close ();
+    }
+
+    /**
+     * 
+     * @param ap assault party
+     * @param room room to heist
+     */
+    public synchronized void setApRoom(int ap, int room){
+        ClientCom com;                                                 // communication channel
+        Message outMessage,                                            // outgoing message
+                inMessage;                                             // incoming message
+
+        com = new ClientCom (serverHostName, serverPortNumb);
+        while (!com.open ())
+        { try
+        { Thread.sleep ((long) (1000));
+        }
+        catch (InterruptedException e) {}
+        }
+        outMessage = new Message (MessageType.SAR, ap, room);
+        com.writeObject (outMessage);
+        inMessage = (Message) com.readObject ();
+        if (inMessage.getMsgType() != MessageType.SACK)
+        { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+            GenericIO.writelnString (inMessage.toString ());
+            System.exit (1);
+        }
+        com.close ();
+    }
+
+    /**
+     * Set Assault Party element
+     * 
+     * @param elem index (= ap*SimulConsts.E+memberId)
+     * @param tid  ordinary thieve id
+     */
+    public synchronized void setApElement(int elem, int tid) {
+        ClientCom com;                                                 // communication channel
+        Message outMessage,                                            // outgoing message
+                inMessage;                                             // incoming message
+
+        com = new ClientCom (serverHostName, serverPortNumb);
+        while (!com.open ())
+        { try
+        { Thread.sleep ((long) (1000));
+        }
+        catch (InterruptedException e) {}
+        }
+        outMessage = new Message (MessageType.SAE, elem, tid);
+        com.writeObject (outMessage);
+        inMessage = (Message) com.readObject ();
+        if (inMessage.getMsgType() != MessageType.SACK)
+        { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+            GenericIO.writelnString (inMessage.toString ());
+            System.exit (1);
+        }
+        com.close ();
+    }
+
+    /**
+     * Update carrying a canvas
+     * 
+     * @param elem   index
+     * @param canvas carry
+     */
+    public synchronized void setCanvas(int elem, int canvas) {
+        ClientCom com;                                                 // communication channel
+        Message outMessage,                                            // outgoing message
+                inMessage;                                             // incoming message
+
+        com = new ClientCom (serverHostName, serverPortNumb);
+        while (!com.open ())
+        { try
+        { Thread.sleep ((long) (1000));
+        }
+        catch (InterruptedException e) {}
+        }
+        outMessage = new Message (MessageType.SC, elem, canvas);
+        com.writeObject (outMessage);
+        inMessage = (Message) com.readObject ();
+        if (inMessage.getMsgType() != MessageType.SACK)
+        { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+            GenericIO.writelnString (inMessage.toString ());
+            System.exit (1);
+        }
+        com.close ();
+    }
+
+    /**
+     * Update thieve position
+     * 
+     * @param elem index
+     * @param pos  actual position of the thieve in line
+     */
+    public synchronized void setPosition(int elem, int pos) {
+        ClientCom com;                                                 // communication channel
+        Message outMessage,                                            // outgoing message
+                inMessage;                                             // incoming message
+
+        com = new ClientCom (serverHostName, serverPortNumb);
+        while (!com.open ())
+        { try
+        { Thread.sleep ((long) (1000));
+        }
+        catch (InterruptedException e) {}
+        }
+        outMessage = new Message (MessageType.SP, elem, pos);
+        com.writeObject (outMessage);
+        inMessage = (Message) com.readObject ();
+        if (inMessage.getMsgType() != MessageType.SACK)
+        { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+            GenericIO.writelnString (inMessage.toString ());
+            System.exit (1);
+        }
+        com.close ();
+    }
+
+    /**
+     * Set number of paitings on the walls
+     * 
+     * @param paitings on each room
+     */
+    public synchronized void setRoomPaitings(int[] paitings) {
+        ClientCom com;                                                 // communication channel
+        Message outMessage,                                            // outgoing message
+                inMessage;                                             // incoming message
+
+        com = new ClientCom (serverHostName, serverPortNumb);
+        while (!com.open ())
+        { try
+        { Thread.sleep ((long) (1000));
+        }
+        catch (InterruptedException e) {}
+        }
+        outMessage = new Message (MessageType.SRP, paitings);
+        com.writeObject (outMessage);
+        inMessage = (Message) com.readObject ();
+        if (inMessage.getMsgType() != MessageType.SACK)
+        { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+            GenericIO.writelnString (inMessage.toString ());
+            System.exit (1);
+        }
+        com.close ();
+    }
+
+    /**
+     * Set distance of the rooms
+     * 
+     * @param distances of each room
+     */
+    public synchronized void setRoomDistances(int[] distances) {
+        ClientCom com;                                                 // communication channel
+        Message outMessage,                                            // outgoing message
+                inMessage;                                             // incoming message
+
+        com = new ClientCom (serverHostName, serverPortNumb);
+        while (!com.open ())
+        { try
+        { Thread.sleep ((long) (1000));
+        }
+        catch (InterruptedException e) {}
+        }
+        outMessage = new Message (MessageType.SRD, distances);
+        com.writeObject (outMessage);
+        inMessage = (Message) com.readObject ();
+        if (inMessage.getMsgType() != MessageType.SACK)
+        { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+            GenericIO.writelnString (inMessage.toString ());
+            System.exit (1);
+        }
+        com.close ();
+    }
+
+    /**
+     * Set robbed paintings
+     */
+    public synchronized void setRobbedPaintings() {
+        ClientCom com;                                                 // communication channel
+        Message outMessage,                                            // outgoing message
+                inMessage;                                             // incoming message
+
+        com = new ClientCom (serverHostName, serverPortNumb);
+        while (!com.open ())
+        { try
+        { Thread.sleep ((long) (1000));
+        }
+        catch (InterruptedException e) {}
+        }
+        outMessage = new Message (MessageType.SRP);
+        com.writeObject (outMessage);
+        inMessage = (Message) com.readObject ();
+        if (inMessage.getMsgType() != MessageType.SACK)
+        { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
+            GenericIO.writelnString (inMessage.toString ());
+            System.exit (1);
+        }
+        com.close ();
+    }
+
+
+
+
+
  
      /**
       *   Operation server shutdown.

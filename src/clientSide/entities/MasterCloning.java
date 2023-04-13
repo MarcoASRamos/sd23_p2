@@ -1,5 +1,33 @@
 package clientSide.entities;
 
-public class MasterCloning {
+public interface MasterCloning {
     
+
+    /**
+     * Get master Id
+     * 
+     * @return master Id
+     */
+    public int getMasterId();
+
+    /**
+     * Set master Id
+     * 
+     * @param masterId master Id
+     */
+    public void setMasterId(int masterId);
+
+    /**
+     * Get master State
+     * 
+     * @return master state
+     */
+    public int getMasterState();
+
+    /**
+     * Set master State
+     * 
+     * @param masterState master state
+     */
+    public void setMasterState(int masterState);
 }

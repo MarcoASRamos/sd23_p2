@@ -135,25 +135,25 @@ public class MessageType
      *  Request get room (service request).
      */
 
-    public static final int GR = 19;
+    public static final int GRCS = 19;
 
     /**
      *  get room done (reply).
      */
 
-    public static final int GRDONE = 20;
+    public static final int GRCSDONE = 20;
 
     /**
-     *  Request take a canvas (service request).
+     *  Request take a rest (service request).
      */
 
-    public static final int TAC = 21;
+    public static final int TAR = 21;
 
     /**
-     *  take a canvas (reply).
+     *  take a rest (reply).
      */
 
-    public static final int TACDONE = 22;
+    public static final int TARDONE = 22;
 
     /**
      *  Request collect a canvas (service request).
@@ -291,6 +291,18 @@ public class MessageType
      */
 
     public static final int HACDONE = 42;
+
+    /**
+     *  Request get room (service request).
+     */
+
+     public static final int GRAP = 43;
+
+     /**
+      *  get room done (reply).
+      */
+ 
+     public static final int GRAPDONE = 44;
 
 
 

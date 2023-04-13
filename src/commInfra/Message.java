@@ -62,12 +62,6 @@ public class Message implements Serializable
 
     private String fName = null;
 
-    /**
-     *  Client identification.
-     */
-
-    private int clientId = -1;
-
 
 
 
@@ -80,51 +74,9 @@ public class Message implements Serializable
 
     private int course = -1;
 
-    /**
-     *  Verify if all students chosen.
-     */
-
-    private boolean hasChosen = false;
-
-    /**
-     *  Verify if have all clients been served.
-     */
-    private boolean haveServed = false;
-
-    /**
-     *  Verify if has order been completed.
-     */
-    private boolean hasCompleted = false;
-
-    /**
-     *  Verify if have all portions been delivered.
-     */
-    private boolean haveDelivered = false;
-
-    /**
-     * Id of last Eat student
-     */
-    private int lastEat=-1;
-
-    /**
-     * Id of last arrived student
-     */
-    private int lastArv = -1;
-
-    /**
-     * Id of first arrived student
-     */
-    private int firstArv = -1;
 
 
 
-
-
-
-    /**
-     * waiter service requested
-     */
-    private ServiceRequest service = null;
 
     /**
      *  Message instantiation (form 1).
@@ -141,36 +93,22 @@ public class Message implements Serializable
      *  Message instantiation (form 2).
      *
      *     @param type message type
-     *     @param id student / client identification
+     *     @param id Master / client identification
      */
 
     public Message (int type, int id)
     {
         msgType = type;
-        if ((msgType == MessageType.CWTR) || (msgType == MessageType.SWTR) ||
-                (msgType == MessageType.HBILL) || (msgType == MessageType.STAB)||
-                (msgType == MessageType.CWTRDONE) || (msgType == MessageType.HBILLDONE)||
-                (msgType == MessageType.SWTRDONE) || (msgType == MessageType.STABDONE)||
-                (msgType == MessageType.EVRFINDONE) || (msgType == MessageType.GCHATDONE))
+        if ((msgType == MessageType.CWTR) || )
             studId= id;
         else if ((msgType == MessageType.SGBY)){
             clientId= id;
             GenericIO.writelnString("\n\n\nMessage client id "+clientId);
         }
 
-        else if ((msgType == MessageType.RBAR) || (msgType == MessageType.GPAD) ||
-                (msgType == MessageType.PREPB) || (msgType == MessageType.NOTEC) ||
-                (msgType == MessageType.CPRT) || (msgType == MessageType.RBARDONE) ||
-                (msgType == MessageType.LOKADONE) || (msgType == MessageType.GPADDONE) ||
-                (msgType == MessageType.PREPBDONE) || (msgType == MessageType.PRESBDONE)||
-                (msgType == MessageType.SALCDONE) || (msgType == MessageType.NOTECDONE) ||
-                (msgType == MessageType.CPRTDONE))
-            waiterState = id;
+        else if ((msgType == MessageType.RBAR) || (msgType == MessageType.CPRTDONE))
+            OrdinaryState = id;
         else if ((msgType == MessageType.SPREP) || (msgType == MessageType.PPRES) ||
-                (msgType == MessageType.HNPR) || (msgType == MessageType.KAWTR) ||
-                (msgType == MessageType.CPREP) || (msgType == MessageType.CLEAN) ||
-                (msgType == MessageType.SPREPDONE) || (msgType == MessageType.PPRESDONE)||
-                (msgType == MessageType.HNPRDONE) || (msgType == MessageType.KAWTRDONE)||
                 (msgType == MessageType.CLEANDONE) || (msgType == MessageType.CPREPDONE))
             chefState = id;
         else if((msgType == MessageType.SETNST))
@@ -205,8 +143,8 @@ public class Message implements Serializable
      *  Message instantiation (form 3).
      *
      *     @param type message type
-     *     @param id student identification
-     *     @param state student state
+     *     @param id Master identification
+     *     @param state Master state
      */
 
     public Message (int type, int id, int state)
@@ -224,21 +162,21 @@ public class Message implements Serializable
             studId= id;
             studState = state;
         }
-        else if((msgType == MessageType.BAWTR)|| (msgType == MessageType.BAWTRDONE) || (msgType == MessageType.STCST)){
+        else if((msgType == MessageType.BAWTR)|| (msgType == MessageType.BAWTRDONE)){
             chefId= id;
             chefState = state;
         }
         else if((msgType == MessageType.PRESB) || (msgType == MessageType.SALC)){
             clientId = id;
-            waiterState = state;
+            OrdinaryState = state;
         }
         else if((msgType == MessageType.EVRFIN)){
             studId = id;
             course = state;
         }
         else if((msgType == MessageType.STWST)) {
-            waiterId = id;
-            waiterState = state;
+            OrdinaryId = id;
+            OrdinaryState = state;
         } else {
             GenericIO.writelnString ("Message type = " + msgType + ": non-implemented instantiation!");
             System.exit (1);
@@ -267,18 +205,6 @@ public class Message implements Serializable
     }
 
     /**
-     *  Message instantiation (form 8).
-     *
-     *     @param type message type
-     *     @param service waiter service requested
-     */
-
-    public Message (int type, ServiceRequest service) {
-        msgType = type;
-        this.service = service;
-    }
-
-    /**
      *  Message instantiation (form 9).
      *
      *     @param type message type
@@ -289,21 +215,7 @@ public class Message implements Serializable
         this.fName = fName;
     }
 
-    /**
-     * waiter service ruequested
-     */
-    private ServiceRequest service = null;
 
-    /**
-     *  Getting message type.
-     *
-     *     @return service
-     */
-
-    public ServiceRequest getServiceRequested ()
-    {
-        return (service);
-    }
 
     /**
      *  Getting message type.
@@ -317,126 +229,51 @@ public class Message implements Serializable
     }
 
     /**
-     *  Getting student identification.
+     *  Getting Master identification.
      *
-     *     @return student identification
+     *     @return Master identification
      */
 
-    public int getStudentId ()
+    public int getMasterId ()
     {
-        return (studId);
+        return (masterId);
     }
 
     /**
-     *  Getting student state.
+     *  Getting Master state.
      *
-     *     @return student state
+     *     @return Master state
      */
 
-    public int getStudentState ()
+    public int getMasterState ()
     {
-        return (studState);
+        return (masterState);
     }
 
     /**
-     *  Getting waiter identification.
+     *  Getting Ordinary identification.
      *
-     *     @return waiter identification
+     *     @return Ordinary identification
      */
 
-    public int getWaiterId ()
+    public int getOrdinaryId ()
     {
-        return (waiterId);
+        return (ordinaryId);
     }
 
     /**
-     *  Getting waiter state.
+     *  Getting Ordinary state.
      *
-     *     @return waiter state
+     *     @return Ordinary state
      */
 
-    public int getWaiterState ()
+    public int getOrdinaryState ()
     {
-        return (waiterState);
+        return (ordinaryState);
     }
 
 
-    /**
-     *  Getting client id.
-     *
-     *     @return client id
-     */
 
-    public int getClientId ()
-    {
-        return (clientId);
-    }
-
-    /**
-     *  Getting course.
-     *
-     *     @return course
-     */
-
-    public int getCourse ()
-    {
-        return (course);
-    }
-
-    /**
-     *  Getting last arrived student.
-     *
-     *     @return lastArv
-     */
-
-    public int getLastToArrive ()
-    {
-        return (lastArv);
-    }
-
-    /**
-     *  Getting first arrived student.
-     *
-     *  @return firstArv
-     */
-
-    public int getFirstToArrive ()
-    {
-        return (firstArv);
-    }
-
-    /**
-     *  Getting last eating.
-     *
-     *  @return lastEat
-     */
-
-    public int getLastEat ()
-    {
-        return (lastEat);
-    }
-
-    /**
-     *  Getting has chosen.
-     *
-     *  @return hasChosen
-     */
-
-    public boolean getHasChosen ()
-    {
-        return (hasChosen);
-    }
-
-    /**
-     *  Getting has completed.
-     *
-     *  @return hasCompleted
-     */
-
-    public boolean getHasCompleted ()
-    {
-        return (hasCompleted);
-    }
 
 
     /**
@@ -450,16 +287,6 @@ public class Message implements Serializable
         return (haveServed);
     }
 
-    /**
-     *  Getting have all portions been delivered
-     *
-     *  @return haveDelivered
-     */
-
-    public boolean getHaveDelivered ()
-    {
-        return (haveDelivered);
-    }
 
 
     /**
@@ -498,13 +325,12 @@ public class Message implements Serializable
         return ("Message type = " + msgType +
                 "\nMaster Id = " + studId +
                 "\nMaster State = " + studState +
-                "\nOrdinary Id = " + waiterId +
-                "\nOrdinary State = " + waiterState +
-                "\nEnd of Operations (waiter) = " + endOp +
+                "\nOrdinary Id = " + OrdinaryId +
+                "\nOrdinary State = " + OrdinaryState +
+                "\nEnd of Operations (Ordinary) = " + endOp +
 
                 
-                
-
+            
                 "\nCourse = " + course +
                 "\nhasChosen = " + hasChosen +
                 "\nhasCompleted = " + hasCompleted +
