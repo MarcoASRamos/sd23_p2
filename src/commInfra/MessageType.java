@@ -124,19 +124,19 @@ public class MessageType
      *  Request start operation (service request).
      */
 
-    public static final int  SO = 10;
+    public static final int  SO = 17;
 
     /**
      *  Operation started started (reply).
      */
 
-    public static final int  SODONE = 11;
+    public static final int  SODONE = 18;
 
     /**
      *  Request get room index (service request).
      */
 
-    public static final int  GRI = 12;
+    public static final int  GRI = 19;
 
     /**
      *  Get room index (reply).

@@ -85,7 +85,7 @@ public class ControlCollectionSiteStub {
         catch (InterruptedException e) {}
         }
 
-        outMessage = new Message (MessageType.SO);
+        outMessage = new Message (MessageType.SO, ((Master) Thread.currentThread()).getMasterState());
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType() != MessageType.SODONE)
@@ -113,7 +113,7 @@ public class ControlCollectionSiteStub {
         catch (InterruptedException e) {}
         }
 
-        outMessage = new Message (MessageType.TAR);
+        outMessage = new Message (MessageType.TAR, ((Master) Thread.currentThread()).getMasterState());
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType() != MessageType.TARDONE)
@@ -177,7 +177,7 @@ public class ControlCollectionSiteStub {
         catch (InterruptedException e) {}
         }
 
-        outMessage = new Message (MessageType.CAC);
+        outMessage = new Message (MessageType.CAC, ((Master) Thread.currentThread()).getMasterState());
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType() != MessageType.CACDONE)

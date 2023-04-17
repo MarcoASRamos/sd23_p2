@@ -27,12 +27,6 @@ public class Message implements Serializable
     private int msgType = -1;
 
     /**
-     *  Master identification.
-     */
-
-    private int masterId = -1;
-
-    /**
      *  Master state.
      */
 
@@ -56,163 +50,422 @@ public class Message implements Serializable
      */
     private boolean endOp = false;
 
+
     /**
-     *  Name of the logging file.
+     * Assault party
+     */
+    private int ap = -1;
+
+    /**
+     *  Getting ap.
+     *
+     *     @return ap
      */
 
-    private String fName = null;
-
-
-
-
-
-
+     public int getAp () {
+        return (ap);
+    }
 
     /**
-     *  Course number.
+     * room id
+     */
+    private int room = -1;
+
+    /**
+     *  Getting room.
+     *
+     *     @return room
      */
 
-    private int course = -1;
+     public int getRoom () {
+        return (room);
+    }
+
+    /**
+     * ap element
+     */
+    private int elem = -1;
+
+    /**
+     *  Getting ap element.
+     *
+     *     @return elem
+     */
+
+     public int getElem () {
+        return (elem);
+    }
+
+    /**
+     * ordinary maximum distance
+     */
+    private int md = -1;
+
+    /**
+     *  Getting md.
+     *
+     *     @return md
+     */
+
+     public int getMd () {
+        return (md);
+    }
+
+    /**
+     * canvas possesion
+     */
+    private int canvas = -1;
+
+    /**
+     *  Getting canvas.
+     *
+     *     @return canvas
+     */
+
+     public int getCanvas () {
+        return (canvas);
+    }
+
+    /**
+     * ordinary position
+     */
+    private int pos = -1;
+
+    /**
+     *  Getting pos.
+     *
+     *     @return pos
+     */
+
+     public int getPos () {
+        return (pos);
+    }
+
+    /**
+     * thread id
+     */
+    private int tid = -1;
+
+    /**
+     *  Getting tid.
+     *
+     *     @return tid
+     */
+
+     public int getTid () {
+        return (tid);
+    }
+
+    /**
+     * ap member id
+     */
+    private int member = -1;
+
+    /**
+     *  Getting member.
+     *
+     *     @return member
+     */
+
+     public int getMember () {
+        return (member);
+    }
+
+
+    /**
+     * museum room state
+     */
+    private boolean roomStt;
+
+    /**
+     *  Getting room state.
+     *
+     *     @return roomStt
+     */
+
+     public boolean getRoomStt () {
+        return (roomStt);
+    }
+
+    /**
+     * paitings in each museum room
+     */
+    private int[] paitings = {-1, -1, -1, -1, -1, -1};
+
+    /**
+     *  Getting paintings.
+     *
+     *     @return paintings
+     */
+
+     public int[] getPaintings () {
+        return (paitings);
+    }
+
+    /**
+     * distance to each museum room
+     */
+    private int[] distances = {-1, -1, -1, -1, -1, -1};
+
+    /**
+     *  Getting distances.
+     *
+     *     @return distances
+     */
+
+     public int[] getDistances () {
+        return (distances);
+    }
+
+    /**
+     * ordinary situation
+    */
+    private char sit = 'W';
+
+    /**
+     *  Getting situation.
+     *
+     *     @return sit
+     */
+
+     public char getSit () {
+        return (sit);
+    }
 
 
 
 
 
     /**
-     *  Message instantiation (form 1).
+     *  Message instantiation (form 1i).
      *
      *     @param type message type
      */
 
-    public Message (int type)
-    {
+    public Message (int type) {
         msgType = type;
     }
 
     /**
-     *  Message instantiation (form 2).
+     *  Message instantiation (form 2i).
      *
      *     @param type message type
-     *     @param id Master / client identification
+     *     @param i integer
      */
 
-    public Message (int type, int id)
-    {
+    public Message (int type, int i) {
         msgType = type;
-        if ((msgType == MessageType.CWTR) || )
-            studId= id;
-        else if ((msgType == MessageType.SGBY)){
-            clientId= id;
-            GenericIO.writelnString("\n\n\nMessage client id "+clientId);
-        }
-
-        else if ((msgType == MessageType.RBAR) || (msgType == MessageType.CPRTDONE))
-            OrdinaryState = id;
-        else if ((msgType == MessageType.SPREP) || (msgType == MessageType.PPRES) ||
-                (msgType == MessageType.CLEANDONE) || (msgType == MessageType.CPREPDONE))
-            chefState = id;
-        else if((msgType == MessageType.SETNST))
-            seatId = id;
-        else if((msgType == MessageType.SETLARV) || (msgType == MessageType.GETLARVDONE))
-            lastArv = id;
-        else if((msgType == MessageType.SETFARV) || (msgType == MessageType.GETFARVDONE))
-            firstArv = id;
-        else if((msgType == MessageType.GETLEATDONE))
-            lastEat = id;
-        else if((msgType == MessageType.GCHAT))
-            course = id;
+        
+        if ((msgType == MessageType.GRCS))
+            ap = i;
+        else if((msgType == MessageType.SUTR) || (msgType == MessageType.SO) || (msgType == MessageType.TAR) || (msgType == MessageType.CAC) || (msgType == MessageType.STMST))
+            masterState = i;
         else {
             GenericIO.writelnString ("Message type = " + msgType + ": non-implemented instantiation!");
             System.exit (1);
         }
     }
 
-    /**
-     * seat id logger
-     */
-    private int seatId = -1;
 
     /**
-     * getter seat id
-     */
-    public int getSeatId(){
-        return seatId;
-    }
-
-    /**
-     *  Message instantiation (form 3).
+     *  Message instantiation (form 3i).
      *
      *     @param type message type
-     *     @param id Master identification
-     *     @param state Master state
+     *     @param i0 integer
+     *     @param i1 integer
      */
 
-    public Message (int type, int id, int state)
-    {
+    public Message (int type, int i0, int i1) {
         msgType = type;
-        if((msgType == MessageType.ETR) || (msgType == MessageType.SARVE) ||
-                (msgType == MessageType.EXIT) || (msgType == MessageType.RMENU) ||
-                (msgType == MessageType.PREPO) || (msgType == MessageType.INFCP) ||
-                (msgType == MessageType.JTLK) || (msgType == MessageType.SEAT) ||
-                (msgType == MessageType.EEAT)|| (msgType == MessageType.STSST) ||
-                (msgType == MessageType.ETRDONE) || (msgType == MessageType.SARVEDONE)||
-                (msgType == MessageType.EXITDONE) || (msgType == MessageType.RMENUDONE)||
-                (msgType == MessageType.INFCPDONE) || (msgType == MessageType.PREPODONE)||
-                (msgType == MessageType.JTLKDONE) || (msgType == MessageType.SEATDONE)){
-            studId= id;
-            studState = state;
+        if((msgType == MessageType.AM) ){
+            ap = i0;
+            ordinaryId = i1;
         }
-        else if((msgType == MessageType.BAWTR)|| (msgType == MessageType.BAWTRDONE)){
-            chefId= id;
-            chefState = state;
+        else if((msgType == MessageType.SAP)){
+            room = i0;
+            masterState = i1;
         }
-        else if((msgType == MessageType.PRESB) || (msgType == MessageType.SALC)){
-            clientId = id;
-            OrdinaryState = state;
+        else if((msgType == MessageType.PE) || (msgType == MessageType.AIN) || (msgType == MessageType.STOST)) {
+            ordinaryId = i0;
+            ordinaryState = i1;
         }
-        else if((msgType == MessageType.EVRFIN)){
-            studId = id;
-            course = state;
+        else if((msgType == MessageType.STOMD)){
+            ordinaryId = i0;
+            md = i1;
         }
-        else if((msgType == MessageType.STWST)) {
-            OrdinaryId = id;
-            OrdinaryState = state;
-        } else {
+        else if((msgType == MessageType.STAPR)){
+            ap = i0;
+            room = i1;
+        }
+        else if((msgType == MessageType.STAPE)){
+            elem = i0;
+            tid = i1;
+        }
+        else if((msgType == MessageType.STCVS)){
+            elem = i0;
+            canvas = i1;
+        }
+        else if((msgType == MessageType.STPOS)){
+            elem = i0;
+            pos = i1;
+        }
+        else {
             GenericIO.writelnString ("Message type = " + msgType + ": non-implemented instantiation!");
             System.exit (1);
         }
     }
 
+
+    
+
     /**
-     *  Message instantiation (form 7).
+     *  Message instantiation (form 4i).
      *
      *     @param type message type
-     *     @param bool boolean flags
+     *     @param i0 integer
+     *     @param i1 integer
+     *     @param i2 integer
      */
 
-    public Message (int type, boolean bool) {
+     public Message (int type, int i0, int i1, int i2) {
         msgType = type;
-        if((msgType == MessageType.HAPBD))
-            haveDelivered = bool;
-        else if((msgType == MessageType.ACSRVDONE))
-            haveServed = bool;
-        else if((msgType == MessageType.HTOBCDONE))
-            hasCompleted = bool;
-        else if((msgType == MessageType.EVRCHSDONE))
-            hasChosen = bool;
-        else if((msgType == MessageType.ENDOPDONE))
-           endOp = bool;
+        if((msgType == MessageType.RD) ){
+            member = i0;
+            ordinaryId = i1;
+            ordinaryState = i2;
+        }
+        else if((msgType == MessageType.PAP) ){
+            ap = i0;
+            room = i1;
+            masterState = i2;
+        }
+        else if((msgType == MessageType.RAC) ){
+            room = i0;
+            ap = i1;
+            member = i2;
+        }
+        else {
+            GenericIO.writelnString ("Message type = " + msgType + ": non-implemented instantiation!");
+            System.exit (1);
+        }
+     }
+
+
+     /**
+     *  Message instantiation (form 5i).
+     *
+     *     @param type message type
+     *     @param i0 identification
+     *     @param i1 integer
+     *     @param i2 integer
+     *     @param i3 integer
+     */
+
+     public Message (int type, int i0, int i1, int i2, int i3) {
+        msgType = type;
+        if((msgType == MessageType.AM) ){
+            canvas = i0;
+            room = i1;
+            ap = i2;
+            member = i3;
+        }
+        else {
+            GenericIO.writelnString ("Message type = " + msgType + ": non-implemented instantiation!");
+            System.exit (1);
+        }
+     }
+
+
+
+     /**
+     *  Message instantiation (form 6i).
+     *
+     *     @param type message type
+     *     @param i0 integer
+     *     @param i1 integer
+     *     @param i2 integer
+     *     @param i3 integer
+     *     @param i4 integer
+     */
+
+     public Message (int type, int i0, int i1, int i2, int i3, int i4) {
+        msgType = type;
+        if((msgType == MessageType.AM) ){
+            ap = i0;
+            member = i1;
+            md = i2;
+            ordinaryId = i3;
+            ordinaryState = i4;
+        }
+        else {
+            GenericIO.writelnString ("Message type = " + msgType + ": non-implemented instantiation!");
+            System.exit (1);
+        }
+     }
+
+
+    
+
+    /**
+     *  Message instantiation (form 1i,1b).
+     *
+     *     @param type message type
+     *     @param b boolean
+     */
+
+    public Message (int type, boolean b) {
+        msgType = type;
+        if((msgType == MessageType.AS))
+            roomStt = b;
+        else if((msgType == MessageType.EOPDONE))
+           endOp = b;
+        else {
+            GenericIO.writelnString ("Message type = " + msgType + ": non-implemented instantiation!");
+            System.exit (1);
+        }
     }
 
+
+    
+
     /**
-     *  Message instantiation (form 9).
+     *  Message instantiation (form 1i,1i[]).
      *
      *     @param type message type
-     *     @param fName log file
+     *     @param i integer array
      */
-    public Message (int type, String fName){
+
+     public Message (int type, int[] i) {
         msgType = type;
-        this.fName = fName;
+        if((msgType == MessageType.STRMP))
+            paitings = i;
+        else if((msgType == MessageType.STRD))
+           distances = i;
+        else {
+            GenericIO.writelnString ("Message type = " + msgType + ": non-implemented instantiation!");
+            System.exit (1);
+        }
+    }
+
+
+    /**
+     *  Message instantiation (form 2i,1c).
+     *
+     *     @param type message type
+     *     @param i integer
+     *     @param c char
+     */
+
+     public Message (int type, int i, char c) {
+        msgType = type;
+        if((msgType == MessageType.STOSIT)) {
+            ordinaryId = i;
+            sit = c;
+        }
+        else {
+            GenericIO.writelnString ("Message type = " + msgType + ": non-implemented instantiation!");
+            System.exit (1);
+        }
     }
 
 
@@ -223,20 +476,8 @@ public class Message implements Serializable
      *     @return message type
      */
 
-    public int getMsgType ()
-    {
+    public int getMsgType () {
         return (msgType);
-    }
-
-    /**
-     *  Getting Master identification.
-     *
-     *     @return Master identification
-     */
-
-    public int getMasterId ()
-    {
-        return (masterId);
     }
 
     /**
@@ -245,8 +486,7 @@ public class Message implements Serializable
      *     @return Master state
      */
 
-    public int getMasterState ()
-    {
+    public int getMasterState () {
         return (masterState);
     }
 
@@ -267,24 +507,8 @@ public class Message implements Serializable
      *     @return Ordinary state
      */
 
-    public int getOrdinaryState ()
-    {
+    public int getOrdinaryState () {
         return (ordinaryState);
-    }
-
-
-
-
-
-    /**
-     *  Getting have all clients been served served
-     *
-     *  @return haveServed
-     */
-
-    public boolean getHaveServed ()
-    {
-        return (haveServed);
     }
 
 
@@ -301,17 +525,6 @@ public class Message implements Serializable
     }
 
     /**
-     *  Getting name of logging file.
-     *
-     *     @return name of the logging file
-     */
-
-    public String getLogFName ()
-    {
-        return (fName);
-    }
-
-    /**
      *  Printing the values of the internal fields.
      *
      *  It is used for debugging purposes.
@@ -323,22 +536,21 @@ public class Message implements Serializable
     public String toString ()
     {
         return ("Message type = " + msgType +
-                "\nMaster Id = " + studId +
-                "\nMaster State = " + studState +
-                "\nOrdinary Id = " + OrdinaryId +
-                "\nOrdinary State = " + OrdinaryState +
+                "\nMaster State = " + masterState +
+                "\nOrdinary Id = " + ordinaryId +
+                "\nOrdinary State = " + ordinaryState +
                 "\nEnd of Operations (Ordinary) = " + endOp +
-
-                
-            
-                "\nCourse = " + course +
-                "\nhasChosen = " + hasChosen +
-                "\nhasCompleted = " + hasCompleted +
-                "\nhaveDelivered = " + haveDelivered +
-                "\nhaveServed = " + haveServed +
-                "\nlastEat = " + lastEat +
-
-                "\nservice = " + (service == null? "null" : service.toString()) +
-                "\nName of logging file = " + fName );
+                "\nAp = " + ap +
+                "\nRoom = " + room +
+                "\nElem = " + elem +
+                "\nMd = " + md +
+                "\nCanvas = " + canvas +
+                "\nPos = " + pos +
+                "\nTid = " + tid +
+                "\nMember = " + member +
+                "\nRoomStt = " + roomStt +
+                "\nPaitings = " + paitings +
+                "\nDistances = " + distances +
+                "\nSit = " + sit );
     }
 }

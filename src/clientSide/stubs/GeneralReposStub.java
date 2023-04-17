@@ -1,10 +1,11 @@
 
 package clientSide.stubs;
 
+import serverSide.main.*;
 import clientSide.entities.*;
 import commInfra.*;
 import genclass.GenericIO;
-import serverSide.main.SimulConsts;
+import serverSide.sharedRegions.GeneralReposInterface;
 
 /**
  *  Stub to the general repository.
@@ -40,47 +41,11 @@ public class GeneralReposStub {
          this.serverHostName = serverHostName;
          this.serverPortNumb = serverPortNumb;
      }
- 
-     /**
-      *   Operation initialization of the simulation.
-      *
-      *     @param fileName logging file name
-      */
- 
-     public void initSimul (String fileName)
-     {
-         ClientCom com;                                                 // communication channel
-         Message outMessage,                                            // outgoing message
-                 inMessage;                                             // incoming message
- 
-         com = new ClientCom (serverHostName, serverPortNumb);
-         while (!com.open ())
-         { try
-         { Thread.sleep ((long) (1000));
-         }
-         catch (InterruptedException e) {}
-         }
-         outMessage = new Message (MessageType.LOGF, fileName);
-         com.writeObject (outMessage);
-         inMessage = (Message) com.readObject ();
-         if (inMessage.getMsgType() != MessageType.LOGFDONE)
-         { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
-             GenericIO.writelnString (inMessage.toString ());
-             System.exit (1);
-         }
-         com.close ();
-     }
- 
-     
- 
      
  
  
 
- 
- 
- 
- 
+
      /**
       *   Set master state.
       *
@@ -101,7 +66,7 @@ public class GeneralReposStub {
          }
          catch (InterruptedException e) {}
          }
-         outMessage = new Message (MessageType.SMS, id, state);
+         outMessage = new Message (MessageType.STMST, id, state);
          com.writeObject (outMessage);
          inMessage = (Message) com.readObject ();
          if (inMessage.getMsgType() != MessageType.SACK)
@@ -132,7 +97,7 @@ public class GeneralReposStub {
          }
          catch (InterruptedException e) {}
          }
-         outMessage = new Message (MessageType.SOS, id, state);
+         outMessage = new Message (MessageType.STOST, id, state);
          com.writeObject (outMessage);
          inMessage = (Message) com.readObject ();
          if (inMessage.getMsgType() != MessageType.SACK)
@@ -165,7 +130,7 @@ public class GeneralReposStub {
          }
          catch (InterruptedException e) {}
          }
-         outMessage = new Message (MessageType.SOSIT, id, sit);
+         outMessage = new Message (MessageType.STOSIT, id, sit);
          com.writeObject (outMessage);
          inMessage = (Message) com.readObject ();
          if (inMessage.getMsgType() != MessageType.SACK)
@@ -196,7 +161,7 @@ public class GeneralReposStub {
         }
         catch (InterruptedException e) {}
         }
-        outMessage = new Message (MessageType.SOMD, id, md);
+        outMessage = new Message (MessageType.STOMD, id, md);
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType() != MessageType.SACK)
@@ -224,7 +189,7 @@ public class GeneralReposStub {
         }
         catch (InterruptedException e) {}
         }
-        outMessage = new Message (MessageType.SAR, ap, room);
+        outMessage = new Message (MessageType.STAPR, ap, room);
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType() != MessageType.SACK)
@@ -253,7 +218,7 @@ public class GeneralReposStub {
         }
         catch (InterruptedException e) {}
         }
-        outMessage = new Message (MessageType.SAE, elem, tid);
+        outMessage = new Message (MessageType.STAPE, elem, tid);
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType() != MessageType.SACK)
@@ -282,7 +247,7 @@ public class GeneralReposStub {
         }
         catch (InterruptedException e) {}
         }
-        outMessage = new Message (MessageType.SC, elem, canvas);
+        outMessage = new Message (MessageType.STCVS, elem, canvas);
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType() != MessageType.SACK)
@@ -311,7 +276,7 @@ public class GeneralReposStub {
         }
         catch (InterruptedException e) {}
         }
-        outMessage = new Message (MessageType.SP, elem, pos);
+        outMessage = new Message (MessageType.STPOS, elem, pos);
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType() != MessageType.SACK)
@@ -339,7 +304,7 @@ public class GeneralReposStub {
         }
         catch (InterruptedException e) {}
         }
-        outMessage = new Message (MessageType.SRP, paitings);
+        outMessage = new Message (MessageType.STRMP, paitings);
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType() != MessageType.SACK)
@@ -367,7 +332,7 @@ public class GeneralReposStub {
         }
         catch (InterruptedException e) {}
         }
-        outMessage = new Message (MessageType.SRD, distances);
+        outMessage = new Message (MessageType.STRD, distances);
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType() != MessageType.SACK)
@@ -393,7 +358,7 @@ public class GeneralReposStub {
         }
         catch (InterruptedException e) {}
         }
-        outMessage = new Message (MessageType.SRP);
+        outMessage = new Message (MessageType.STRBP);
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType() != MessageType.SACK)

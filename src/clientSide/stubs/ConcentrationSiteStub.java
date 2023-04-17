@@ -1,6 +1,10 @@
 package clientSide.stubs;
 
-import commInfra.MessageType;
+import serverSide.main.*;
+import clientSide.entities.*;
+import commInfra.*;
+import genclass.GenericIO;
+import serverSide.sharedRegions.GeneralReposInterface;
 
 public class ConcentrationSiteStub {
     /**
@@ -57,7 +61,7 @@ public class ConcentrationSiteStub {
             System.exit (1);
         }
         com.close ();
-        return inMessage.getRoom();
+        return inMessage.getRoomCS();
     }
 
     /**
@@ -143,7 +147,7 @@ public class ConcentrationSiteStub {
         catch (InterruptedException e) {}
         }
 
-        outMessage = new Message (MessageType.PAP, ap, room);
+        outMessage = new Message (MessageType.PAP, ap, room, ((Master) Thread.currentThread()).getMasterState());
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType() != MessageType.PAPDONE)
@@ -173,7 +177,7 @@ public class ConcentrationSiteStub {
         catch (InterruptedException e) {}
         }
 
-        outMessage = new Message (MessageType.PE);
+        outMessage = new Message (MessageType.PE, ((Ordinary) Thread.currentThread()).getOrdinaryId() ,((Ordinary) Thread.currentThread()).getOrdinaryState());
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType() != MessageType.PEDONE)
@@ -206,7 +210,7 @@ public class ConcentrationSiteStub {
         catch (InterruptedException e) {}
         }
 
-        outMessage = new Message (MessageType.AIN, ap);
+        outMessage = new Message (MessageType.AIN, ap, ((Ordinary) Thread.currentThread()).getOrdinaryId() ,((Ordinary) Thread.currentThread()).getOrdinaryState());
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType() != MessageType.AINDONE)
@@ -236,7 +240,7 @@ public class ConcentrationSiteStub {
         catch (InterruptedException e) {}
         }
 
-        outMessage = new Message (MessageType.SUTR, );
+        outMessage = new Message (MessageType.SUTR, ((Master) Thread.currentThread()).getMasterState());
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType() != MessageType.SUTRDONE)
@@ -318,7 +322,7 @@ public class ConcentrationSiteStub {
         outMessage = new Message (MessageType.ENDOP);
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
-        if (inMessage.getMsgType() != MessageType.ENDOPDONE)
+        if (inMessage.getMsgType() != MessageType.EOPDONE)
         { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);

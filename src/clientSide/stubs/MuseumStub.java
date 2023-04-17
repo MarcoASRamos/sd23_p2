@@ -73,7 +73,6 @@ public class MuseumStub {
 
 
 
-
     public void shutdown () {
         ClientCom com;                    // communication channel
         Message outMessage,               // outgoing message

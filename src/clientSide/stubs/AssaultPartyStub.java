@@ -54,7 +54,7 @@ public class AssaultPartyStub {
         catch (InterruptedException e) {}
         }
 
-        outMessage = new Message (MessageType.AM, ap);
+        outMessage = new Message (MessageType.AM, ap, ((Ordinary) Thread.currentThread()).getOrdinaryId());
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType() != MessageType.AMDONE)
@@ -63,7 +63,7 @@ public class AssaultPartyStub {
             System.exit (1);
         }
         com.close ();
-        inMessage.assignMember();
+        return inMessage.assignMember();
     }
 
 
@@ -95,7 +95,7 @@ public class AssaultPartyStub {
             System.exit (1);
         }
         com.close ();
-        return inMessage.getRoom();
+        return inMessage.getRoomAP();
     }
 
 
@@ -147,7 +147,7 @@ public class AssaultPartyStub {
         catch (InterruptedException e) {}
         }
 
-        outMessage = new Message (MessageType.SAP, room, ((Master) Thread.currentThread()).getMasterId(), ((Master) Thread.currentThread()).getMasterState());
+        outMessage = new Message (MessageType.SAP, room, ((Master) Thread.currentThread()).getMasterState());
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType() != MessageType.SAPDONE)
@@ -221,7 +221,7 @@ public class AssaultPartyStub {
             System.exit (1);
         }
         com.close (); 
-        inMessage.crawlOut();
+        return inMessage.crawlOut();
     }
 
 
