@@ -79,24 +79,35 @@ public class ConcentrationSite {
         return rooms[0]<0? 0:1;
     }
 
+
+    /**
+     *  Reference to ordinary threads.
+     */
+    private final ConcentrationSiteClientProxy [] ord;
+
+    /**
+     *  Reference to master thread.
+     */
+    private final ConcentrationSiteClientProxy master;
+
     /**
      *   Number of entity groups requesting the shutdown.
      */
     private int nEntities;
 
     /**
-     * Reference to the general repository.
+     * Reference to the general reposStub.itory.
      */
-    private final GeneralRepos repos;
+    private final GeneralReposStub reposStub;
 
     /**
      * Bar instantiation
      *
-     * @param repos reference to the general repository
+     * @param reposStub. reference to the general reposStub.itory
      */
-    public ConcentrationSite(GeneralRepos repos) {
+    public ConcentrationSite(GeneralReposStub reposStub) {
 
-        this.repos = repos;
+        this.reposStub = reposStub;
         try { this.thievesQueue = new MemFIFO<>(new Integer[SimulConsts.M-1]);
         } catch (MemException e) {
             GenericIO.writelnString ("Instantiation of waiting FIFO failed: " + e.getMessage ());
@@ -116,6 +127,12 @@ public class ConcentrationSite {
             party[i] = 0;
             rooms[i] = -1; 
         } 
+
+        master = null;
+        ord = new ConcentrationSiteClientProxy [SimulConsts.M-1];
+        for (int i = 0; i < SimulConsts.M-1; i++)
+            ord[i] = null;
+        nEntities = 0;
     }
 
 
@@ -161,7 +178,7 @@ public class ConcentrationSite {
      * @param room to assault
      */
     public synchronized void prepareAssaultParty(int ap, int room) {
-        repos.setApRoom(ap, room);
+        reposStub.setApRoom(ap, room);
         preparingAP = ap;
 
         while (recruited < SimulConsts.E) {
@@ -188,9 +205,10 @@ public class ConcentrationSite {
         rooms[ap] = room;
         heisting += SimulConsts.E;
 
-        // Update Master state
-        ((Master) Thread.currentThread()).setMasterState(MasterStates.ASSEMBLING_A_GROUP);
-        repos.setMasterState(((Master) Thread.currentThread()).getMasterState());
+        // Update Master stat
+        master = (ConcentrationSiteClientProxy) Thread.currentThread();
+        master.setMasterState(MasterStates.ASSEMBLING_A_GROUP);
+        reposStub.setMasterState(master.getMasterState());
     }
 
 
@@ -201,16 +219,17 @@ public class ConcentrationSite {
      */
     public synchronized int prepareExcursion() {
         // Update Ordinary state
-        int ordinaryId = ((Ordinary) Thread.currentThread()).getOrdinaryId();
-        ((Ordinary) Thread.currentThread()).setOrdinaryState(OrdinaryStates.CRAWLING_INWARDS);
-        repos.setOrdinaryState(ordinaryId, ((Ordinary) Thread.currentThread()).getOrdinaryState());
+        int ordinaryId = ((ConcentrationSiteClientProxy) Thread.currentThread()).getOrdinaryId();
+        ord[ordinaryId] = (ConcentrationSiteClientProxy) Thread.currentThread();
+        ord[ordinaryId].setOrdinaryState(OrdinaryStates.CRAWLING_INWARDS);
+        reposStub.setOrdinaryState(ordinaryId, ord[ordinaryId].getOrdinaryState());
 
         recruited++;
         summoned = true;
         notifyAll();
 
         party[preparingAP]++;
-        repos.setOrdinarySituation(ordinaryId, 'P');
+        reposStub.setOrdinarySituation(ordinaryId, 'P');
         return preparingAP;
     }
 
@@ -225,17 +244,18 @@ public class ConcentrationSite {
      */
     public synchronized boolean amINeeded(int ap){
         //Update Ordinary state
-        int ordinaryId = ((Ordinary) Thread.currentThread()).getOrdinaryId();
-		((Ordinary) Thread.currentThread()).setOrdinaryState(OrdinaryStates.CONCENTRATION_SITE);
-		repos.setOrdinaryState(ordinaryId, ((Ordinary) Thread.currentThread()).getOrdinaryState());
+        int ordinaryId = ((ConcentrationSiteClientProxy) Thread.currentThread()).getOrdinaryId();
+        ord[ordinaryId] = (ConcentrationSiteClientProxy) Thread.currentThread();
+        ord[ordinaryId].setOrdinaryState(OrdinaryStates.CONCENTRATION_SITE);
+        reposStub.setOrdinaryState(ordinaryId, ord[ordinaryId].getOrdinaryState());
 
         if(ap>=0 && --party[ap]==0){
-            repos.setApRoom(ap, -1);
+            reposStub.setApRoom(ap, -1);
             rooms[ap]=-1;
         } 
 
         
-        repos.setOrdinarySituation(ordinaryId, 'W');
+        reposStub.setOrdinarySituation(ordinaryId, 'W');
         try {
             thievesQueue.write(ordinaryId);
             waitingThieves++;
@@ -265,8 +285,9 @@ public class ConcentrationSite {
         notifyAll();
         
         // Update Master state
-        ((Master) Thread.currentThread()).setMasterState(MasterStates.PRESENTING_THE_REPORT);
-        repos.setMasterState(((Master) Thread.currentThread()).getMasterState());
+        master = (ConcentrationSiteClientProxy) Thread.currentThread();
+        master.setMasterState(MasterStates.PRESENTING_THE_REPORT);
+        reposStub.setMasterState(master.getMasterState());
     }
 
 
@@ -302,7 +323,7 @@ public class ConcentrationSite {
        nEntities += 1;
        if (nEntities >= SimulConsts.M)
           ServerMuseumConcentrationSite.waitConnection = false;
-       notifyAll ();                                        // the barber may now terminate
+       notifyAll ();                                        // the master may now terminate
    }
 
 }

@@ -15,6 +15,11 @@ public class Museum {
     private int[] paintings;
 
     /**
+     *  Reference to ordinary threads.
+     */
+    private final MuseumClientProxy [] ord;
+
+    /**
      *   Number of entity groups requesting the shutdown.
      */
     private int nEntities;
@@ -36,6 +41,11 @@ public class Museum {
         for(int i=0; i<SimulConsts.N; i++) 
             paintings[i] = SimulConsts.p +(int)(Math.random() * (SimulConsts.P-SimulConsts.p)+1); 
             reposStub.setRoomPaitings(paintings);
+
+            ord = new MuseumClientProxy [SimulConsts.M-1];
+            for (int i = 0; i < SimulConsts.M-1; i++)
+                ord[i] = null;
+            nEntities = 0;
     }
 
     /**

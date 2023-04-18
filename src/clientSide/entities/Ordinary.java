@@ -1,13 +1,9 @@
 package clientSide.entities;
 
 import clientSide.stubs.*;
+import serverSide.main.SimulConsts;
 
 public class Ordinary extends Thread {
-
-    /**
-     * Ordinary Name
-     */
-    private String name;
 
     /**
      * Ordinary Id
@@ -55,7 +51,6 @@ public class Ordinary extends Thread {
      */
     public Ordinary(String name, int ordinaryId, int ordinaryState, GeneralReposStub reposStub, ConcentrationSiteStub csStub,
             ControlCollectionSiteStub ccsStub, AssaultPartyStub[] partyStub, MuseumStub museumStub) {
-        this.name = name;
         this.ordinaryState = ordinaryState;
         this.ordinaryId = ordinaryId;
         this.partyStub = partyStub;

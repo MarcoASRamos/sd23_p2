@@ -13,7 +13,7 @@ import genclass.GenericIO;
  * Communication is based on a communication channel under the TCP protocol.
  */
 
-public class ControlColectionSiteClientProxy extends Thread implements OrdinaryCloning, MasterCloning {
+public class ControlCollectionSiteClientProxy extends Thread implements OrdinaryCloning, MasterCloning {
     /**
      * Number of instantiayed threads.
      */
@@ -58,8 +58,8 @@ public class ControlColectionSiteClientProxy extends Thread implements OrdinaryC
      * @param CSInter interface to the barber shop
      */
 
-    public ControlColectionSiteClientProxy(ServerCom sconi, ControlColectionSiteInterface CCSInter) {
-        super("ControlColectionSiteClientProxy" + ControlColectionSiteClientProxy.getProxyId());
+    public ControlCollectionSiteClientProxy(ServerCom sconi, ControlCollectionSiteInterface CCSInter) {
+        super("ControlCollectionSiteClientProxy" + ControlCollectionSiteClientProxy.getProxyId());
         this.sconi = sconi;
         this.CCSInter = CCSInter;
     }

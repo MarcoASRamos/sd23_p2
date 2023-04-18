@@ -1,7 +1,7 @@
 package clientSide.entities;
 
 import clientSide.stubs.*;
-import serverSide.main.SimulConsts.*;
+import serverSide.main.SimulConsts;
 
 public class Master extends Thread {
 

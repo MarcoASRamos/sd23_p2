@@ -8,7 +8,7 @@ import commInfra.*;
 import genclass.GenericIO;
 
 
-public class ControlColectionSite {
+public class ControlCollectionSite {
     
     /**
      * Indicate ordinary thieve handed a canvas
@@ -54,6 +54,16 @@ public class ControlColectionSite {
     }
 
     /**
+     *  Reference to ordinary threads.
+     */
+    private final ControlCollectionSiteClientProxy [] ord;
+
+    /**
+     *  Reference to master thread.
+     */
+    private final ControlCollectionSiteClientProxy master;
+
+    /**
      *   Number of entity groups requesting the shutdown.
      */
     private int nEntities;
@@ -77,6 +87,12 @@ public class ControlColectionSite {
         for(int i=0; i<SimulConsts.N; i++) rooms[i]=true;
         this.handed = false;
         this.collected = false;
+
+        master = null;
+        ord = new ControlCollectionSiteClientProxy [SimulConsts.M-1];
+        for (int i = 0; i < SimulConsts.M-1; i++)
+            ord[i] = null;
+        nEntities = 0;
     }
 
     
@@ -87,8 +103,9 @@ public class ControlColectionSite {
      */
     public synchronized void startOperation(){
         //Update Master state
-		((Master) Thread.currentThread()).setMasterState(MasterStates.DECIDING_WHAT_TO_DO);
-		reposStub.setMasterState(((Master) Thread.currentThread()).getMasterState());
+        master = (ControlCollectionSiteClientProxy) Thread.currentThread();
+        master.setMasterState(MasterStates.DECIDING_WHAT_TO_DO);
+        reposStub.setMasterState(master.getMasterState());
     }
 
 
@@ -111,8 +128,9 @@ public class ControlColectionSite {
         room = -1;
 
         //Update Master state
-		((Master) Thread.currentThread()).setMasterState(MasterStates.WAITING_FOR_GROUP_ARRIVAL);
-		reposStub.setMasterState(((Master) Thread.currentThread()).getMasterState());
+        master = (ControlCollectionSiteClientProxy) Thread.currentThread();
+        master.setMasterState(MasterStates.WAITING_FOR_GROUP_ARRIVAL);
+        reposStub.setMasterState(master.getMasterState());
 
     }
 
@@ -164,8 +182,9 @@ public class ControlColectionSite {
         notifyAll();
         
         //Update Master state
-		((Master) Thread.currentThread()).setMasterState(MasterStates.DECIDING_WHAT_TO_DO);
-		reposStub.setMasterState(((Master) Thread.currentThread()).getMasterState());
+		master = (ControlCollectionSiteClientProxy) Thread.currentThread();
+        master.setMasterState(MasterStates.DECIDING_WHAT_TO_DO);
+        reposStub.setMasterState(master.getMasterState());
     }
 
 

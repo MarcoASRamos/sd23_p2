@@ -135,14 +135,13 @@ public class ClientMuseumHeistMaster {
  
  
          /* problem initialization */
- 
-         AssaultPartyStub[0] = new AssaultPartyStub (apServerHostName[0], apServerPortNumb[0]);
-         AssaultPartyStub[1] = new AssaultPartyStub (apServerHostName[1], apServerPortNumb[1]);
-         ConcentrationSiteStub = new ConcentrationSiteStub (csServerHostName, csServerPortNumb);
-         ControlCollectionSiteStub = new ControlCollectionSiteStub (ccsServerHostName, ccsServerPortNumb);
+         apStub[0] = new AssaultPartyStub (apServerHostName[0], apServerPortNumb[0]);
+         apStub[1] = new AssaultPartyStub (apServerHostName[1], apServerPortNumb[1]);
+         csStub = new ConcentrationSiteStub (csServerHostName, csServerPortNumb);
+         ccsStub = new ControlCollectionSiteStub (ccsServerHostName, ccsServerPortNumb);
 
          genReposStub = new GeneralReposStub (genReposServerHostName, genReposServerPortNumb);
-         Master master = new Master ("ordinary", 0, , );
+         Master master = new Master ("master", 0, , );
  
          /* start of the simulation */
  

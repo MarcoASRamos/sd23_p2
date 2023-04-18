@@ -155,12 +155,11 @@ public class ClientMuseumHeistOrdinary {
  
  
          /* problem initialization */
- 
-         AssaultPartyStub[0] = new AssaultPartyStub (apServerHostName[0], apServerPortNumb[0]);
-         AssaultPartyStub[1] = new AssaultPartyStub (apServerHostName[1], apServerPortNumb[1]);
-         ConcentrationSiteStub = new ConcentrationSiteStub (csServerHostName, csServerPortNumb);
-         ControlCollectionSiteStub = new ControlCollectionSiteStub (ccsServerHostName, ccsServerPortNumb);
-         MuseumStub = new MuseumStub (museumServerHostName, museumServerPortNumb);
+         apStub[0] = new AssaultPartyStub (apServerHostName[0], apServerPortNumb[0]);
+         apStub[1] = new AssaultPartyStub (apServerHostName[1], apServerPortNumb[1]);
+         csStub = new ConcentrationSiteStub (csServerHostName, csServerPortNumb);
+         ccsStub = new ControlCollectionSiteStub (ccsServerHostName, ccsServerPortNumb);
+         museumStub = new MuseumStub (museumServerHostName, museumServerPortNumb);
 
 
          genReposStub = new GeneralReposStub (genReposServerHostName, genReposServerPortNumb);

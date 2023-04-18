@@ -1,13 +1,12 @@
 package serverSide.sharedRegions;
 
 import java.util.Arrays;
-import commInfra.*;
+import serverSide.main.*;
 import serverSide.entities.*;
-import genclass.*;
-import serverSide.main.ServerMuseumAssaultParty;
-import serverSide.main.SimulConsts;
-
-import static java.lang.Thread.sleep;
+import clientSide.entities.*;
+import clientSide.stubs.*;
+import commInfra.*;
+import genclass.GenericIO;
 
 public class AssaultParty {
 
@@ -21,7 +20,7 @@ public class AssaultParty {
      */
     public synchronized int assignMember(int ap) {
         members = (members + 1) % SimulConsts.E;
-        repos.setApElement(ap * SimulConsts.E + members, ((Ordinary) Thread.currentThread()).getOrdinaryId());
+        reposStub.setApElement(ap * SimulConsts.E + members, ((Ordinary) Thread.currentThread()).getOrdinaryId());
         return members;
     }
 
@@ -76,12 +75,22 @@ public class AssaultParty {
     /**
      * Reference to the general repository.
      */
-    private final GeneralRepos repos;
+    private final GeneralReposStub reposStub;
 
     /**
      * Distaces in units from the site to the each museum room
      */
     private final int[] rooms;
+
+    /**
+     *  Reference to ordinary threads.
+     */
+    private final AssaultPartyClientProxy [] ord;
+
+    /**
+     *  Reference to master thread.
+     */
+    private final AssaultPartyClientProxy master;
 
     /**
      *   Number of entity groups requesting the shutdown.
@@ -94,8 +103,8 @@ public class AssaultParty {
      * @param repos reference to the general repository
      */
 
-    public AssaultParty(GeneralRepos repos, int[] rooms) {
-        this.repos = repos;
+    public AssaultParty(GeneralReposStub reposStub, int[] rooms) {
+        this.reposStub = reposStub;
         this.rooms = rooms;
         this.room = -1;
         this.members = -1;
@@ -108,6 +117,12 @@ public class AssaultParty {
         this.pos = new int[SimulConsts.E];
         for (int i = 0; i < SimulConsts.E; i++)
             pos[i] = 0;
+
+        master = null;
+        ord = new AssaultPartyClientProxy [SimulConsts.M-1];
+        for (int i = 0; i < SimulConsts.M-1; i++)
+            ord[i] = null;
+        nEntities = 0;
     }
 
     /**
@@ -115,11 +130,6 @@ public class AssaultParty {
      * @param member
      */
     public synchronized void reverseDirection(int member) {
-        try {
-            sleep((int) (Math.random() * 10));
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
 
         if (member == SimulConsts.E - 1) {
             init = true;
@@ -131,9 +141,10 @@ public class AssaultParty {
         }
 
         // Update Ordinary state
-        int ordinaryId = ((Ordinary) Thread.currentThread()).getOrdinaryId();
-        ((Ordinary) Thread.currentThread()).setOrdinaryState(OrdinaryStates.CRAWLING_OUTWARDS);
-        repos.setOrdinaryState(ordinaryId, ((Ordinary) Thread.currentThread()).getOrdinaryState());
+        int ordinaryId = ((AssaultPartyClientProxy) Thread.currentThread()).getOrdinaryId();
+        ord[ordinaryId] = (AssaultPartyClientProxy) Thread.currentThread();
+        ord[ordinaryId].setOrdinaryState(OrdinaryStates.CRAWLING_OUTWARDS);
+        reposStub.setOrdinaryState(ordinaryId, ord[ordinaryId].getOrdinaryState());
 
     }
 
@@ -143,11 +154,6 @@ public class AssaultParty {
      * @param room to heist
      */
     public synchronized void sendAssaultParty(int room) {
-        try {
-            sleep((int) (Math.random() * 10));
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
 
         crawlin = false;
         sended = true;
@@ -158,8 +164,9 @@ public class AssaultParty {
         notifyAll();
 
         // Update Master state
-        ((Master) Thread.currentThread()).setMasterState(MasterStates.DECIDING_WHAT_TO_DO);
-        repos.setMasterState(((Master) Thread.currentThread()).getMasterState());
+        master = (AssaultPartyClientProxy) Thread.currentThread();
+        master.setMasterState(MasterStates.DECIDING_WHAT_TO_DO);
+        reposStub.setMasterState(master.getMasterState());
     }
 
     /**
@@ -184,13 +191,8 @@ public class AssaultParty {
             move = member == 0 ? 3 : 0;
         }
 
-        try {
-            sleep((int) (Math.random() * 10));
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        int ordinaryId = ((Ordinary) Thread.currentThread()).getOrdinaryId();
+        
+        int ordinaryId = ((AssaultPartyClientProxy) Thread.currentThread()).getOrdinaryId();
         while ((crawlin && move < 1) || (member != 0 && init) || !sended) {
             try {
                 wait();
@@ -215,7 +217,7 @@ public class AssaultParty {
         if (pos[member] > rooms[room])
             pos[member] = rooms[room];
 
-        repos.setPosition(ap * SimulConsts.E + member, pos[member]);
+        reposStub.setPosition(ap * SimulConsts.E + member, pos[member]);
         notifyAll();
 
         if (pos[member] == rooms[room]) {
@@ -230,8 +232,9 @@ public class AssaultParty {
             notifyAll();
 
             // Update Ordinary state
-            ((Ordinary) Thread.currentThread()).setOrdinaryState(OrdinaryStates.AT_A_ROOM);
-            repos.setOrdinaryState(ordinaryId, ((Ordinary) Thread.currentThread()).getOrdinaryState());
+            ord[ordinaryId] = (AssaultPartyClientProxy) Thread.currentThread();
+            ord[ordinaryId].setOrdinaryState(OrdinaryStates.AT_A_ROOM);
+            reposStub.setOrdinaryState(ordinaryId, ord[ordinaryId].getOrdinaryState());
         }
 
         return pos[member] < rooms[room];
@@ -259,13 +262,7 @@ public class AssaultParty {
             move = member == 0 ? 3 : 0;
         }
 
-        try {
-            sleep((int) (Math.random() * 10));
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        int ordinaryId = ((Ordinary) Thread.currentThread()).getOrdinaryId();
+        int ordinaryId = ((AssaultPartyClientProxy) Thread.currentThread()).getOrdinaryId();
         while ((crawlout && move < 1) || (member != 0 && init) || !reversed) {
             try {
                 wait();
@@ -291,13 +288,14 @@ public class AssaultParty {
         if (pos[member] < 0)
             pos[member] = 0;
 
-        repos.setPosition(ap * SimulConsts.E + member, pos[member]);
+        reposStub.setPosition(ap * SimulConsts.E + member, pos[member]);
         notifyAll();
 
         if (pos[member] == 0) {
             // Update Ordinary state
-            ((Ordinary) Thread.currentThread()).setOrdinaryState(OrdinaryStates.COLLECTION_SITE);
-            repos.setOrdinaryState(ordinaryId, ((Ordinary) Thread.currentThread()).getOrdinaryState());
+            ord[ordinaryId] = (AssaultPartyClientProxy) Thread.currentThread();
+            ord[ordinaryId].setOrdinaryState(OrdinaryStates.COLLECTION_SITE);
+            reposStub.setOrdinaryState(ordinaryId, ord[ordinaryId].getOrdinaryState());
         }
 
         return pos[member] > 0;

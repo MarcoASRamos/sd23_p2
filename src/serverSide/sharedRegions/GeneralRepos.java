@@ -123,6 +123,7 @@ public class GeneralRepos {
          // robbed paintings
          robbed = 0;
  
+         nEntities = 0;
          reportInitialStatus();
      }
  
