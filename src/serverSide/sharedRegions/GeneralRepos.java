@@ -1,10 +1,12 @@
 package serverSide.sharedRegions;
 
-import java.util.Objects;
 import serverSide.main.*;
-import genclass.GenericIO;
-import genclass.TextFile;
+import serverSide.entities.*;
 import clientSide.entities.*;
+import clientSide.stubs.*;
+import commInfra.*;
+import genclass.GenericIO;
+
 
 /**
  * General Repository
@@ -18,334 +20,355 @@ import clientSide.entities.*;
  */
 
 public class GeneralRepos {
+    
     /**
      * Name of the logging file.
      */
 
-    private final String logFileName;
+     private final String logFileName;
+
+     /**
+      * State of the Master.
+      */
+ 
+     private int masterState;
+ 
+     /**
+      * State of the ordinaries.
+      */
+ 
+     private int[] ordinaryState;
+ 
+     /**
+      * Situation of the ordinaries.
+      */
+     private char[] ordinarySituation;
+ 
+     /**
+      * Maximum displacement of the ordinaries.
+      */
+     private int[] MDs;
+ 
+     /**
+      * Assault party elements
+      */
+     private int[][] elements;
+ 
+     /**
+      * Assault party room
+      */
+     private int[] apRoom;
+ 
+     /**
+      * Rooms number of paintings hanging on the walls
+      */
+     private int[] paintings;
+ 
+     /**
+      * Rooms distance from outside gathering site
+      */
+     private int[] distances;
+ 
+     /**
+      * Number of robbed paintings
+      */
+     private int robbed;
 
     /**
-     * State of the Chef
+     *   Number of entity groups requesting the shutdown.
      */
-
-    private int chefState;
+   private int nEntities;
+ 
+     /**
+      * Instantiation of a general repository object.
+      *
+      * @param logFileName name of the logging file
+      */
+ 
+     public GeneralRepos(String logFileName) {
+         if ((logFileName == null) || Objects.equals(logFileName, ""))
+             this.logFileName = "logger";
+         else
+             this.logFileName = logFileName;
+ 
+         // master thieve
+         masterState = MasterStates.PLANNING_THE_HEIST;
+ 
+         // ordinarie thives
+         ordinaryState = new int[SimulConsts.M - 1];
+         ordinarySituation = new char[SimulConsts.M - 1];
+         MDs = new int[SimulConsts.M - 1];
+         for (int i = 0; i < SimulConsts.M - 1; i++) {
+             ordinaryState[i] = OrdinaryStates.CONCENTRATION_SITE;
+             ordinarySituation[i] = 'W';
+             MDs[i] = 0;
+         }
+ 
+         // museum
+         paintings = new int[SimulConsts.N];
+         distances = new int[SimulConsts.N];
+ 
+         // assault parties
+         apRoom = new int[2];
+         apRoom[0] = -1;
+         apRoom[1] = -1;
+ 
+         elements = new int[SimulConsts.M - 1][3];
+         for (int i = 0; i < SimulConsts.M - 1; i++) {
+             elements[i][0] = -1;
+             elements[i][0] = 0;
+             elements[i][0] = 0;
+         }
+ 
+         // robbed paintings
+         robbed = 0;
+ 
+         reportInitialStatus();
+     }
+ 
 
     /**
-     * State of the Waiter
-     */
+   *   Operation server shutdown.
+   *
+   *   New operation.
+   */
 
-    private int waiterState;
+   public synchronized void shutdown () {
+       nEntities += 1;
+       if (nEntities >= SimulConsts.M)
+          ServerMuseumGeneralRepos.waitConnection = false;
+   }
 
-    /**
-     * State of the Chef
-     */
 
-    private int[] studentState;
 
-    /**
-     * Number of courses delivered (not sure)
-     */
+     /**
+      * Set master state.
+      *
+      * @param state master state
+      */
+ 
+     public synchronized void setMasterState(int state) {
+         masterState = state;
+         reportStatus();
+     }
+ 
+     /**
+      * Set ordinary state.
+      *
+      * @param id    ordinary id
+      * @param state ordinary state
+      */
+ 
+     public synchronized void setOrdinaryState(int id, int state) {
+         ordinaryState[id] = state;
+         reportStatus();
+     }
+ 
+     /**
+      * Set ordinary situation
+      */
+     public synchronized void setOrdinarySituation(int id, char sit) {
+         ordinarySituation[id] = sit;
+         reportStatus();
+     }
+ 
+     /**
+      * Set ordinary thieves maximum distances
+      * 
+      * @param id of the ordinary thieve
+      * @param md of the ordinary thieve
+      */
+     public synchronized void setOrdinariesMD(int id, int md) {
+         this.MDs[id] = md;
+     }
+ 
+     /**
+      * 
+      * @param ap assault party
+      * @param room room to heist
+      */
+     public synchronized void setApRoom(int ap, int room){
+         apRoom[ap] = room;
+     }
+ 
+     /**
+      * Set Assault Party element
+      * 
+      * @param elem index (= ap*SimulConsts.E+memberId)
+      * @param tid  ordinary thieve id
+      */
+     public synchronized void setApElement(int elem, int tid) {
+         elements[elem][0] = tid;
+         reportStatus();
+     }
+ 
+     /**
+      * Update carrying a canvas
+      * 
+      * @param elem   index
+      * @param canvas carry
+      */
+     public synchronized void setCanvas(int elem, int canvas) {
+         elements[elem][2] = canvas;
+         reportStatus();
+     }
+ 
+     /**
+      * Update thieve position
+      * 
+      * @param elem index
+      * @param pos  actual position of the thieve in line
+      */
+     public synchronized void setPosition(int elem, int pos) {
+         elements[elem][1] = pos;
+         reportStatus();
+     }
+ 
+     /**
+      * Set number of paitings on the walls
+      * 
+      * @param paitings on each room
+      */
+     public synchronized void setRoomPaitings(int[] paitings) {
+         this.paintings = paitings;
+         reportStatus();
+     }
+ 
+     /**
+      * Set distance of the rooms
+      * 
+      * @param distances of each room
+      */
+     public synchronized void setRoomDistances(int[] distances) {
+         this.distances = distances;
+     }
+ 
+     /**
+      * Set robbed paintings
+      */
+     public synchronized void setRobbedPaintings() {
+         this.robbed++;
+     }
+ 
+     /**
+      * Write the header to the logging file.
+      *
+      * The Ordinaries are sleeping and the master are decidingheist next operation.
+      * Internal operation.
+      */
+ 
+     private void reportInitialStatus() {
+         TextFile log = new TextFile(); // instantiation of a text file handler
+ 
+         if (!log.openForWriting(".", logFileName)) {
+             GenericIO.writelnString("The operation of creating the file " + logFileName + " failed!");
+             System.exit(1);
+         }
+ 
+         log.writelnString("                           Heist to the Museum - Description of the internal state\n");
+         log.writelnString("  Mstr   Thief 1     Thief 2     Thief 3     Thief 4     Thief 5     Thief 6");
+         log.writelnString("Stat    Stat S MD   Stat S MD   Stat S MD   Stat S MD   Stat S MD   Stat S MD");
+ 
+         log.writelnString(
+                 "                Assault party 1                         Assault party 2                             Museum");
+         log.writelnString(
+                 "      Elem 1      Elem 2      Elem 3          Elem 1      Elem 2      Elem 3    Room 1   Room 2   Room 3   Room 4   Room 5");
+         log.writelnString(
+                 "RId Id Pos Cv   Id Pos Cv   Id Pos Cv   RId Id Pos Cv   Id Pos Cv   Id Pos Cv   NP DT    NP DT    NP DT    NP DT    NP DT");
+ 
+         if (!log.close()) {
+             GenericIO.writelnString("The operation of closing the file " + logFileName + " failed!");
+             System.exit(1);
+         }
+         reportStatus();
+     }
+ 
+     /**
+      * Write the footer to the logging file.
+      */
+ 
+     public void reportFinalStatus() {
+         TextFile log = new TextFile();
+ 
+         if (!log.openForAppending(".", logFileName)) {
+             GenericIO.writelnString("The operation of opening for appending the file " + logFileName + " failed!");
+             System.exit(1);
+         }
+ 
+         log.writelnString("My friends, tonight's effort produced " + robbed + " priceless paintings!");
+ 
+         if (!log.close()) {
+             GenericIO.writelnString("The operation of closing the file " + logFileName + " failed!");
+             System.exit(1);
+         }
+     }
+ 
+     /**
+      * Write a state line at the end of the logging file.
+      *
+      * The current state of entities is organized in a line to be printed.
+      */
+ 
+     private void reportStatus() {
+         TextFile log = new TextFile(); // instantiation of a text file handler
+         String lineStatus = "", line2Status = ""; // state line to be printed
+ 
+         if (!log.openForAppending(".", logFileName)) {
+             GenericIO.writelnString("The operation of opening for appending the file " + logFileName + " failed!");
+             System.exit(1);
+         }
+ 
+         switch (masterState) {
+             case MasterStates.PLANNING_THE_HEIST:
+                 lineStatus += "PTH  ";
+                 break;
+             case MasterStates.DECIDING_WHAT_TO_DO:
+                 lineStatus += "DWTD ";
+                 break;
+             case MasterStates.ASSEMBLING_A_GROUP:
+                 lineStatus += "AAG  ";
+                 break;
+             case MasterStates.WAITING_FOR_GROUP_ARRIVAL:
+                 lineStatus += "WFGA ";
+                 break;
+             case MasterStates.PRESENTING_THE_REPORT:
+                 lineStatus += "PTR  ";
+                 break;
+         }
+ 
+         for (int i = 0; i < SimulConsts.M - 1; i++)
+             switch (ordinaryState[i]) {
+                 case OrdinaryStates.CONCENTRATION_SITE:
+                     lineStatus += "   CNS  " + ordinarySituation[i] + "  " + MDs[i];
+                     break;
+                 case OrdinaryStates.CRAWLING_INWARDS:
+                     lineStatus += "   CIN  " + ordinarySituation[i] + "  " + MDs[i];
+                     break;
+                 case OrdinaryStates.AT_A_ROOM:
+                     lineStatus += "   AAR  " + ordinarySituation[i] + "  " + MDs[i];
+                     break;
+                 case OrdinaryStates.CRAWLING_OUTWARDS:
+                     lineStatus += "   COUT  " + ordinarySituation[i] + "  " + MDs[i];
+                     break;
+                 case OrdinaryStates.COLLECTION_SITE:
+                     lineStatus += "   CLS " + ordinarySituation[i] + " " + MDs[i];
+                     break;
+             }
+ 
+         log.writelnString(lineStatus); // states of thieves
+         for (int i = 0; i < SimulConsts.M - 1; i++){
+             if(i% SimulConsts.E==0) line2Status += String.format("%2d> ", apRoom[i/SimulConsts.E]);
+             line2Status += String.format("%2d  %2d %2d | ", elements[i][0], elements[i][1], elements[i][2]);
+         }
+ 
+         for (int i = 0; i < SimulConsts.N; i++)
+             line2Status += String.format("%2d %2d    ", paintings[i], distances[i]);
+         log.writelnString(line2Status + '\n'); // status of shared regions
+ 
+         if (!log.close()) {
+             GenericIO.writelnString("The operation of closing the file " + logFileName + " failed!");
+             System.exit(1);
+         }
+     }
 
-    private int nCourses;
-
-    /**
-     * Number of Portions delivered (not sure)
-     */
-
-    private int nPortions;
-
-    /**
-     * Seats at the table
-     */
-    private int[] seatsAtTable;
-
-    /**
-     * Number of entities that requested shutdown
-     */
-    private int nEntities;
-
-    /**
-     * Instantiation of a general repository object.
-     */
-
-    public GeneralRepos() {
-        this("");
-    }
-
-    /**
-     * Instantiation of a general repository object.
-     *
-     * @param logFileName name of the logging file
-     */
-
-    public GeneralRepos(String logFileName) {
-        nEntities = 0;
-        if ((logFileName == null) || Objects.equals(logFileName, ""))
-            this.logFileName = "logger";
-        else
-            this.logFileName = logFileName;
-        chefState = ChefStates.WAITING_FOR_AN_ORDER;
-        waiterState = WaiterStates.APRAISING_SITUATION;
-        studentState = new int[SimulConsts.N];
-        for (int i = 0; i < SimulConsts.N; i++)
-            studentState[i] = StudentStates.GOING_TO_THE_RESTAURANT;
-        nCourses = 0;
-        nPortions = 0;
-        seatsAtTable = new int[SimulConsts.N];
-        for (int i = 0; i < SimulConsts.N; i++) {
-            seatsAtTable[i] = -1;
-        }
-        reportInitialStatus();
-    }
-
-    /**
-     * Write the header to the logging file.
-     *
-     * The chef and the waiter are sleeping and the students are going to the
-     * restaurant.
-     */
-
-    private void reportInitialStatus() {
-        TextFile log = new TextFile(); // instantiation of a text file handler
-
-        if (!log.openForWriting(".", logFileName)) {
-            GenericIO.writelnString("The operation of creating the file " + logFileName + " failed!");
-            System.exit(1);
-        }
-        log.writelnString("                                        The Restaurant - Description of the internal state");
-        log.writelnString(
-                " Chef Waiter  Stu0  Stu1  Stu2  Stu3  Stu4  Stu5  Stu6  NCourse  NPortion                    Table");
-        log.writelnString(
-                "State State  State State State State State State State                     Seat0 Seat1 Seat2 Seat3 Seat4 Seat5 Seat6");
-        if (!log.close()) {
-            GenericIO.writelnString("The operation of closing the file " + logFileName + " failed!");
-            System.exit(1);
-        }
-    }
-
-    /**
-     * Write a state line at the end of the logging file.
-     *
-     * The current state of the barbers and the customers is organized in a line to
-     * be printed.
-     * Internal operation.
-     */
-
-    private void reportStatus() {
-        TextFile log = new TextFile(); // instantiation of a text file handler
-        String line = ""; // state line to be printed
-        if (!log.openForAppending(".", logFileName)) {
-            GenericIO.writelnString("The operation of opening for appending the file " + logFileName + " failed!");
-            System.exit(1);
-        }
-        switch (chefState) {
-            case ChefStates.WAITING_FOR_AN_ORDER:
-                line += "WAFOR ";
-                break;
-            case ChefStates.PREPARING_THE_COURSE:
-                line += "PRPCS ";
-                break;
-            case ChefStates.DISHING_THE_PORTIONS:
-                line += "DSHPT ";
-                break;
-            case ChefStates.DELIVERING_THE_PORTIONS:
-                line += "DLVPT ";
-                break;
-            case ChefStates.CLOSING_SERVICE:
-                line += "CLSSV ";
-                break;
-        }
-
-        switch (waiterState) {
-            case WaiterStates.APRAISING_SITUATION:
-                line += "APPST  ";
-                break;
-            case WaiterStates.PRESENTING_THE_MENU:
-                line += "PRSMN  ";
-                break;
-            case WaiterStates.TAKING_THE_ORDER:
-                line += "TKODR  ";
-                break;
-            case WaiterStates.PLACING_ODER:
-                line += "PCODR  ";
-                break;
-            case WaiterStates.WAITING_FOR_PORTION:
-                line += "WTFPT  ";
-                break;
-            case WaiterStates.PROCESSING_THE_BILL:
-                line += "PRCBL  ";
-                break;
-            case WaiterStates.RECEIVING_PAYMENT:
-                line += "RECPM  ";
-                break;
-        }
-
-        for (int i = 0; i < SimulConsts.N; i++) {
-            switch (studentState[i]) {
-                case StudentStates.GOING_TO_THE_RESTAURANT:
-                    line += "GGTRT ";
-                    break;
-                case StudentStates.TAKING_A_SEAT_AT_THE_TABLE:
-                    line += "TKSTT ";
-                    break;
-                case StudentStates.SELECTING_THE_COURSES:
-                    line += "SELCS ";
-                    break;
-                case StudentStates.ORGANIZING_THE_ORDER:
-                    line += "OGODR ";
-                    break;
-                case StudentStates.CHATING_WITH_COMPANIONS:
-                    line += "CHTWC ";
-                    break;
-                case StudentStates.ENJOYING_THE_MEAL:
-                    line += "EJYML ";
-                    break;
-                case StudentStates.PAYING_THE_BILL:
-                    line += "PYTBL ";
-                    break;
-                case StudentStates.GOING_HOME:
-                    line += "GGHOM ";
-                    break;
-            }
-        }
-
-        line += "    " + String.valueOf(nCourses);
-        line += "        " + String.valueOf(nPortions);
-        line += "        " + (seatsAtTable[0] >= 0 ? String.valueOf(seatsAtTable[0]) : "-");
-        for (int i = 1; i < SimulConsts.N; i++) {
-            line += "     " + (seatsAtTable[i] >= 0 ? String.valueOf(seatsAtTable[i]) : "-");
-        }
-
-        log.writelnString(line);
-        if (!log.close()) {
-            GenericIO.writelnString("The operation of closing the file " + logFileName + " failed!");
-            System.exit(1);
-        }
-    }
-
-    /**
-     * Write in the logging file the legend
-     */
-    public void reportLegend() {
-        TextFile log = new TextFile(); // instantiation of a text file handler
-        String line = ""; // state line to be printed
-        if (!log.openForAppending(".", logFileName)) {
-            GenericIO.writelnString("The operation of opening for appending the file " + logFileName + " failed!");
-            System.exit(1);
-        }
-
-        line += "\n\n";
-        line += "Legend:\n";
-        line += "Chef State   - state of the chef: WAFOR PRPCS DSHPT DLVPT CLSSV\n";
-        line += "Waiter State - state of the waiter: APPST PRSMN TKODR PCODR WTFPT PRCBL RECPM\n";
-        line += "Stu# State   - state of the student #: GGTRT TKSTT SELCS OGODR CHTWC EJYML PYTBL GGHOM\n";
-        line += "NCourse      - number of the course: 0 upto M\n";
-        line += "NPortion     - number of the portion of a course: 0 upto N\n";
-        line += "Table Seat#  - id of the student sat at that chair\n";
-
-        log.writelnString(line);
-        if (!log.close()) {
-            GenericIO.writelnString("The operation of closing the file " + logFileName + " failed!");
-            System.exit(1);
-        }
-    }
-
-    /**
-     * Write in the logging file the new chef state
-     * 
-     * @param value chef state to set
-     */
-    public synchronized void setChefState(int value) {
-        this.chefState = value;
-        reportStatus();
-    }
-
-    /**
-     * Write in the logging file the new waiter state
-     * 
-     * @param value waiter state to set
-     */
-    public synchronized void setWaiterState(int value) {
-        this.waiterState = value;
-        reportStatus();
-    }
-
-    /**
-     * Write in the logging file the updated student state
-     * 
-     * @param id    student id
-     * @param value student state to set
-     */
-    public synchronized void updateStudentState(int id, int value) {
-        this.studentState[id] = value;
-        reportStatus();
-    }
-
-    /**
-     * Update student state
-     * 
-     * @param id    student id
-     * @param value student state to set
-     * @param hold  specifies if prints line of report status
-     */
-    public synchronized void updateStudentState(int id, int value, boolean hold) {
-        this.studentState[id] = value;
-    }
-
-    /**
-     * Set variable nCourses and report status in the logging file
-     * 
-     * @param value nCourses value to set
-     */
-    public synchronized void setnCourses(int value) {
-        this.nCourses = value;
-    }
-
-    /**
-     * Write the portion value in the logging file
-     * 
-     * @param value nPortions value to set
-     */
-    public synchronized void setnPortions(int value) {
-        this.nPortions = value;
-    }
-
-    /**
-     * Write to the logging file the updated seats values at the table
-     * 
-     * @param seat seat at the table
-     * @param id   student id to sit
-     */
-    public synchronized void updateSeatsAtTable(int seat, int id) {
-        this.seatsAtTable[seat] = id;
-        reportStatus();
-    }
-
-    /**
-     * Update the leaving of a student in the seats of the table
-     * 
-     * @param id student id to leave table
-     */
-    public synchronized void updateSeatsAtLeaving(int id) {
-        int seat = 0;
-
-        for (int i = 0; i < this.seatsAtTable.length; i++) {
-            if (this.seatsAtTable[i] == id)
-                seat = i;
-        }
-
-        this.seatsAtTable[seat] = -1;
-    }
-
-    /**
-     * Operation Table server shutdown
-     */
-    public synchronized void shutdown() {
-        nEntities += 1;
-        if (nEntities >= SimulConsts.S) {
-            reportLegend();
-            ServerRestaurantGeneralRepos.waitConnection = false;
-        }
-        notifyAll();
-    }
 }

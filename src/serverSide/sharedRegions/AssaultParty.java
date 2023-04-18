@@ -4,6 +4,7 @@ import java.util.Arrays;
 import commInfra.*;
 import serverSide.entities.*;
 import genclass.*;
+import serverSide.main.ServerMuseumAssaultParty;
 import serverSide.main.SimulConsts;
 
 import static java.lang.Thread.sleep;
@@ -81,6 +82,11 @@ public class AssaultParty {
      * Distaces in units from the site to the each museum room
      */
     private final int[] rooms;
+
+    /**
+     *   Number of entity groups requesting the shutdown.
+     */
+    private int nEntities;
 
     /**
      * Bar instantiation
@@ -323,4 +329,19 @@ public class AssaultParty {
 
         return true;
     }
+
+
+    /**
+   *   Operation server shutdown.
+   *
+   *   New operation.
+   */
+
+   public synchronized void shutdown ()
+   {
+       nEntities += 1;
+       if (nEntities >= SimulConsts.M)
+          ServerMuseumAssaultParty.waitConnection = false;
+       notifyAll ();                                        // the barber may now terminate
+   }
 }
