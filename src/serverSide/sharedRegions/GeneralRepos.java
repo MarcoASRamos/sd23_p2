@@ -86,13 +86,13 @@ public class GeneralRepos {
             this.logFileName = logFileName;
         chefState = ChefStates.WAITING_FOR_AN_ORDER;
         waiterState = WaiterStates.APRAISING_SITUATION;
-        studentState = new int[ExecuteConst.N];
-        for (int i = 0; i < ExecuteConst.N; i++)
+        studentState = new int[SimulConsts.N];
+        for (int i = 0; i < SimulConsts.N; i++)
             studentState[i] = StudentStates.GOING_TO_THE_RESTAURANT;
         nCourses = 0;
         nPortions = 0;
-        seatsAtTable = new int[ExecuteConst.N];
-        for (int i = 0; i < ExecuteConst.N; i++) {
+        seatsAtTable = new int[SimulConsts.N];
+        for (int i = 0; i < SimulConsts.N; i++) {
             seatsAtTable[i] = -1;
         }
         reportInitialStatus();
@@ -180,7 +180,7 @@ public class GeneralRepos {
                 break;
         }
 
-        for (int i = 0; i < ExecuteConst.N; i++) {
+        for (int i = 0; i < SimulConsts.N; i++) {
             switch (studentState[i]) {
                 case StudentStates.GOING_TO_THE_RESTAURANT:
                     line += "GGTRT ";
@@ -212,7 +212,7 @@ public class GeneralRepos {
         line += "    " + String.valueOf(nCourses);
         line += "        " + String.valueOf(nPortions);
         line += "        " + (seatsAtTable[0] >= 0 ? String.valueOf(seatsAtTable[0]) : "-");
-        for (int i = 1; i < ExecuteConst.N; i++) {
+        for (int i = 1; i < SimulConsts.N; i++) {
             line += "     " + (seatsAtTable[i] >= 0 ? String.valueOf(seatsAtTable[i]) : "-");
         }
 
@@ -342,7 +342,7 @@ public class GeneralRepos {
      */
     public synchronized void shutdown() {
         nEntities += 1;
-        if (nEntities >= ExecuteConst.S) {
+        if (nEntities >= SimulConsts.S) {
             reportLegend();
             ServerRestaurantGeneralRepos.waitConnection = false;
         }
