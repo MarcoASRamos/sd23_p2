@@ -5,23 +5,24 @@ import serverSide.entities.*;
 import clientSide.entities.*;
 import commInfra.*;
 
-public class AssaultPartyInterface {
-    
+
+public class ControlCollectionSiteInterface {
+
     /**
-   *  Reference to the ap.
+   *  Reference to the ccs.
    */
 
-   private final AssaultParty ap;
+   private final ControlCollectionSite ccs;
 
    /**
-    *  Instantiation of an interface to the ap.
+    *  Instantiation of an interface to the ccs.
     *
-    *    @param ap reference to the ap
+    *    @param ccs reference to the ccs
     */
  
-    public AssaultPartyInterface (AssaultParty ap)
+    public ControlCollectionSiteInterface (ControlCollectionSite ccs)
     {
-       this.ap = ap;
+       this.ccs = ccs;
     }
  
    /**
@@ -42,52 +43,38 @@ public class AssaultPartyInterface {
     
         switch (inMessage.getMsgType ()){ 
 
-            //verify ordinary state
-            case MessageType.AM: 
-                if ((inMessage.getOrdinaryId () < 0) || (inMessage.getOrdinaryId () >= SimulConsts.M))
-                    throw new MessageException ("Invalid ordinary id!", inMessage);                      
-                break;
-
-            //verify ordinary id and state
-            case MessageType.RD:
-            case MessageType.CI:
-            case MessageType.CO:  
-                if ((inMessage.getOrdinaryId () < 0) || (inMessage.getOrdinaryId () >= SimulConsts.M))
-                    throw new MessageException ("Invalid ordinary id!", inMessage);
-                else if ((inMessage.getOrdinaryState () < OrdinaryStates.CONCENTRATION_SITE) || (inMessage.getOrdinaryState () > OrdinaryStates.COLLECTION_SITE))
-                    throw new MessageException ("Invalid ordinary state!", inMessage);
-                break;
-
             //verify master state
-            case MessageType.SAP: 
+            case MessageType.SO: 
+            case MessageType.TAR:
+            case MessageType.CAC:
                 if ((inMessage.getMasterState () < MasterStates.PLANNING_THE_HEIST) || (inMessage.getMasterState () > MasterStates.PRESENTING_THE_REPORT))
                 throw new MessageException ("Invalid master state!", inMessage);                     
                 break;
 
             // check nothing
             case MessageType.SHUT:
-            case MessageType.GRAP:     
+            case MessageType.GRI:   
+            case MessageType.HAC:
                 break;
             default:                   throw new MessageException ("Invalid message type!", inMessage);
-       }
+        } 
 
-
- 
         /* processing */
-    
+ 
         switch (inMessage.getMsgType ()) { 
             
-            case MessageType.AM: break;
-            case MessageType.RD: break;
-            case MessageType.CI: break;
-            case MessageType.CO: break;
-            case MessageType.GRAP: break;
+            case MessageType.SO: 
+            case MessageType.TAR:
+            case MessageType.CAC:
+            case MessageType.GRI:   
+            case MessageType.HAC: break;
                                     
-            case MessageType.SHUT:     ap.shutdown ();
+            case MessageType.SHUT:     ccs.shutdown ();
                                     outMessage = new Message (MessageType.SHUTDONE);
                                     break;
             }
 
         return (outMessage);
     }
+    
 }
