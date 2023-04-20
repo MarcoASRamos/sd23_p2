@@ -90,7 +90,7 @@ public class AssaultParty {
     /**
      *  Reference to master thread.
      */
-    private final AssaultPartyClientProxy master;
+    private AssaultPartyClientProxy master;
 
     /**
      *   Number of entity groups requesting the shutdown.
@@ -166,7 +166,7 @@ public class AssaultParty {
         // Update Master state
         master = (AssaultPartyClientProxy) Thread.currentThread();
         master.setMasterState(MasterStates.DECIDING_WHAT_TO_DO);
-        reposStub.setMasterState(master.getMasterState());
+        reposStub.setMasterState(0, master.getMasterState());
     }
 
     /**

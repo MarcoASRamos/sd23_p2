@@ -1,4 +1,3 @@
-
 package clientSide.main;
 
 import clientSide.entities.*;

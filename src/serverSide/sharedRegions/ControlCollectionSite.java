@@ -61,7 +61,7 @@ public class ControlCollectionSite {
     /**
      *  Reference to master thread.
      */
-    private final ControlCollectionSiteClientProxy master;
+    private ControlCollectionSiteClientProxy master;
 
     /**
      *   Number of entity groups requesting the shutdown.
@@ -105,7 +105,7 @@ public class ControlCollectionSite {
         //Update Master state
         master = (ControlCollectionSiteClientProxy) Thread.currentThread();
         master.setMasterState(MasterStates.DECIDING_WHAT_TO_DO);
-        reposStub.setMasterState(master.getMasterState());
+        reposStub.setMasterState(0, master.getMasterState());
     }
 
 
@@ -130,7 +130,7 @@ public class ControlCollectionSite {
         //Update Master state
         master = (ControlCollectionSiteClientProxy) Thread.currentThread();
         master.setMasterState(MasterStates.WAITING_FOR_GROUP_ARRIVAL);
-        reposStub.setMasterState(master.getMasterState());
+        reposStub.setMasterState(0, master.getMasterState());
 
     }
 
@@ -184,7 +184,7 @@ public class ControlCollectionSite {
         //Update Master state
 		master = (ControlCollectionSiteClientProxy) Thread.currentThread();
         master.setMasterState(MasterStates.DECIDING_WHAT_TO_DO);
-        reposStub.setMasterState(master.getMasterState());
+        reposStub.setMasterState(0, master.getMasterState());
     }
 
 

@@ -73,16 +73,55 @@ public class ConcentrationSiteInterface {
         switch (inMessage.getMsgType ()) { 
             
             case MessageType.PE:
+                ((ConcentrationSiteClientProxy) Thread.currentThread ()).setOrdinaryId (inMessage.getOrdinaryId ());
+                ((ConcentrationSiteClientProxy) Thread.currentThread ()).setOrdinaryState (inMessage.getOrdinaryState ());
+                int pe = cs.prepareExcursion();
+                outMessage = new Message (MessageType.PEDONE, pe);
+                break;
+
             case MessageType.AIN: 
+                ((ConcentrationSiteClientProxy) Thread.currentThread ()).setOrdinaryId (inMessage.getOrdinaryId ());
+                ((ConcentrationSiteClientProxy) Thread.currentThread ()).setOrdinaryState (inMessage.getOrdinaryState ());
+                boolean ain = cs.amINeeded(inMessage.getAp());
+                outMessage = new Message (MessageType.AINDONE, ain);
+                break;
+
             case MessageType.PAP: 
+                ((ConcentrationSiteClientProxy) Thread.currentThread ()).setMasterState (inMessage.getMasterState ());
+                cs.prepareAssaultParty(inMessage.getAp(), inMessage.getRoom());
+                outMessage = new Message (MessageType.PAPDONE);
+                    break;
+
             case MessageType.SUTR: 
+                ((ConcentrationSiteClientProxy) Thread.currentThread ()).setMasterState (inMessage.getMasterState ());
+                cs.sumUpResults();
+                outMessage = new Message (MessageType.SUTRDONE);
+                break;
+
             case MessageType.GRCS: 
+                int gr = cs.getRoom(inMessage.getRoom());
+                outMessage = new Message (MessageType.GRCSDONE, gr);
+                break;
+
             case MessageType.GAP: 
-            case MessageType.AS: break;
-                                    
-            case MessageType.SHUT:     cs.shutdown ();
-                                    outMessage = new Message (MessageType.SHUTDONE);
-                                    break;
+                int gap = cs.getAssautlParty();
+                outMessage = new Message (MessageType.GAPDONE, gap);
+                break;
+
+            case MessageType.AS: 
+                int as = cs.appraiseSit(inMessage.getRoomStt());
+                outMessage = new Message (MessageType.ASDONE, as);
+                break;
+            
+            case MessageType.ENDOP:     
+                cs.endOperation(inMessage.getOrdinaryId());
+                outMessage = new Message (MessageType.SHUTDONE);
+                break;    
+
+            case MessageType.SHUT:     
+                cs.shutdown ();
+                outMessage = new Message (MessageType.SHUTDONE);
+                break;
             }
 
         return (outMessage);

@@ -1,11 +1,5 @@
 package serverSide.main;
 
-public class ServerMuseumMuseum {
-    
-}
-
-package serverSide.main;
-
 import serverSide.entities.*;
 import serverSide.sharedRegions.*;
 import clientSide.stubs.*;

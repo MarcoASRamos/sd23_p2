@@ -64,14 +64,37 @@ public class ControlCollectionSiteInterface {
         switch (inMessage.getMsgType ()) { 
             
             case MessageType.SO: 
+                ((ControlCollectionSiteClientProxy) Thread.currentThread ()).setMasterState (inMessage.getMasterState ());
+                ccs.startOperation();
+                outMessage = new Message (MessageType.SODONE);
+                break;
+
             case MessageType.TAR:
+                ((ControlCollectionSiteClientProxy) Thread.currentThread ()).setMasterState (inMessage.getMasterState ());
+                ccs.takeARest();
+                outMessage = new Message (MessageType.TARDONE);
+                break;
+
             case MessageType.CAC:
+                ((ControlCollectionSiteClientProxy) Thread.currentThread ()).setMasterState (inMessage.getMasterState ());
+                ccs.collectACanvas();
+                outMessage = new Message (MessageType.CACDONE);
+                break;
+
             case MessageType.GRI:   
-            case MessageType.HAC: break;
+                int gri = ccs.getRoomIdx();
+                outMessage = new Message (MessageType.GRIDONE, gri);
+                break;
+
+            case MessageType.HAC: 
+                ccs.handACanvas(inMessage.getCanvas(), inMessage.getRoom(), inMessage.getAp(), inMessage.getMember());
+                outMessage = new Message (MessageType.HACDONE);
+                break;
                                     
-            case MessageType.SHUT:     ccs.shutdown ();
-                                    outMessage = new Message (MessageType.SHUTDONE);
-                                    break;
+            case MessageType.SHUT:     
+                ccs.shutdown ();
+                outMessage = new Message (MessageType.SHUTDONE);
+                break;
             }
 
         return (outMessage);

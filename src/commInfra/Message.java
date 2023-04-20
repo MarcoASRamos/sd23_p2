@@ -232,6 +232,150 @@ public class Message implements Serializable
         return (sit);
     }
 
+    /**
+     * assignMember operation result
+     */
+    private int am;
+
+    /**
+     * assignMember at assault party
+     * @return am variable
+     */
+    public int assignMember(){
+        return am;
+    }
+
+    /**
+     * getRoom assault party operation result
+     */
+    private int grap;
+
+    /**
+     * getRoom at assault party
+     * @return grap variable
+     */
+    public int getRoomAP(){
+        return grap;
+    }
+
+    /**
+     * crawl in operation result
+     */
+    private boolean ci;
+
+    /**
+     * crawl in at assault party
+     * @return ci variable
+     */
+    public boolean crawlIn(){
+        return ci;
+    }
+
+    /**
+     * crawl out operation result
+     */
+    private boolean co;
+
+    /**
+     * crawl out at assault party
+     * @return co variable
+     */
+    public boolean crawlOut(){
+        return co;
+    }
+
+    /**
+     *  getRoom operation result
+     */
+    private int grcs;
+
+    /**
+     * getRoom at concentration site
+     * @return grcs variable
+     */
+    public int getRoomCS(){
+        return grcs;
+    }
+
+    /**
+     * get ap operation result
+     */
+    private int gap;
+
+    /**
+     * get ap at concentration site
+     * @return gap variable
+     */
+    public int getAssautlParty(){
+        return gap;
+    }
+
+    /**
+     *  appraisse situation operation result
+     */
+    private int as;
+
+    /**
+     * appraise sit at concentration site
+     * @return as variable
+     */
+    public int appraiseSit(){
+        return as;
+    }
+
+    /**
+     *  prepare excursion operation result
+     */
+    private int pe;
+
+    /**
+     * prepare excursion at concentration site
+     * @return pe variable
+     */
+    public int prepareExcursion(){
+        return pe;
+    }
+
+    /**
+     *  am i needed operation result
+     */
+    private boolean ain;
+
+    /**
+     * am i needed concentration site
+     * @return ain variable
+     */
+    public boolean amINeeded(){
+        return ain;
+    }
+
+    /**
+     *  operation result
+     */
+    private int gri;
+
+    /**
+     * control collection site
+     * @return gri variable
+     */
+    public int getRoomIdx(){
+        return gri;
+    }
+
+    /**
+     *  operation result
+     */
+    private int rac;
+
+    /**
+     * museum
+     * @return rac variable
+     */
+    public int rollACanvas(){
+        return rac;
+    }
+
+
 
 
 

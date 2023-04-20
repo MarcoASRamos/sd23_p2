@@ -54,11 +54,14 @@ public class MuseumInterface {
  
       switch (inMessage.getMsgType ()) { 
          
-         case MessageType.RAC: break;
+         case MessageType.RAC: 
+            museum.rollACanvas(inMessage.getRoom(), inMessage.getAp(), inMessage.getMember());
+            break;
                                     
-         case MessageType.SHUT:     museum.shutdown ();
-                                    outMessage = new Message (MessageType.SHUTDONE);
-                                    break;
+         case MessageType.SHUT:     
+            museum.shutdown ();
+            outMessage = new Message (MessageType.SHUTDONE);
+            break;
          }
  
       return (outMessage);

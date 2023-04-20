@@ -77,15 +77,48 @@ public class AssaultPartyInterface {
     
         switch (inMessage.getMsgType ()) { 
             
-            case MessageType.AM: break;
-            case MessageType.RD: break;
-            case MessageType.CI: break;
-            case MessageType.CO: break;
-            case MessageType.GRAP: break;
+            case MessageType.AM: 
+            ((AssaultPartyClientProxy) Thread.currentThread ()).setOrdinaryId (inMessage.getOrdinaryId ());
+                int am = ap.assignMember(inMessage.getAp());
+                outMessage = new Message (MessageType.GRAPDONE, am);
+                break;
+
+            case MessageType.RD: 
+                ((AssaultPartyClientProxy) Thread.currentThread ()).setOrdinaryId (inMessage.getOrdinaryId ());
+                ((AssaultPartyClientProxy) Thread.currentThread ()).setOrdinaryState (inMessage.getOrdinaryState ());
+                ap.reverseDirection(inMessage.getMember());
+                outMessage = new Message (MessageType.GRAPDONE);
+                break;
+
+            case MessageType.CI: 
+                ((AssaultPartyClientProxy) Thread.currentThread ()).setOrdinaryId (inMessage.getOrdinaryId ());
+                ((AssaultPartyClientProxy) Thread.currentThread ()).setOrdinaryState (inMessage.getOrdinaryState ());
+                boolean ci = ap.crawlIn(inMessage.getAp(), inMessage.getMember(), inMessage.getMd());
+                outMessage = new Message (MessageType.GRAPDONE, ci);
+                break;
+
+            case MessageType.CO: 
+                ((AssaultPartyClientProxy) Thread.currentThread ()).setOrdinaryId (inMessage.getOrdinaryId ());
+                ((AssaultPartyClientProxy) Thread.currentThread ()).setOrdinaryState (inMessage.getOrdinaryState ());
+                boolean co = ap.crawlOut(inMessage.getAp(), inMessage.getMember(), inMessage.getMd());
+                outMessage = new Message (MessageType.GRAPDONE, co);
+                break;
+
+            case MessageType.SAP:
+                ((AssaultPartyClientProxy) Thread.currentThread ()).setMasterState (inMessage.getMasterState ());
+                ap.sendAssaultParty(inMessage.getRoom());
+                outMessage = new Message (MessageType.GRAPDONE);
+                break;
+
+            case MessageType.GRAP: 
+                int gr = ap.getRoom();
+                outMessage = new Message (MessageType.GRAPDONE, gr);
+                break;
                                     
-            case MessageType.SHUT:     ap.shutdown ();
-                                    outMessage = new Message (MessageType.SHUTDONE);
-                                    break;
+            case MessageType.SHUT:     
+                ap.shutdown ();
+                outMessage = new Message (MessageType.SHUTDONE);
+                break;
             }
 
         return (outMessage);
