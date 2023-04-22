@@ -1,4 +1,3 @@
-
 package serverSide.main;
 
 import serverSide.entities.*;
@@ -15,7 +14,7 @@ import java.net.*;
  * Communication is based on a communication channel under the TCP protocol.
  */
 
-public class ServerMuseumConcentrationSite {
+public class ServerMuseum {
     /**
      * Flag signaling the service is active.
      */
@@ -34,8 +33,8 @@ public class ServerMuseumConcentrationSite {
      */
 
     public static void main(String[] args) {
-        ConcentrationSite Cs; // barber shop (service to be rendered)
-        ConcentrationSiteInterface CsInter; // interface to the barber shop
+        Museum Museum; // barber shop (service to be rendered)
+        MuseumInterface MuseumInter; // interface to the barber shop
         GeneralReposStub reposStub; // stub to the general repository
         ServerCom scon, sconi; // communication channels
         int portNumb = -1; // port number for listening to service requests
@@ -73,8 +72,8 @@ public class ServerMuseumConcentrationSite {
 
         reposStub = new GeneralReposStub(reposServerName, reposPortNumb); // communication to the general repository is
                                                                           // instantiated
-        Cs = new ConcentrationSite(reposStub); // service is instantiated
-        CsInter = new ConcentrationSiteInterface(Cs); // interface to the service is instantiated
+        Museum = new Museum(reposStub); // service is instantiated
+        MuseumInter = new MuseumInterface(Museum); // interface to the service is instantiated
         scon = new ServerCom(portNumb); // listening channel at the public port is established
         scon.start();
         GenericIO.writelnString("Service is established!");
@@ -82,14 +81,14 @@ public class ServerMuseumConcentrationSite {
 
         /* service request processing */
 
-        ConcentrationSiteClientProxy cliProxy; // service provider agent
+        MuseumClientProxy cliProxy; // service provider agent
 
         waitConnection = true;
         while (waitConnection) {
             try {
                 sconi = scon.accept(); // enter listening procedure
-                cliProxy = new ConcentrationSiteClientProxy(sconi, CsInter); // start a service provider agent to
-                                                                             // address
+                cliProxy = new MuseumClientProxy(sconi, MuseumInter); // start a service provider agent to
+                // address
                 cliProxy.start(); // the request of service
             } catch (SocketTimeoutException e) {
             }

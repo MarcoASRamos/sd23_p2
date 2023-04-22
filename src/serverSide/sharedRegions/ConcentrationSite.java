@@ -88,7 +88,7 @@ public class ConcentrationSite {
     /**
      *  Reference to master thread.
      */
-    private final ConcentrationSiteClientProxy master;
+    private ConcentrationSiteClientProxy master;
 
     /**
      *   Number of entity groups requesting the shutdown.
@@ -208,7 +208,7 @@ public class ConcentrationSite {
         // Update Master stat
         master = (ConcentrationSiteClientProxy) Thread.currentThread();
         master.setMasterState(MasterStates.ASSEMBLING_A_GROUP);
-        reposStub.setMasterState(master.getMasterState());
+        reposStub.setMasterState(0, master.getMasterState());
     }
 
 
@@ -287,7 +287,7 @@ public class ConcentrationSite {
         // Update Master state
         master = (ConcentrationSiteClientProxy) Thread.currentThread();
         master.setMasterState(MasterStates.PRESENTING_THE_REPORT);
-        reposStub.setMasterState(master.getMasterState());
+        reposStub.setMasterState(0, master.getMasterState());
     }
 
 
@@ -322,7 +322,7 @@ public class ConcentrationSite {
    public synchronized void shutdown () {
        nEntities += 1;
        if (nEntities >= SimulConsts.M)
-          ServerMuseumConcentrationSite.waitConnection = false;
+          ServerConcentrationSite.waitConnection = false;
        notifyAll ();                                        // the master may now terminate
    }
 

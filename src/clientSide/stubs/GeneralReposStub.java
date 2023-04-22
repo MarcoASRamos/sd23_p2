@@ -147,9 +147,9 @@ public class GeneralReposStub {
      * Set ordinary thieves maximum distances
      * 
      * @param id of the ordinary thieve
-     * @param md of the ordinary thieve
+     * @return ordinary md
      */
-    public synchronized void setOrdinariesMD(int id, int md) {
+    public synchronized void getOrdinaryMD(int id) {
         ClientCom com;                                                 // communication channel
         Message outMessage,                                            // outgoing message
                 inMessage;                                             // incoming message
@@ -161,7 +161,7 @@ public class GeneralReposStub {
         }
         catch (InterruptedException e) {}
         }
-        outMessage = new Message (MessageType.STOMD, id, md);
+        outMessage = new Message (MessageType.STOMD, id);
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType() != MessageType.SACK)
@@ -170,6 +170,7 @@ public class GeneralReposStub {
             System.exit (1);
         }
         com.close ();
+        return inMessage.getMd();
     }
 
     /**
@@ -320,7 +321,7 @@ public class GeneralReposStub {
      * 
      * @param distances of each room
      */
-    public synchronized void setRoomDistances(int[] distances) {
+    public synchronized void getRoomDistances() {
         ClientCom com;                                                 // communication channel
         Message outMessage,                                            // outgoing message
                 inMessage;                                             // incoming message
@@ -332,7 +333,7 @@ public class GeneralReposStub {
         }
         catch (InterruptedException e) {}
         }
-        outMessage = new Message (MessageType.STRD, distances);
+        outMessage = new Message (MessageType.STRD);
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType() != MessageType.SACK)
@@ -341,6 +342,7 @@ public class GeneralReposStub {
             System.exit (1);
         }
         com.close ();
+        return inMessage.getDistances();
     }
 
     /**
@@ -368,9 +370,6 @@ public class GeneralReposStub {
         }
         com.close ();
     }
-
-
-
 
 
  

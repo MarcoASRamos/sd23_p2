@@ -2,7 +2,6 @@ package serverSide.main;
 
 import serverSide.entities.*;
 import serverSide.sharedRegions.*;
-import clientSide.stubs.*;
 import commInfra.*;
 import genclass.GenericIO;
 import java.net.*;
@@ -14,7 +13,7 @@ import java.net.*;
  * Communication is based on a communication channel under the TCP protocol.
  */
 
-public class ServerMuseumMuseum {
+public class ServerGeneralRepos {
     /**
      * Flag signaling the service is active.
      */
@@ -25,24 +24,16 @@ public class ServerMuseumMuseum {
      * Main method.
      *
      * @param args runtime arguments
-     *             args[0] - port nunber for listening to service requests
-     *             args[1] - name of the platform where is located the server for
-     *             the general repository
-     *             args[2] - port nunber where the server for the general repository
-     *             is listening to service requests
+     *             args[0] - port number for listening to service requests
      */
 
     public static void main(String[] args) {
-        Museum Museum; // barber shop (service to be rendered)
-        MuseumInterface MuseumInter; // interface to the barber shop
-        GeneralReposStub reposStub; // stub to the general repository
+        GeneralRepos repos; // general repository of information (service to be rendered)
+        GeneralReposInterface reposInter; // interface to the general repository of information
         ServerCom scon, sconi; // communication channels
         int portNumb = -1; // port number for listening to service requests
-        String reposServerName; // name of the platform where is located the server for the general repository
-        int reposPortNumb = -1; // port nunber where the server for the general repository is listening to
-                                // service requests
 
-        if (args.length != 3) {
+        if (args.length != 1) {
             GenericIO.writelnString("Wrong number of parameters!");
             System.exit(1);
         }
@@ -56,24 +47,11 @@ public class ServerMuseumMuseum {
             GenericIO.writelnString("args[0] is not a valid port number!");
             System.exit(1);
         }
-        reposServerName = args[1];
-        try {
-            reposPortNumb = Integer.parseInt(args[2]);
-        } catch (NumberFormatException e) {
-            GenericIO.writelnString("args[2] is not a number!");
-            System.exit(1);
-        }
-        if ((reposPortNumb < 4000) || (reposPortNumb >= 65536)) {
-            GenericIO.writelnString("args[2] is not a valid port number!");
-            System.exit(1);
-        }
 
         /* service is established */
 
-        reposStub = new GeneralReposStub(reposServerName, reposPortNumb); // communication to the general repository is
-                                                                          // instantiated
-        Museum = new Museum(reposStub); // service is instantiated
-        MuseumInter = new MuseumInterface(Museum); // interface to the service is instantiated
+        repos = new GeneralRepos("logger.txt"); // service is instantiated
+        reposInter = new GeneralReposInterface(repos); // interface to the service is instantiated
         scon = new ServerCom(portNumb); // listening channel at the public port is established
         scon.start();
         GenericIO.writelnString("Service is established!");
@@ -81,14 +59,13 @@ public class ServerMuseumMuseum {
 
         /* service request processing */
 
-        MuseumClientProxy cliProxy; // service provider agent
+        GeneralReposClientProxy cliProxy; // service provider agent
 
         waitConnection = true;
         while (waitConnection) {
             try {
                 sconi = scon.accept(); // enter listening procedure
-                cliProxy = new MuseumClientProxy(sconi, MuseumInter); // start a service provider agent to
-                // address
+                cliProxy = new GeneralReposClientProxy(sconi, reposInter); // start a service provider agent to address
                 cliProxy.start(); // the request of service
             } catch (SocketTimeoutException e) {
             }

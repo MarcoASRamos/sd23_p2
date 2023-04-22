@@ -12,7 +12,7 @@ import genclass.GenericIO;
  *    Implementation of a client-server model of type 2 (server replication).
  *    Communication is based on a communication channel under the TCP protocol.
  */
-public class ClientMuseumHeistMaster {
+public class ClientOrdinary {
     /**
      *  Main method.
      *
@@ -21,12 +21,14 @@ public class ClientMuseumHeistMaster {
      *        args[1] - port nunber for listening to service requests
      *        args[2] - name of the platform where is located the kitchen server
      *        args[3] - port nunber for listening to service requests
-     *        args[4] - name of the platform where is located the bar server
+     *        args[4] - name of the platform where is located the general repository server
      *        args[5] - port nunber for listening to service requests
-     *        args[6] - name of the platform where is located the kitchen server
+     *        args[6] - name of the platform where is located the bar server
      *        args[7] - port nunber for listening to service requests
-     *        args[8] - name of the platform where is located the general repository server
+     *        args[8] - name of the platform where is located the kitchen server
      *        args[9] - port nunber for listening to service requests
+     *        args[10] - name of the platform where is located the general repository server
+     *        args[11] - port nunber for listening to service requests
      */
 
      public static void main (String [] args)
@@ -40,11 +42,15 @@ public class ClientMuseumHeistMaster {
          String ccsServerHostName;                                      // name of the platform where is located the bar server
          int ccsServerPortNumb = -1;                                    // port number for listening to service requests
 
+         String museumServerHostName;                                   // name of the platform where is located the kitchen server
+         int museumServerPortNumb = -1;                                 // port number for listening to service requests
+
          String genReposServerHostName;                                 // name of the platform where is located the general repository server
          int genReposServerPortNumb = -1;                               // port number for listening to service requests
 
 
          AssaultPartyStub[] apStub = new AssaultPartyStub[2];           // remote reference to the assault parties
+         MuseumStub museumStub;                                         // remote reference to the museum
          ConcentrationSiteStub csStub;                                  // remote reference to the concentration site
          ControlCollectionSiteStub ccsStub;                             // remote reference to the control collection site
          GeneralReposStub genReposStub;                                 // remote reference to the general repository
@@ -119,16 +125,31 @@ public class ClientMuseumHeistMaster {
 
 
 
-         genReposServerHostName = args[8];
+         museumServerHostName = args[8];
          try
-         { genReposServerPortNumb = Integer.parseInt (args[9]);
+         { museumServerPortNumb = Integer.parseInt (args[9]);
          }
          catch (NumberFormatException e)
          { GenericIO.writelnString ("args[9] is not a number!");
              System.exit (1);
          }
-         if ((genReposServerPortNumb < 4000) || (genReposServerPortNumb >= 65536))
+         if ((museumServerPortNumb < 4000) || (museumServerPortNumb >= 65536))
          { GenericIO.writelnString ("args[9] is not a valid port number!");
+             System.exit (1);
+         }
+
+
+
+         genReposServerHostName = args[10];
+         try
+         { genReposServerPortNumb = Integer.parseInt (args[11]);
+         }
+         catch (NumberFormatException e)
+         { GenericIO.writelnString ("args[11] is not a number!");
+             System.exit (1);
+         }
+         if ((genReposServerPortNumb < 4000) || (genReposServerPortNumb >= 65536))
+         { GenericIO.writelnString ("args[11] is not a valid port number!");
              System.exit (1);
          }
  
@@ -138,28 +159,36 @@ public class ClientMuseumHeistMaster {
          apStub[1] = new AssaultPartyStub (apServerHostName[1], apServerPortNumb[1]);
          csStub = new ConcentrationSiteStub (csServerHostName, csServerPortNumb);
          ccsStub = new ControlCollectionSiteStub (ccsServerHostName, ccsServerPortNumb);
-
+         museumStub = new MuseumStub (museumServerHostName, museumServerPortNumb);
          genReposStub = new GeneralReposStub (genReposServerHostName, genReposServerPortNumb);
-         Master master = new Master ("master", 0, , );
+
+
+         Ordinary[] ords = new Ordinary[SimulConsts.M-1];
+         for (int i = 0; i < SimulConsts.M-1; i++)
+            ords[i] = new Ordinary(i, OrdinaryStates.CONCENTRATION_SITE, genReposStub, csStub, ccsStub, apStub, museumStub);
  
          /* start of the simulation */
- 
-         master.start ();
+
+         for (int i = 0; i < SimulConsts.M-1; i++)
+            ords[i].start ();
  
          /* waiting for the end of the simulation */
  
          GenericIO.writelnString ();
  
          try {
-             master.join();
+            for (int i = 0; i < SimulConsts.M-1; i++)
+                ords[i].join();
          } catch (InterruptedException e) {}
-         GenericIO.writelnString ("The master has terminated.");
+         GenericIO.writelnString ("The chef has terminated.");
  
          GenericIO.writelnString ();
          apStub[0].shutdown ();
          apStub[1].shutdown ();
          csStub.shutdown ();
          ccsStub.shutdown ();
+         museumStub.shutdown ();
          genReposStub.shutdown ();
      }
-}
+ }
+

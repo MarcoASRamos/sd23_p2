@@ -43,14 +43,12 @@ public class Ordinary extends Thread {
     /**
      * Instantiation of a ordinary thread.
      * 
-     * @param name          ordinary Name
      * 
      * @param ordinaryId    ordinary Id
      * @param ordinaryState ordinary state
      * @param repos         Reference to GeneralRepos
      */
-    public Ordinary(String name, int ordinaryId, int ordinaryState, GeneralReposStub reposStub, ConcentrationSiteStub csStub,
-            ControlCollectionSiteStub ccsStub, AssaultPartyStub[] partyStub, MuseumStub museumStub) {
+    public Ordinary(int ordinaryId, int ordinaryState, GeneralReposStub reposStub, ConcentrationSiteStub csStub, ControlCollectionSiteStub ccsStub, AssaultPartyStub[] partyStub, MuseumStub museumStub) {
         this.ordinaryState = ordinaryState;
         this.ordinaryId = ordinaryId;
         this.partyStub = partyStub;
@@ -110,8 +108,9 @@ public class Ordinary extends Thread {
      */
     @Override
     public void run() {
-        int memberId, room, canvas, ap = -1, md = 2 + (int) (Math.random() * (SimulConsts.MD - 2) + 1);
-        reposStub.setOrdinariesMD(ordinaryId, md);
+        int memberId, room, canvas, ap = -1;
+        //md = 2 + (int) (Math.random() * (SimulConsts.MD - 2) + 1);
+        int md = reposStub.getOrdinariesMD(ordinaryId, md);
 
         while (csStub.amINeeded(ap)) {
        

@@ -111,7 +111,7 @@ public class ConcentrationSiteClientProxy extends Thread implements OrdinaryClon
     }
 
     @Override
-    public int getMasterId() {´
+    public int getMasterId() {
         return MasterId;
     }
 

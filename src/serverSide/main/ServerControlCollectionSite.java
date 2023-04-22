@@ -1,4 +1,3 @@
-
 package serverSide.main;
 
 import serverSide.entities.*;
@@ -15,7 +14,7 @@ import java.net.*;
  * Communication is based on a communication channel under the TCP protocol.
  */
 
-public class ServerMuseumAssaultParty {
+public class ServerControlCollectionSite {
     /**
      * Flag signaling the service is active.
      */
@@ -34,8 +33,8 @@ public class ServerMuseumAssaultParty {
      */
 
     public static void main(String[] args) {
-        AssaultParty Ap; // barber shop (service to be rendered)
-        AssaultPartyInterface ApInter; // interface to the barber shop
+        ControlCollectionSite ccs; // barber shop (service to be rendered)
+        ControlCollectionSiteInterface ccsInter; // interface to the barber shop
         GeneralReposStub reposStub; // stub to the general repository
         ServerCom scon, sconi; // communication channels
         int portNumb = -1; // port number for listening to service requests
@@ -73,8 +72,8 @@ public class ServerMuseumAssaultParty {
 
         reposStub = new GeneralReposStub(reposServerName, reposPortNumb); // communication to the general repository is
                                                                           // instantiated
-        Ap = new AssaultParty(reposStub); // service is instantiated
-        ApInter = new AssaultPartyInterface(Ap); // interface to the service is instantiated
+        ccs = new ControlCollectionSite(reposStub); // service is instantiated
+        ccsInter = new ControlCollectionSiteInterface(ccs); // interface to the service is instantiated
         scon = new ServerCom(portNumb); // listening channel at the public port is established
         scon.start();
         GenericIO.writelnString("Service is established!");
@@ -82,13 +81,14 @@ public class ServerMuseumAssaultParty {
 
         /* service request processing */
 
-        AssaultPartyClientProxy cliProxy; // service provider agent
+        ControlCollectionSiteClientProxy cliProxy; // service provider agent
 
         waitConnection = true;
         while (waitConnection) {
             try {
                 sconi = scon.accept(); // enter listening procedure
-                cliProxy = new AssaultPartyClientProxy(sconi, ApInter); // start a service provider agent to address
+                cliProxy = new ControlCollectionSiteClientProxy(sconi, ccsInter); // start a service provider agent to
+                // address
                 cliProxy.start(); // the request of service
             } catch (SocketTimeoutException e) {
             }

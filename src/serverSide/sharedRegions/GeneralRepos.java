@@ -137,7 +137,7 @@ public class GeneralRepos {
    public synchronized void shutdown () {
        nEntities += 1;
        if (nEntities >= SimulConsts.M)
-          ServerMuseumGeneralRepos.waitConnection = false;
+          ServerGeneralRepos.waitConnection = false;
    }
 
 

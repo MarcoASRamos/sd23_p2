@@ -38,8 +38,8 @@ public class Master extends Thread {
     /**
      * Instantiation of a master thread.
      * 
-     * @param masterId    master Id
-     * @param masterState master state
+     * @param masterId        Master Id
+     * @param masterState     Master state
      * @param partyStub       Reference to AssaultpartyStub
      * @param csStub          Reference to ConcentrationSite
      * @param ccsStub         Reference to ControlCollectionSite

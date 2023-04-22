@@ -10,6 +10,8 @@ import genclass.GenericIO;
 
 public class AssaultParty {
 
+
+
     /**
      * Number of members in the party
      */
@@ -80,7 +82,7 @@ public class AssaultParty {
     /**
      * Distaces in units from the site to the each museum room
      */
-    private final int[] rooms;
+    private static final int[] rooms;
 
     /**
      *  Reference to ordinary threads.
@@ -103,9 +105,9 @@ public class AssaultParty {
      * @param repos reference to the general repository
      */
 
-    public AssaultParty(GeneralReposStub reposStub, int[] rooms) {
+    public AssaultParty(GeneralReposStub reposStub) {
         this.reposStub = reposStub;
-        this.rooms = rooms;
+        this.rooms = reposStub.getRoomDistances();
         this.room = -1;
         this.members = -1;
         this.reversed = false;
@@ -339,7 +341,7 @@ public class AssaultParty {
    {
        nEntities += 1;
        if (nEntities >= SimulConsts.M)
-          ServerMuseumAssaultParty.waitConnection = false;
+          ServerAssaultParty.waitConnection = false;
        notifyAll ();                                        // the barber may now terminate
    }
 }

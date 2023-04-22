@@ -46,18 +46,6 @@ public class GeneralReposInterface {
 
         switch (inMessage.getMsgType()) {
 
-            // verify Master state
-            case MessageType.:
-                if ((inMessage.getMasterState () < MasterStates.PLANNING_THE_HEIST) || (inMessage.getMasterState () > MasterStates.PRESENTING_THE_REPORT))
-                throw new MessageException ("Invalid master state!", inMessage);
-                break;
-
-            // verify Oedinary state
-            case MessageType.:
-                if ((inMessage.getOrdinaryId () < 0) || (inMessage.getOrdinaryId () >= SimulConsts.M))
-                throw new MessageException ("Invalid ordinary id!", inMessage); 
-                break;
-
             // verify only message type
             case MessageType.STMST:
             case MessageType.STOST:
@@ -80,65 +68,60 @@ public class GeneralReposInterface {
         switch (inMessage.getMsgType()) {
 
             case MessageType.STMST:
-                repos.setMasterState(inMessage.());
+                repos.setMasterState(inMessage.getMasterState());
                 outMessage = new Message(MessageType.SACK);
                 break;
 
             case MessageType.STOST:
-                repos.setOrdinaryState(inMessage.());
+                repos.setOrdinaryState(inMessage.getOrdinaryId(), inMessage.getOrdinaryState());
                 outMessage = new Message(MessageType.SACK);
                 break;
 
             case MessageType.STOSIT:
-                repos.setOrdinarySituation(inMessage.());
+                repos.setOrdinarySituation(inMessage.getOrdinaryId(), inMessage.getSit());
                 outMessage = new Message(MessageType.SACK);
                 break;
 
             case MessageType.STOMD:
-                repos.setOrdinariesMD(inMessage.());
+                repos.setOrdinariesMD(inMessage.getOrdinaryId(), inMessage.getMd());
                 outMessage = new Message(MessageType.SACK);
                 break;
 
             case MessageType.STAPR:
-                repos.setApRoom(inMessage.());
+                repos.setApRoom(inMessage.getAp(), inMessage.getRoom());
                 outMessage = new Message(MessageType.SACK);
                 break;
 
             case MessageType.STAPE:
-                repos.setApElement(inMessage.());
+                repos.setApElement(inMessage.getElem(), inMessage.getOrdinaryId());
                 outMessage = new Message(MessageType.SACK);
                 break;
 
             case MessageType.STCVS:
-                repos.setCanvas(inMessage.());
+                repos.setCanvas(inMessage.getElem(), inMessage.getCanvas());
                 outMessage = new Message(MessageType.SACK);
                 break;
 
             case MessageType.STPOS:
-                repos.setPosition(inMessage.());
+                repos.setPosition(inMessage.getElem(), inMessage.getPos());
                 outMessage = new Message(MessageType.SACK);
                 break;
 
             case MessageType.STRMP:
-                repos.setRoomPaitings(inMessage.());
+                repos.setRoomPaitings(inMessage.getPaintings());
                 outMessage = new Message(MessageType.SACK);
                 break;
 
             case MessageType.STRD:
-                repos.setRoomDistances(inMessage.());
+                repos.setRoomDistances(inMessage.getDistances());
                 outMessage = new Message(MessageType.SACK);
                 break;
 
             case MessageType.STRBP:
-                repos.setRobbedPaintings(inMessage.());
+                repos.setRobbedPaintings();
                 outMessage = new Message(MessageType.SACK);
                 break;
 
-
-            case MessageType.:
-                repos.(inMessage.());
-                outMessage = new Message(MessageType.SACK);
-                break;
 
             case MessageType.SHUT:
                 repos.shutdown();

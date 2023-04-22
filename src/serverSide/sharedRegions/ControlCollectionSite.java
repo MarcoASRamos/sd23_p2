@@ -198,7 +198,7 @@ public class ControlCollectionSite {
    {
        nEntities += 1;
        if (nEntities >= SimulConsts.M)
-          ServerMuseumControlColectionSite.waitConnection = false;
+          ServerControlCollectionSite.waitConnection = false;
        notifyAll ();                                        // the barber may now terminate
    }
 }

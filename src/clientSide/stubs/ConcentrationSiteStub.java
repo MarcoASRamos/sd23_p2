@@ -290,10 +290,10 @@ public class ConcentrationSiteStub {
         }
         catch (InterruptedException e) {}
         }
-        outMessage = new Message (MessageType.GENDOP);
+        outMessage = new Message (MessageType.ENDOP);
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
-        if (inMessage.getMsgType() != MessageType.GENDOPDONE)
+        if (inMessage.getMsgType() != MessageType.EOPDONE)
         { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);

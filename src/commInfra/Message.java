@@ -1,8 +1,6 @@
 package commInfra;
 
 import java.io.*;
-
-import clientSide.stubs.*;
 import genclass.GenericIO;
 
 /**
@@ -350,12 +348,12 @@ public class Message implements Serializable
     }
 
     /**
-     *  operation result
+     * get room idx operation result
      */
     private int gri;
 
     /**
-     * control collection site
+     * getRoomIdx at control collection site
      * @return gri variable
      */
     public int getRoomIdx(){
@@ -363,12 +361,12 @@ public class Message implements Serializable
     }
 
     /**
-     *  operation result
+     * rool a canvas operation result
      */
     private int rac;
 
     /**
-     * museum
+     * rollACanvas at museum
      * @return rac variable
      */
     public int rollACanvas(){

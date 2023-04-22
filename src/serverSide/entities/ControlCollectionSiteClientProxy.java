@@ -49,7 +49,7 @@ public class ControlCollectionSiteClientProxy extends Thread implements Ordinary
      * Interface to the Barber Shop.
      */
 
-    private ControlColectionSiteInterface CCSInter;
+    private ControlCollectionSiteInterface ccsInter;
 
     /**
      * Instantiation of a client proxy.
@@ -61,7 +61,7 @@ public class ControlCollectionSiteClientProxy extends Thread implements Ordinary
     public ControlCollectionSiteClientProxy(ServerCom sconi, ControlCollectionSiteInterface CCSInter) {
         super("ControlCollectionSiteClientProxy" + ControlCollectionSiteClientProxy.getProxyId());
         this.sconi = sconi;
-        this.CCSInter = CCSInter;
+        this.ccsInter = CCSInter;
     }
 
     /**
@@ -101,7 +101,7 @@ public class ControlCollectionSiteClientProxy extends Thread implements Ordinary
 
         inMessage = (Message) sconi.readObject(); // get service request
         try {
-            outMessage = CCSInter.processAndReply(inMessage); // process it
+            outMessage = ccsInter.processAndReply(inMessage); // process it
         } catch (MessageException e) {
             GenericIO.writelnString("Thread " + getName() + ": " + e.getMessage() + "!");
             GenericIO.writelnString(e.getMessageVal().toString());
@@ -112,7 +112,7 @@ public class ControlCollectionSiteClientProxy extends Thread implements Ordinary
     }
 
     @Override
-    public int getMasterId() {´
+    public int getMasterId() {
         return MasterId;
     }
 

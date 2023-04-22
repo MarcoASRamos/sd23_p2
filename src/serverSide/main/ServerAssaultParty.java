@@ -15,7 +15,7 @@ import java.net.*;
  * Communication is based on a communication channel under the TCP protocol.
  */
 
-public class ServerMuseumControlColectionSite {
+public class ServerAssaultParty {
     /**
      * Flag signaling the service is active.
      */
@@ -27,21 +27,18 @@ public class ServerMuseumControlColectionSite {
      *
      * @param args runtime arguments
      *             args[0] - port nunber for listening to service requests
-     *             args[1] - name of the platform where is located the server for
-     *             the general repository
-     *             args[2] - port nunber where the server for the general repository
-     *             is listening to service requests
+     *             args[1] - name of the platform where is located the server for the general repository
+     *             args[2] - port nunber where the server for the general repository is listening to service requests
      */
 
     public static void main(String[] args) {
-        ControlColectionSite CCcs; // barber shop (service to be rendered)
-        ControlColectionSiteInterface CcsInter; // interface to the barber shop
-        GeneralReposStub reposStub; // stub to the general repository
-        ServerCom scon, sconi; // communication channels
-        int portNumb = -1; // port number for listening to service requests
-        String reposServerName; // name of the platform where is located the server for the general repository
-        int reposPortNumb = -1; // port nunber where the server for the general repository is listening to
-                                // service requests
+        AssaultParty Ap;                // assault party (service to be rendered)
+        AssaultPartyInterface ApInter;  // interface to the assault party
+        GeneralReposStub reposStub;     // stub to the general repository
+        ServerCom scon, sconi;          // communication channels
+        int portNumb = -1;              // port number for listening to service requests
+        String reposServerName;         // name of the platform where is located the server for the general repository
+        int reposPortNumb = -1;         // port nunber where the server for the general repository is listening to service requests
 
         if (args.length != 3) {
             GenericIO.writelnString("Wrong number of parameters!");
@@ -71,10 +68,9 @@ public class ServerMuseumControlColectionSite {
 
         /* service is established */
 
-        reposStub = new GeneralReposStub(reposServerName, reposPortNumb); // communication to the general repository is
-                                                                          // instantiated
-        Ccs = new ControlColectionSite(reposStub); // service is instantiated
-        CcsInter = new ControlColectionSiteInterface(Ccs); // interface to the service is instantiated
+        reposStub = new GeneralReposStub(reposServerName, reposPortNumb); // communication to the general repository is instantiated
+        Ap = new AssaultParty(reposStub); // service is instantiated
+        ApInter = new AssaultPartyInterface(Ap); // interface to the service is instantiated
         scon = new ServerCom(portNumb); // listening channel at the public port is established
         scon.start();
         GenericIO.writelnString("Service is established!");
@@ -82,14 +78,13 @@ public class ServerMuseumControlColectionSite {
 
         /* service request processing */
 
-        ControlColectionSiteClientProxy cliProxy; // service provider agent
+        AssaultPartyClientProxy cliProxy; // service provider agent
 
         waitConnection = true;
         while (waitConnection) {
             try {
                 sconi = scon.accept(); // enter listening procedure
-                cliProxy = new ControlColectionSiteClientProxy(sconi, CcsInter); // start a service provider agent to
-                // address
+                cliProxy = new AssaultPartyClientProxy(sconi, ApInter); // start a service provider agent to address
                 cliProxy.start(); // the request of service
             } catch (SocketTimeoutException e) {
             }
