@@ -149,7 +149,7 @@ public class GeneralReposStub {
      * @param id of the ordinary thieve
      * @return ordinary md
      */
-    public synchronized void getOrdinaryMD(int id) {
+    public synchronized int getOrdinaryMD(int id) {
         ClientCom com;                                                 // communication channel
         Message outMessage,                                            // outgoing message
                 inMessage;                                             // incoming message
@@ -161,7 +161,7 @@ public class GeneralReposStub {
         }
         catch (InterruptedException e) {}
         }
-        outMessage = new Message (MessageType.STOMD, id);
+        outMessage = new Message (MessageType.GTOMD, id);
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType() != MessageType.SACK)
@@ -170,7 +170,7 @@ public class GeneralReposStub {
             System.exit (1);
         }
         com.close ();
-        return inMessage.getMd();
+        return inMessage.getMD();
     }
 
     /**
@@ -320,8 +320,9 @@ public class GeneralReposStub {
      * Set distance of the rooms
      * 
      * @param distances of each room
+     * @return museum rooms distance
      */
-    public synchronized void getRoomDistances() {
+    public synchronized int[] getRoomDistances() {
         ClientCom com;                                                 // communication channel
         Message outMessage,                                            // outgoing message
                 inMessage;                                             // incoming message
@@ -333,7 +334,7 @@ public class GeneralReposStub {
         }
         catch (InterruptedException e) {}
         }
-        outMessage = new Message (MessageType.STRD);
+        outMessage = new Message (MessageType.GTRD);
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
         if (inMessage.getMsgType() != MessageType.SACK)

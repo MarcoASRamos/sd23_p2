@@ -6,6 +6,8 @@ import clientSide.entities.*;
 import clientSide.stubs.*;
 import commInfra.*;
 import genclass.GenericIO;
+import genclass.TextFile;
+import java.util.Objects;
 
 
 /**
@@ -81,15 +83,10 @@ public class GeneralRepos {
  
      /**
       * Instantiation of a general repository object.
-      *
-      * @param logFileName name of the logging file
       */
  
-     public GeneralRepos(String logFileName) {
-         if ((logFileName == null) || Objects.equals(logFileName, ""))
-             this.logFileName = "logger";
-         else
-             this.logFileName = logFileName;
+     public GeneralRepos() {
+        logFileName = "logger";
  
          // master thieve
          masterState = MasterStates.PLANNING_THE_HEIST;
@@ -101,12 +98,14 @@ public class GeneralRepos {
          for (int i = 0; i < SimulConsts.M - 1; i++) {
              ordinaryState[i] = OrdinaryStates.CONCENTRATION_SITE;
              ordinarySituation[i] = 'W';
-             MDs[i] = 0;
+             MDs[i] = 2 + (int) (Math.random() * (SimulConsts.MD - 2) + 1);
          }
  
          // museum
          paintings = new int[SimulConsts.N];
          distances = new int[SimulConsts.N];
+         for(int i=0; i<SimulConsts.N; i++)
+            distances[i] = SimulConsts.d +(int)(Math.random()* (SimulConsts.D-SimulConsts.d)+1);
  
          // assault parties
          apRoom = new int[2];
@@ -174,13 +173,13 @@ public class GeneralRepos {
      }
  
      /**
-      * Set ordinary thieves maximum distances
+      * Get ordinary thieves maximum distances
       * 
       * @param id of the ordinary thieve
-      * @param md of the ordinary thieve
+      * @return md of the ordinary thieve
       */
-     public synchronized void setOrdinariesMD(int id, int md) {
-         this.MDs[id] = md;
+     public synchronized int getOrdinaryMD(int id) {
+        return MDs[id];
      }
  
      /**
@@ -236,12 +235,12 @@ public class GeneralRepos {
      }
  
      /**
-      * Set distance of the rooms
+      * Get distance of the rooms
       * 
-      * @param distances of each room
+      * @return distances of each room
       */
-     public synchronized void setRoomDistances(int[] distances) {
-         this.distances = distances;
+     public synchronized int[] getRoomDistances() {
+        return distances;
      }
  
      /**

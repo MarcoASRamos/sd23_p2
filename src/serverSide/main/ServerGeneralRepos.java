@@ -50,7 +50,7 @@ public class ServerGeneralRepos {
 
         /* service is established */
 
-        repos = new GeneralRepos("logger.txt"); // service is instantiated
+        repos = new GeneralRepos(); // service is instantiated
         reposInter = new GeneralReposInterface(repos); // interface to the service is instantiated
         scon = new ServerCom(portNumb); // listening channel at the public port is established
         scon.start();

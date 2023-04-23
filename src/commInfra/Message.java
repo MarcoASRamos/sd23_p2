@@ -105,7 +105,7 @@ public class Message implements Serializable
      *     @return md
      */
 
-     public int getMd () {
+     public int getMD () {
         return (md);
     }
 
@@ -402,7 +402,11 @@ public class Message implements Serializable
             ap = i;
         else if((msgType == MessageType.SUTR) || (msgType == MessageType.SO) || (msgType == MessageType.TAR) || (msgType == MessageType.CAC) || (msgType == MessageType.STMST))
             masterState = i;
-        else {
+        else if(msgType == MessageType.GTOMD){
+            ordinaryId = i;
+        } else if(msgType == MessageType.GTOMDDONE){
+            md = i;
+        } else {
             GenericIO.writelnString ("Message type = " + msgType + ": non-implemented instantiation!");
             System.exit (1);
         }
@@ -430,10 +434,6 @@ public class Message implements Serializable
         else if((msgType == MessageType.PE) || (msgType == MessageType.AIN) || (msgType == MessageType.STOST)) {
             ordinaryId = i0;
             ordinaryState = i1;
-        }
-        else if((msgType == MessageType.STOMD)){
-            ordinaryId = i0;
-            md = i1;
         }
         else if((msgType == MessageType.STAPR)){
             ap = i0;
@@ -581,9 +581,9 @@ public class Message implements Serializable
         msgType = type;
         if((msgType == MessageType.STRMP))
             paitings = i;
-        else if((msgType == MessageType.STRD))
-           distances = i;
-        else {
+        else if(msgType == MessageType.GTRDDONE){
+            distances = i;
+        } else {
             GenericIO.writelnString ("Message type = " + msgType + ": non-implemented instantiation!");
             System.exit (1);
         }

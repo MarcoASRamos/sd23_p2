@@ -27,24 +27,19 @@ public class GeneralReposClientProxy extends Thread {
     private GeneralReposInterface reposInter;
 
     /**
-     * Chef State
+     * master State
      */
-    private int chefState;
+    private int masterState;
 
     /**
-     * Waiter State
+     * ordinary state
      */
-    private int waiterState;
+    private int ordinaryState;
 
     /**
-     * Student state
+     * ordinary id
      */
-    private int studentState;
-
-    /**
-     * Student id
-     */
-    private int studentId;
+    private int ordinaryId;
 
     /**
      * value of either number courses, number portions, seat at table
@@ -64,75 +59,57 @@ public class GeneralReposClientProxy extends Thread {
     }
 
     /**
-     * Get chef state
+     * Get master state
      * 
-     * @return chef state
+     * @return master state
      */
-    public int getChefState() {
-        return chefState;
+    public int getMasterState() {
+        return masterState;
     }
 
     /**
-     * Set chef state
+     * Set master state
      * 
-     * @param chefState state of the chef
+     * @param masterState state of the master
      */
-    public void setChefState(int chefState) {
-        this.chefState = chefState;
+    public void setMasterState(int masterState) {
+        this.masterState = masterState;
     }
 
     /**
-     * Get waiter state
+     * Get ordinary state
      * 
-     * @return waiter state
+     * @return ordinary state
      */
-    public int getWaiterState() {
-        return waiterState;
+    public int getOrdinaryState() {
+        return ordinaryState;
     }
 
     /**
-     * Set waiter state
+     * Set ordinary state
      * 
-     * @param waiterState state of the waiter
+     * @param ordinaryState state of the ordinary
      */
-    public void setWaiterState(int waiterState) {
-        this.waiterState = waiterState;
+    public void setOrdinaryState(int ordinaryState) {
+        this.ordinaryState = ordinaryState;
     }
 
     /**
-     * Get student state
+     * Get ordinary id
      * 
-     * @return student state
+     * @return id of the ordinary
      */
-    public int getStudentState() {
-        return studentState;
+    public int getOrdinaryId() {
+        return ordinaryId;
     }
 
     /**
-     * Set student state
+     * Set ordinary id
      * 
-     * @param studentState state of the student
+     * @param ordinaryId id of the ordinary
      */
-    public void setStudentState(int studentState) {
-        this.studentState = studentState;
-    }
-
-    /**
-     * Get student id
-     * 
-     * @return id of the student
-     */
-    public int getStudentId() {
-        return studentId;
-    }
-
-    /**
-     * Set student id
-     * 
-     * @param studentId id of the student
-     */
-    public void setStudentId(int studentId) {
-        this.studentId = studentId;
+    public void setOrdinaryId(int ordinaryId) {
+        this.ordinaryId = ordinaryId;
     }
 
     /**

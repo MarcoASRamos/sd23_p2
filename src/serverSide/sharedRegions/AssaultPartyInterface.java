@@ -93,14 +93,14 @@ public class AssaultPartyInterface {
             case MessageType.CI: 
                 ((AssaultPartyClientProxy) Thread.currentThread ()).setOrdinaryId (inMessage.getOrdinaryId ());
                 ((AssaultPartyClientProxy) Thread.currentThread ()).setOrdinaryState (inMessage.getOrdinaryState ());
-                boolean ci = ap.crawlIn(inMessage.getAp(), inMessage.getMember(), inMessage.getMd());
+                boolean ci = ap.crawlIn(inMessage.getAp(), inMessage.getMember(), inMessage.getMD());
                 outMessage = new Message (MessageType.GRAPDONE, ci);
                 break;
 
             case MessageType.CO: 
                 ((AssaultPartyClientProxy) Thread.currentThread ()).setOrdinaryId (inMessage.getOrdinaryId ());
                 ((AssaultPartyClientProxy) Thread.currentThread ()).setOrdinaryState (inMessage.getOrdinaryState ());
-                boolean co = ap.crawlOut(inMessage.getAp(), inMessage.getMember(), inMessage.getMd());
+                boolean co = ap.crawlOut(inMessage.getAp(), inMessage.getMember(), inMessage.getMD());
                 outMessage = new Message (MessageType.GRAPDONE, co);
                 break;
 

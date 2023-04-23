@@ -109,8 +109,7 @@ public class Ordinary extends Thread {
     @Override
     public void run() {
         int memberId, room, canvas, ap = -1;
-        //md = 2 + (int) (Math.random() * (SimulConsts.MD - 2) + 1);
-        int md = reposStub.getOrdinariesMD(ordinaryId, md);
+        int md = reposStub.getOrdinaryMD(ordinaryId);
 
         while (csStub.amINeeded(ap)) {
        

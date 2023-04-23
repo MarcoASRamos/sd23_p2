@@ -50,13 +50,13 @@ public class GeneralReposInterface {
             case MessageType.STMST:
             case MessageType.STOST:
             case MessageType.STOSIT:
-            case MessageType.STOMD:
+            case MessageType.GTOMD:
             case MessageType.STAPR:
             case MessageType.STAPE:
             case MessageType.STCVS:
             case MessageType.STPOS:
             case MessageType.STRMP:
-            case MessageType.STRD:
+            case MessageType.GTRD:
             case MessageType.STRBP:
                 break;
             default:
@@ -82,9 +82,9 @@ public class GeneralReposInterface {
                 outMessage = new Message(MessageType.SACK);
                 break;
 
-            case MessageType.STOMD:
-                repos.setOrdinariesMD(inMessage.getOrdinaryId(), inMessage.getMd());
-                outMessage = new Message(MessageType.SACK);
+            case MessageType.GTOMD:
+                int md = repos.getOrdinaryMD(inMessage.getOrdinaryId());
+                outMessage = new Message(MessageType.GTOMDDONE, md);
                 break;
 
             case MessageType.STAPR:
@@ -112,9 +112,9 @@ public class GeneralReposInterface {
                 outMessage = new Message(MessageType.SACK);
                 break;
 
-            case MessageType.STRD:
-                repos.setRoomDistances(inMessage.getDistances());
-                outMessage = new Message(MessageType.SACK);
+            case MessageType.GTRD:
+                int[] dists = repos.getRoomDistances();
+                outMessage = new Message(MessageType.GTRDDONE, dists);
                 break;
 
             case MessageType.STRBP:

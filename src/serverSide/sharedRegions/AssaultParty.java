@@ -82,7 +82,7 @@ public class AssaultParty {
     /**
      * Distaces in units from the site to the each museum room
      */
-    private static final int[] rooms;
+    private final int[] rooms;
 
     /**
      *  Reference to ordinary threads.
