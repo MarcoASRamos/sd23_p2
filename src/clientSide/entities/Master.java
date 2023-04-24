@@ -115,6 +115,7 @@ public class Master extends Thread {
                 case 1:
                     System.out.println("getAssautlParty");
                     int ap = csStub.getAssautlParty();
+                    System.out.println("master gap = "+ap);
                     System.out.println("prepareAssaultParty");
                     csStub.prepareAssaultParty(ap, room);
                     System.out.println("sendAssaultParty");

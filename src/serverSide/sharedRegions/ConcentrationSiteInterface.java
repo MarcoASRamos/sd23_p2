@@ -101,7 +101,7 @@ public class ConcentrationSiteInterface {
                 break;
 
             case MessageType.GRCS: 
-                int gr = cs.getRoom(inMessage.getRoom());
+                int gr = cs.getRoom(inMessage.getAp());
                 outMessage = new Message (MessageType.GRCSDONE, gr);
                 break;
 

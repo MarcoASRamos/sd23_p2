@@ -398,22 +398,24 @@ public class Message implements Serializable
     public Message (int type, int i) {
         msgType = type;
         
-        if ((msgType == MessageType.GRCS))
+        if ((msgType == MessageType.GRCS)) {
             ap = i;
-        else if((msgType == MessageType.SUTR) || (msgType == MessageType.SO) || (msgType == MessageType.TAR) || (msgType == MessageType.CAC) || (msgType == MessageType.STMST))
+        } else if((msgType == MessageType.SUTR) || (msgType == MessageType.SO) || (msgType == MessageType.TAR) || (msgType == MessageType.CAC) || (msgType == MessageType.STMST)) {
             masterState = i;
-        else if(msgType == MessageType.GTOMD){
+        } else if(msgType == MessageType.GTOMD){
             ordinaryId = i;
-        } else if(msgType == MessageType.GTOMDDONE){
+        } else if(msgType == MessageType.GTOMDDONE) {
             md = i;
-        } else if(msgType == MessageType.GRIDONE){
+        } else if(msgType == MessageType.GRIDONE) {
             gri = i;
-        } else if(msgType == MessageType.ASDONE){
+        } else if(msgType == MessageType.ASDONE) {
             as = i;
-        } else if(msgType == MessageType.GAPDONE){
+        } else if(msgType == MessageType.GAPDONE) {
             gap = i;
-        } else if(msgType == MessageType.PEDONE){
+        } else if(msgType == MessageType.PEDONE) {
             pe = i;
+        } else if(msgType == MessageType.GRCSDONE) {
+            grcs = i;
         } else {
             GenericIO.writelnString ("Message type = " + msgType + ": non-implemented instantiation!");
             System.exit (1);
