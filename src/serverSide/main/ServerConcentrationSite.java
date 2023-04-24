@@ -71,8 +71,7 @@ public class ServerConcentrationSite {
 
         /* service is established */
 
-        reposStub = new GeneralReposStub(reposServerName, reposPortNumb); // communication to the general repository is
-                                                                          // instantiated
+        reposStub = new GeneralReposStub(reposServerName, reposPortNumb); // communication to the general repository is instantiated
         Cs = new ConcentrationSite(reposStub); // service is instantiated
         CsInter = new ConcentrationSiteInterface(Cs); // interface to the service is instantiated
         scon = new ServerCom(portNumb); // listening channel at the public port is established
@@ -88,8 +87,7 @@ public class ServerConcentrationSite {
         while (waitConnection) {
             try {
                 sconi = scon.accept(); // enter listening procedure
-                cliProxy = new ConcentrationSiteClientProxy(sconi, CsInter); // start a service provider agent to
-                                                                             // address
+                cliProxy = new ConcentrationSiteClientProxy(sconi, CsInter); // start a service provider agent to address
                 cliProxy.start(); // the request of service
             } catch (SocketTimeoutException e) {
             }

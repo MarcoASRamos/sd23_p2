@@ -82,7 +82,9 @@ public class ConcentrationSiteInterface {
             case MessageType.AIN: 
                 ((ConcentrationSiteClientProxy) Thread.currentThread ()).setOrdinaryId (inMessage.getOrdinaryId ());
                 ((ConcentrationSiteClientProxy) Thread.currentThread ()).setOrdinaryState (inMessage.getOrdinaryState ());
+                System.out.println("AMIneeded interf");
                 boolean ain = cs.amINeeded(inMessage.getAp());
+                System.out.println("AMIneeded interf done");
                 outMessage = new Message (MessageType.AINDONE, ain);
                 break;
 
@@ -109,7 +111,9 @@ public class ConcentrationSiteInterface {
                 break;
 
             case MessageType.AS: 
+                System.out.println("appraiseSit interf");
                 int as = cs.appraiseSit(inMessage.getRoomStt());
+                System.out.println("appraiseSit interf done");
                 outMessage = new Message (MessageType.ASDONE, as);
                 break;
             

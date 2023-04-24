@@ -406,6 +406,14 @@ public class Message implements Serializable
             ordinaryId = i;
         } else if(msgType == MessageType.GTOMDDONE){
             md = i;
+        } else if(msgType == MessageType.GRIDONE){
+            gri = i;
+        } else if(msgType == MessageType.ASDONE){
+            as = i;
+        } else if(msgType == MessageType.GAPDONE){
+            gap = i;
+        } else if(msgType == MessageType.PEDONE){
+            pe = i;
         } else {
             GenericIO.writelnString ("Message type = " + msgType + ": non-implemented instantiation!");
             System.exit (1);
@@ -431,7 +439,7 @@ public class Message implements Serializable
             room = i0;
             masterState = i1;
         }
-        else if((msgType == MessageType.PE) || (msgType == MessageType.AIN) || (msgType == MessageType.STOST)) {
+        else if((msgType == MessageType.PE) || (msgType == MessageType.STOST)) {
             ordinaryId = i0;
             ordinaryState = i1;
         }
@@ -480,6 +488,12 @@ public class Message implements Serializable
             ap = i0;
             room = i1;
             masterState = i2;
+        }
+        else if((msgType == MessageType.AIN) ){
+            ap = i0;
+            ordinaryId = i1;
+            ordinaryState = i2;
+
         }
         else if((msgType == MessageType.RAC) ){
             room = i0;
@@ -559,6 +573,8 @@ public class Message implements Serializable
         msgType = type;
         if((msgType == MessageType.AS))
             roomStt = b;
+        else if(msgType == MessageType.AINDONE)
+            ain = b;
         else if((msgType == MessageType.EOPDONE))
            endOp = b;
         else {

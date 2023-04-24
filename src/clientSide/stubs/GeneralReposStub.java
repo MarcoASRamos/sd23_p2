@@ -66,7 +66,7 @@ public class GeneralReposStub {
          }
          catch (InterruptedException e) {}
          }
-         outMessage = new Message (MessageType.STMST, id, state);
+         outMessage = new Message (MessageType.STMST, state);
          com.writeObject (outMessage);
          inMessage = (Message) com.readObject ();
          if (inMessage.getMsgType() != MessageType.SACK)
@@ -149,7 +149,7 @@ public class GeneralReposStub {
      * @param id of the ordinary thieve
      * @return ordinary md
      */
-    public synchronized int getOrdinaryMD(int id) {
+    public int getOrdinaryMD(int id) {
         ClientCom com;                                                 // communication channel
         Message outMessage,                                            // outgoing message
                 inMessage;                                             // incoming message
@@ -164,7 +164,7 @@ public class GeneralReposStub {
         outMessage = new Message (MessageType.GTOMD, id);
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
-        if (inMessage.getMsgType() != MessageType.SACK)
+        if (inMessage.getMsgType() != MessageType.GTOMDDONE)
         { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
@@ -178,7 +178,7 @@ public class GeneralReposStub {
      * @param ap assault party
      * @param room room to heist
      */
-    public synchronized void setApRoom(int ap, int room){
+    public void setApRoom(int ap, int room){
         ClientCom com;                                                 // communication channel
         Message outMessage,                                            // outgoing message
                 inMessage;                                             // incoming message
@@ -207,7 +207,7 @@ public class GeneralReposStub {
      * @param elem index (= ap*SimulConsts.E+memberId)
      * @param tid  ordinary thieve id
      */
-    public synchronized void setApElement(int elem, int tid) {
+    public void setApElement(int elem, int tid) {
         ClientCom com;                                                 // communication channel
         Message outMessage,                                            // outgoing message
                 inMessage;                                             // incoming message
@@ -236,7 +236,7 @@ public class GeneralReposStub {
      * @param elem   index
      * @param canvas carry
      */
-    public synchronized void setCanvas(int elem, int canvas) {
+    public void setCanvas(int elem, int canvas) {
         ClientCom com;                                                 // communication channel
         Message outMessage,                                            // outgoing message
                 inMessage;                                             // incoming message
@@ -265,7 +265,7 @@ public class GeneralReposStub {
      * @param elem index
      * @param pos  actual position of the thieve in line
      */
-    public synchronized void setPosition(int elem, int pos) {
+    public void setPosition(int elem, int pos) {
         ClientCom com;                                                 // communication channel
         Message outMessage,                                            // outgoing message
                 inMessage;                                             // incoming message
@@ -293,7 +293,7 @@ public class GeneralReposStub {
      * 
      * @param paitings on each room
      */
-    public synchronized void setRoomPaitings(int[] paitings) {
+    public void setRoomPaitings(int[] paitings) {
         ClientCom com;                                                 // communication channel
         Message outMessage,                                            // outgoing message
                 inMessage;                                             // incoming message
@@ -322,22 +322,21 @@ public class GeneralReposStub {
      * @param distances of each room
      * @return museum rooms distance
      */
-    public synchronized int[] getRoomDistances() {
+    public int[] getRoomDistances() {
         ClientCom com;                                                 // communication channel
         Message outMessage,                                            // outgoing message
                 inMessage;                                             // incoming message
 
         com = new ClientCom (serverHostName, serverPortNumb);
-        while (!com.open ())
-        { try
-        { Thread.sleep ((long) (1000));
-        }
-        catch (InterruptedException e) {}
+        while (!com.open ()) {
+            try { 
+                Thread.sleep ((long) (1000));
+            } catch (InterruptedException e) {}
         }
         outMessage = new Message (MessageType.GTRD);
         com.writeObject (outMessage);
         inMessage = (Message) com.readObject ();
-        if (inMessage.getMsgType() != MessageType.SACK)
+        if (inMessage.getMsgType() != MessageType.GTRDDONE)
         { GenericIO.writelnString ("Thread " + Thread.currentThread ().getName () + ": Invalid message type!");
             GenericIO.writelnString (inMessage.toString ());
             System.exit (1);
@@ -349,7 +348,7 @@ public class GeneralReposStub {
     /**
      * Set robbed paintings
      */
-    public synchronized void setRobbedPaintings() {
+    public void setRobbedPaintings() {
         ClientCom com;                                                 // communication channel
         Message outMessage,                                            // outgoing message
                 inMessage;                                             // incoming message

@@ -1,7 +1,7 @@
 # local execution
 echo "Executing the ccs node."
-cd /home/vm/HeistMuseum/dirCCS
-java -cp "../genclass.jar:." serverSide.main.ServerControlCollectionSite 22317 127.0.0.1 22312
+cd /home/marco/Desktop/MuseumHeist/dirCCS
+java -cp "../genclass.jar:." serverSide.main.ServerControlCollectionSite 22316 127.0.0.1 22312
 echo "CCS Server shutdown."
 
 

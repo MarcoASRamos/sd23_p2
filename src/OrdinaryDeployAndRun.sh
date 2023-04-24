@@ -1,7 +1,7 @@
 # local execution
 echo "Executing the ordinary node."
-cd /home/vm/HeistMuseum/dirOrdinary
-java -cp "../genclass.jar:." clientSide.main.ClientOrdinary 22317 127.0.0.1 22312
+cd /home/marco/Desktop/MuseumHeist/dirOrdinary
+java -cp "../genclass.jar:." clientSide.main.ClientOrdinary 127.0.0.1 22313 127.0.0.1 22314 127.0.0.1 22315 127.0.0.1 22316 127.0.0.1 22317 127.0.0.1 22312
 echo "ordinary Server shutdown."
 
 # global execution
@@ -14,4 +14,4 @@ echo "ordinary Server shutdown."
 #sshpass -f password scp genclass.zip sd202@l040101-ws07.ua.pt:test/MuseumHeist/dirOrdinary
 #sshpass -f password ssh sd202@l040101-ws07.ua.pt 'cd test/MuseumHeist/dirOrdinary ; unzip -uq genclass.zip'
 #echo "Executing program at the Ordinary node."
-#sshpass -f password ssh sd202@l040101-ws07.ua.pt 'cd test/MuseumHeist/dirOrdinary ; java serverSide.main.ServerAssaultParty0 22317 l040101-ws01.ua.pt 22312'
+#sshpass -f password ssh sd202@l040101-ws07.ua.pt 'cd test/MuseumHeist/dirOrdinary ; java clientSide.main.ClientOrdinary l040101-ws01.ua.pt 22317 l040101-ws01.ua.pt 22312'

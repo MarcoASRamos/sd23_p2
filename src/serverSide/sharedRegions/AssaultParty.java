@@ -100,7 +100,7 @@ public class AssaultParty {
     private int nEntities;
 
     /**
-     * Bar instantiation
+     * AP instantiation
      *
      * @param repos reference to the general repository
      */

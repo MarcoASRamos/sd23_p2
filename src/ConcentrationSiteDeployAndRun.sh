@@ -1,9 +1,8 @@
 # local execution
 echo "Executing the CS node."
-cd /home/vm/HeistMuseum/dirCS
-java -cp "../genclass.jar:." serverSide.main.ServerConcentrationSite 22317 127.0.0.1 22312
+cd /home/marco/Desktop/MuseumHeist/dirCS
+java -cp "../genclass.jar:." serverSide.main.ServerConcentrationSite 22315 127.0.0.1 22312
 echo "CS Server shutdown."
-
 
 
 # global execution

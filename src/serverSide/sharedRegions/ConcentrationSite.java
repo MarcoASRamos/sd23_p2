@@ -162,6 +162,7 @@ public class ConcentrationSite {
         } 
 
         while (waitingThieves<SimulConsts.E) {
+            GenericIO.writelnString("master wait "+waitingThieves);
             try {  wait();
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -263,6 +264,7 @@ public class ConcentrationSite {
         notifyAll();
 
         while(summon!=ordinaryId && !results){
+            GenericIO.writelnString("ordinary "+ordinaryId+" ain wait "+waitingThieves);
 			try { wait();
 			} catch (InterruptedException e) {
 				GenericIO.writelnString(" "+e.getMessage());

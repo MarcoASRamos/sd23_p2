@@ -1,7 +1,7 @@
 # local execution
 echo "Executing the master node."
-cd /home/vm/HeistMuseum/dirMaster
-java -cp "../genclass.jar:." serverSide.main.ServerMuseumAssaultParty0 22317 127.0.0.1 22312
+cd /home/marco/Desktop/MuseumHeist/dirMaster
+java -cp "../genclass.jar:." clientSide.main.ClientMaster 127.0.0.1 22313 127.0.0.1 22314 127.0.0.1 22315 127.0.0.1 22316 127.0.0.1 22312
 echo "Master Server shutdown."
 
 # global execution

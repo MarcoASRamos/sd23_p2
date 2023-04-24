@@ -43,7 +43,7 @@ public class ControlCollectionSiteStub {
      * 
      * @return room state list
      */
-    public synchronized int getRoomIdx(){
+    public int getRoomIdx(){
         ClientCom com;                 // communication channel
         Message outMessage,            // outgoing message
                 inMessage;             // incoming message
@@ -72,7 +72,7 @@ public class ControlCollectionSiteStub {
     /**
      * Master starts the heist the museum operation
      */
-    public synchronized void startOperation(){
+    public void startOperation(){
         ClientCom com;                     // communication channel
         Message outMessage,                // outgoing message
                 inMessage;                 // incoming message
@@ -100,7 +100,7 @@ public class ControlCollectionSiteStub {
     /**
      * Master hide until return of the ordinaries 
      */
-    public synchronized void takeARest(){
+    public void takeARest(){
         ClientCom com;                 // communication channel
         Message outMessage,            // outgoing message
                 inMessage;             // incoming message
@@ -134,7 +134,7 @@ public class ControlCollectionSiteStub {
      * @param members member id
      * @param room heisted by the thief
      */
-    public synchronized void handACanvas(int canvas, int room, int ap, int members){
+    public void handACanvas(int canvas, int room, int ap, int members){
         ClientCom com;                  // communication channel
         Message outMessage,             // outgoing message
                 inMessage;              // incoming message
@@ -164,7 +164,7 @@ public class ControlCollectionSiteStub {
     /**
      * The master thief stores it in the back of a van
      */
-    public synchronized void collectACanvas(){
+    public void collectACanvas(){
         ClientCom com;                      // communication channel
         Message outMessage,                 // outgoing message
                 inMessage;                  // incoming message

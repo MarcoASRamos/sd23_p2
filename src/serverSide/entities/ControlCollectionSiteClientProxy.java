@@ -71,13 +71,13 @@ public class ControlCollectionSiteClientProxy extends Thread implements Ordinary
      */
 
     private static int getProxyId() {
-        Class<?> cl = null; // representation of the BarberShopClientProxy object in JVM
+        Class<?> cl = null; // representation of the ControlCollectionSiteClientProxy object in JVM
         int proxyId; // instantiation identifier
 
         try {
-            cl = Class.forName("serverSide.entities.ControlColectionSiteClientProxy");
+            cl = Class.forName("serverSide.entities.ControlCollectionSiteClientProxy");
         } catch (ClassNotFoundException e) {
-            GenericIO.writelnString("Data type ControlColectionSiteClientProxy was not found!");
+            GenericIO.writelnString("Data type ControlCollectionSiteClientProxy was not found!");
             e.printStackTrace();
             System.exit(1);
         }

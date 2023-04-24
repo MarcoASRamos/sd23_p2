@@ -9,7 +9,7 @@ mkdir -p dirGeneralRepos dirGeneralRepos/serverSide dirGeneralRepos/serverSide/m
 cp serverSide/main/SimulConsts.class serverSide/main/ServerGeneralRepos.class dirGeneralRepos/serverSide/main
 cp serverSide/entities/GeneralReposClientProxy.class dirGeneralRepos/serverSide/entities
 cp serverSide/sharedRegions/GeneralReposInterface.class serverSide/sharedRegions/GeneralRepos.class dirGeneralRepos/serverSide/sharedRegions
-cp clientSide/entities/Mastertates.class clientSide/entities/OrdinaryStates.class clientSide/entities/ChefStates.class dirGeneralRepos/clientSide/entities
+cp clientSide/entities/MasterStates.class clientSide/entities/OrdinaryStates.class dirGeneralRepos/clientSide/entities
 cp commInfra/Message.class commInfra/MessageType.class commInfra/MessageException.class commInfra/ServerCom.class dirGeneralRepos/commInfra
 
 
@@ -19,7 +19,7 @@ mkdir -p dirAP0 dirAP0/serverSide dirAP0/serverSide/main dirAP0/serverSide/entit
 cp serverSide/main/SimulConsts.class serverSide/main/ServerAssaultParty.class dirAP0/serverSide/main
 cp serverSide/entities/AssaultPartyClientProxy.class dirAP0/serverSide/entities
 cp serverSide/sharedRegions/GeneralReposInterface.class serverSide/sharedRegions/AssaultPartyInterface.class serverSide/sharedRegions/AssaultParty.class dirAP0/serverSide/sharedRegions
-cp clientSide/entities/MasterStates.class clientSide/entities/OrdinaryStates.class clientSide/entities/MasterCloning.class clientSide/entities/OrdinaryCloning.class dirCS/clientSide/entities
+cp clientSide/entities/MasterStates.class clientSide/entities/OrdinaryStates.class clientSide/entities/MasterCloning.class clientSide/entities/OrdinaryCloning.class dirAP0/clientSide/entities
 cp clientSide/stubs/GeneralReposStub.class dirAP0/clientSide/stubs
 cp commInfra/*.class dirAP0/commInfra
 
@@ -30,7 +30,7 @@ mkdir -p dirAP1 dirAP1/serverSide dirAP1/serverSide/main dirAP1/serverSide/entit
 cp serverSide/main/SimulConsts.class serverSide/main/ServerAssaultParty.class dirAP1/serverSide/main
 cp serverSide/entities/AssaultPartyClientProxy.class dirAP1/serverSide/entities
 cp serverSide/sharedRegions/GeneralReposInterface.class serverSide/sharedRegions/AssaultPartyInterface.class serverSide/sharedRegions/AssaultParty.class dirAP1/serverSide/sharedRegions
-cp clientSide/entities/MasterStates.class clientSide/entities/OrdinaryStates.class clientSide/entities/MasterCloning.class clientSide/entities/OrdinaryCloning.class dirCS/clientSide/entities
+cp clientSide/entities/MasterStates.class clientSide/entities/OrdinaryStates.class clientSide/entities/MasterCloning.class clientSide/entities/OrdinaryCloning.class dirAP1/clientSide/entities
 cp clientSide/stubs/GeneralReposStub.class dirAP1/clientSide/stubs
 cp commInfra/*.class dirAP1/commInfra
 
@@ -38,7 +38,7 @@ cp commInfra/*.class dirAP1/commInfra
 echo "  ConcentrationSite"
 rm -rf dirCS
 mkdir -p dirCS dirCS/serverSide dirCS/serverSide/main dirCS/serverSide/entities dirCS/serverSide/sharedRegions dirCS/clientSide dirCS/clientSide/entities dirCS/clientSide/stubs dirCS/commInfra
-cp serverSide/main/SimulConsts.class serverSide/main/ConcentrationSite.class dirCS/serverSide/main
+cp serverSide/main/SimulConsts.class serverSide/main/ServerConcentrationSite.class dirCS/serverSide/main
 cp serverSide/entities/ConcentrationSiteClientProxy.class dirCS/serverSide/entities
 cp serverSide/sharedRegions/GeneralReposInterface.class serverSide/sharedRegions/ConcentrationSiteInterface.class serverSide/sharedRegions/ConcentrationSite.class dirCS/serverSide/sharedRegions
 cp clientSide/entities/MasterStates.class clientSide/entities/OrdinaryStates.class clientSide/entities/MasterCloning.class clientSide/entities/OrdinaryCloning.class dirCS/clientSide/entities
@@ -49,7 +49,7 @@ cp commInfra/*.class dirCS/commInfra
 echo "  ControlCollectionSite"
 rm -rf dirCCS
 mkdir -p dirCCS dirCCS/serverSide dirCCS/serverSide/main dirCCS/serverSide/entities dirCCS/serverSide/sharedRegions dirCCS/clientSide dirCCS/clientSide/entities dirCCS/clientSide/stubs dirCCS/commInfra
-cp serverSide/main/SimulConsts.class serverSide/main/ControlCollectionSite.class dirCCS/serverSide/main
+cp serverSide/main/SimulConsts.class serverSide/main/ServerControlCollectionSite.class dirCCS/serverSide/main
 cp serverSide/entities/ControlCollectionSiteClientProxy.class dirCCS/serverSide/entities
 cp serverSide/sharedRegions/GeneralReposInterface.class serverSide/sharedRegions/ControlCollectionSiteInterface.class serverSide/sharedRegions/ControlCollectionSite.class dirCCS/serverSide/sharedRegions
 cp clientSide/entities/MasterStates.class clientSide/entities/OrdinaryStates.class clientSide/entities/MasterCloning.class clientSide/entities/OrdinaryCloning.class dirCCS/clientSide/entities
@@ -60,7 +60,7 @@ cp commInfra/*.class dirCCS/commInfra
 echo "  Museum"
 rm -rf dirMuseum
 mkdir -p dirMuseum dirMuseum/serverSide dirMuseum/serverSide/main dirMuseum/serverSide/entities dirMuseum/serverSide/sharedRegions dirMuseum/clientSide dirMuseum/clientSide/entities dirMuseum/clientSide/stubs dirMuseum/commInfra
-cp serverSide/main/SimulConsts.class serverSide/main/Museum.class dirMuseum/serverSide/main
+cp serverSide/main/SimulConsts.class serverSide/main/ServerMuseum.class dirMuseum/serverSide/main
 cp serverSide/entities/MuseumClientProxy.class dirMuseum/serverSide/entities
 cp serverSide/sharedRegions/GeneralReposInterface.class serverSide/sharedRegions/MuseumInterface.class serverSide/sharedRegions/Museum.class dirMuseum/serverSide/sharedRegions
 cp clientSide/entities/MasterStates.class clientSide/entities/OrdinaryStates.class clientSide/entities/MasterCloning.class clientSide/entities/OrdinaryCloning.class dirMuseum/clientSide/entities
@@ -73,7 +73,7 @@ rm -rf dirMaster
 mkdir -p dirMaster dirMaster/serverSide dirMaster/serverSide/main dirMaster/clientSide dirMaster/clientSide/main dirMaster/clientSide/entities dirMaster/clientSide/stubs dirMaster/commInfra
 cp serverSide/main/SimulConsts.class dirMaster/serverSide/main
 cp clientSide/main/ClientMaster.class dirMaster/clientSide/main
-cp clientSide/entities/Master.class clientSide/entities/Mastertates.class dirMaster/clientSide/entities
+cp clientSide/entities/Master.class clientSide/entities/MasterStates.class dirMaster/clientSide/entities
 cp clientSide/stubs/GeneralReposStub.class clientSide/stubs/AssaultPartyStub.class clientSide/stubs/ConcentrationSiteStub.class clientSide/stubs/ControlCollectionSiteStub.class dirMaster/clientSide/stubs
 cp commInfra/Message.class commInfra/MessageType.class commInfra/MessageException.class commInfra/ClientCom.class dirMaster/commInfra
 
@@ -84,7 +84,7 @@ mkdir -p dirOrdinary dirOrdinary/serverSide dirOrdinary/serverSide/main dirOrdin
 cp serverSide/main/SimulConsts.class dirOrdinary/serverSide/main
 cp clientSide/main/ClientOrdinary.class dirOrdinary/clientSide/main
 cp clientSide/entities/Ordinary.class clientSide/entities/OrdinaryStates.class dirOrdinary/clientSide/entities
-cp clientSide/stubs/GeneralReposStub.class clientSide/stubs/AssaultPartyStub.class clientSide/stubs/ConcentrationSiteStub.class clientSide/stubs/ControlCollectionSiteStub.class clientSide/stubs/MuseuStub.class dirOrdinary/clientSide/stubs
+cp clientSide/stubs/GeneralReposStub.class clientSide/stubs/AssaultPartyStub.class clientSide/stubs/ConcentrationSiteStub.class clientSide/stubs/ControlCollectionSiteStub.class clientSide/stubs/MuseumStub.class dirOrdinary/clientSide/stubs
 cp commInfra/Message.class commInfra/MessageType.class commInfra/MessageException.class commInfra/ClientCom.class dirOrdinary/commInfra
 
 
@@ -124,17 +124,18 @@ zip -rq dirOrdinary.zip dirOrdinary
 
 
 echo "Deploying and decompressing execution environments."
-mkdir -p /home/vm/test/MuseumHeist
-rm -rf /home/vm/test/MuseumHeist/*
-cp dirGeneralRepos.zip /home/vm/test/MuseumHeist
-cp dirAP0.zip /home/vm/test/MuseumHeist
-cp dirAP1.zip /home/vm/test/MuseumHeist
-cp dirCS.zip /home/vm/test/MuseumHeist
-cp dirCCS.zip /home/vm/test/MuseumHeist
-cp dirMuseum.zip /home/vm/test/MuseumHeist
-cp dirMaster.zip /home/vm/test/MuseumHeist
-cp dirOrdinary.zip /home/vm/test/MuseumHeist
-cd /home/vm/test/MuseumHeist
+mkdir -p /home/marco/Desktop/MuseumHeist
+rm -rf /home/marco/Desktop/MuseumHeist/*
+cp dirGeneralRepos.zip /home/marco/Desktop/MuseumHeist
+cp dirAP0.zip /home/marco/Desktop/MuseumHeist
+cp dirAP1.zip /home/marco/Desktop/MuseumHeist
+cp dirCS.zip /home/marco/Desktop/MuseumHeist
+cp dirCCS.zip /home/marco/Desktop/MuseumHeist
+cp dirMuseum.zip /home/marco/Desktop/MuseumHeist
+cp dirMaster.zip /home/marco/Desktop/MuseumHeist
+cp dirOrdinary.zip /home/marco/Desktop/MuseumHeist
+cp genclass.jar /home/marco/Desktop/MuseumHeist
+cd /home/marco/Desktop/MuseumHeist
 unzip -q dirGeneralRepos.zip
 unzip -q dirAP0.zip
 unzip -q dirAP1.zip

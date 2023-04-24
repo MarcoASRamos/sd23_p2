@@ -46,7 +46,7 @@ public class MuseumStub {
      * @param members id member
      * @return number of canvas stolen by the thieve
      */
-    public synchronized int rollACanvas(int room, int ap, int members) {
+    public int rollACanvas(int room, int ap, int members) {
         ClientCom com;                                                 // communication channel
         Message outMessage,                                            // outgoing message
                 inMessage;                                             // incoming message

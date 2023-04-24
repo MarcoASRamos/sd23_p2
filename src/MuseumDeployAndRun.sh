@@ -1,7 +1,7 @@
 # local execution
 echo "Executing the Museum node."
-cd /home/vm/HeistMuseum/dirMuseum
-java -cp "../genclass.jar:." serverSide.main.ServerMuseumMuseum 22317 127.0.0.1 22312
+cd /home/marco/Desktop/MuseumHeist/dirMuseum
+java -cp "../genclass.jar:." serverSide.main.ServerMuseum 22317 127.0.0.1 22312
 echo "Museum Server shutdown."
 
 

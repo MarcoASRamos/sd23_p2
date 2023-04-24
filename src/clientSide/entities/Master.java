@@ -108,23 +108,31 @@ public class Master extends Thread {
         
         boolean assault = true;
         while (assault) {
+            System.out.println("getRoomIdx");
             room = ccsStub.getRoomIdx();
+            System.out.println("appraiseSit");
             switch (csStub.appraiseSit(room>=SimulConsts.N)){
                 case 1:
+                    System.out.println("getAssautlParty");
                     int ap = csStub.getAssautlParty();
+                    System.out.println("prepareAssaultParty");
                     csStub.prepareAssaultParty(ap, room);
+                    System.out.println("sendAssaultParty");
                     partyStub[ap].sendAssaultParty(csStub.getRoom(ap));
                     break;
 
 
                 case 2:
+                    System.out.println("takeARest");
                     ccsStub.takeARest();
+                    System.out.println("collectACanvas");
                     ccsStub.collectACanvas();
                     break;
 
 
 
                 case 3:
+                    System.out.println("sumUpResults");
                     csStub.sumUpResults();
                     assault = false;
                     break;

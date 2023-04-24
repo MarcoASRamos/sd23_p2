@@ -32,6 +32,7 @@ public class ServerAssaultParty {
      */
 
     public static void main(String[] args) {
+        System.out.println("aqui0");
         AssaultParty Ap;                // assault party (service to be rendered)
         AssaultPartyInterface ApInter;  // interface to the assault party
         GeneralReposStub reposStub;     // stub to the general repository
@@ -67,7 +68,6 @@ public class ServerAssaultParty {
         }
 
         /* service is established */
-
         reposStub = new GeneralReposStub(reposServerName, reposPortNumb); // communication to the general repository is instantiated
         Ap = new AssaultParty(reposStub); // service is instantiated
         ApInter = new AssaultPartyInterface(Ap); // interface to the service is instantiated

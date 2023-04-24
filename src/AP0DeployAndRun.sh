@@ -1,7 +1,7 @@
 # local execution
 echo "Executing the ap0 node."
-cd /home/vm/HeistMuseum/dirAP0
-java -cp "../genclass.jar:." serverSide.main.ServerMuseumAssaultParty0 22317 127.0.0.1 22312
+cd /home/marco/Desktop/MuseumHeist/dirAP0
+java -cp "../genclass.jar:." serverSide.main.ServerAssaultParty 22313 127.0.0.1 22312
 echo "AP0 Server shutdown."
 
 
@@ -16,4 +16,4 @@ echo "AP0 Server shutdown."
 #sshpass -f password scp genclass.zip sd202@l040101-ws07.ua.pt:test/MuseumHeist/dirAP0
 #sshpass -f password ssh sd202@l040101-ws07.ua.pt 'cd test/MuseumHeist/dirAP0 ; unzip -uq genclass.zip'
 #echo "Executing program at the AP0 node."
-#sshpass -f password ssh sd202@l040101-ws07.ua.pt 'cd test/MuseumHeist/dirAP0 ; java serverSide.main.ServerAssaultParty0 22317 l040101-ws01.ua.pt 22312'
+#sshpass -f password ssh sd202@l040101-ws07.ua.pt 'cd test/MuseumHeist/dirAP0 ; java serverSide.main.ServerAssaultParty 22317 l040101-ws01.ua.pt 22312'

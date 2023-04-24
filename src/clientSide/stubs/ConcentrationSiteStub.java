@@ -39,7 +39,7 @@ public class ConcentrationSiteStub {
      * @param ap assault party
      * @return room address to heist
      */
-    public synchronized int getRoom(int ap){
+    public int getRoom(int ap){
         ClientCom com;                    // communication channel
         Message outMessage,               // outgoing message
                 inMessage;                // incoming message
@@ -69,7 +69,7 @@ public class ConcentrationSiteStub {
      * 
      * @return assault party
      */
-    public synchronized int getAssautlParty(){
+    public int getAssautlParty(){
         ClientCom com;                      // communication channel
         Message outMessage,                 // outgoing message
                 inMessage;                  // incoming message
@@ -102,7 +102,7 @@ public class ConcentrationSiteStub {
      * @param roomState indicate if all rooms are empty
      * @return the master decision
      */
-    public synchronized int appraiseSit(boolean roomState) {
+    public int appraiseSit(boolean roomState) {
         ClientCom com;                    // communication channel
         Message outMessage,               // outgoing message
                 inMessage;                // incoming message
@@ -134,7 +134,7 @@ public class ConcentrationSiteStub {
      * @param ap assault party to prepare
      * @param room to assault
      */
-    public synchronized void prepareAssaultParty(int ap, int room) {
+    public  void prepareAssaultParty(int ap, int room) {
         ClientCom com;                  // communication channel
         Message outMessage,             // outgoing message
                 inMessage;              // incoming message
@@ -164,7 +164,7 @@ public class ConcentrationSiteStub {
      * 
      * @return joined assault party
      */
-    public synchronized int prepareExcursion() {
+    public  int prepareExcursion() {
         ClientCom com;                     // communication channel
         Message outMessage,                // outgoing message
                 inMessage;                 // incoming message
@@ -197,7 +197,7 @@ public class ConcentrationSiteStub {
      * @param ap assault party from which the ordinary thieve work before
      * @return master service decision
      */
-    public synchronized boolean amINeeded(int ap){
+    public  boolean amINeeded(int ap){
         ClientCom com;                // communication channel
         Message outMessage,           // outgoing message
                 inMessage;            // incoming message
@@ -227,7 +227,7 @@ public class ConcentrationSiteStub {
     /**
      * All the paitings were finally robbed, now its time to count the gains
      */
-    public synchronized void sumUpResults() {
+    public  void sumUpResults() {
         ClientCom com;                   // communication channel
         Message outMessage,              // outgoing message
                 inMessage;               // incoming message

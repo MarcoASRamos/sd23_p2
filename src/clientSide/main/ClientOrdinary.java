@@ -7,7 +7,7 @@ import commInfra.*;
 import genclass.GenericIO;
 
 /**
- *    Client side of the Sleeping Barbers (customers).
+ *    Client side of the Museum Heist (ordinaries).
  *
  *    Implementation of a client-server model of type 2 (server replication).
  *    Communication is based on a communication channel under the TCP protocol.
@@ -17,15 +17,15 @@ public class ClientOrdinary {
      *  Main method.
      *
      *    @param args runtime arguments
-     *        args[0] - name of the platform where is located the bar server
+     *        args[0] - name of the platform where is located the ap0 server
      *        args[1] - port nunber for listening to service requests
-     *        args[2] - name of the platform where is located the kitchen server
+     *        args[2] - name of the platform where is located the ap1 server
      *        args[3] - port nunber for listening to service requests
-     *        args[4] - name of the platform where is located the general repository server
+     *        args[4] - name of the platform where is located the cs server
      *        args[5] - port nunber for listening to service requests
-     *        args[6] - name of the platform where is located the bar server
+     *        args[6] - name of the platform where is located the ccs server
      *        args[7] - port nunber for listening to service requests
-     *        args[8] - name of the platform where is located the kitchen server
+     *        args[8] - name of the platform where is located the museum server
      *        args[9] - port nunber for listening to service requests
      *        args[10] - name of the platform where is located the general repository server
      *        args[11] - port nunber for listening to service requests
@@ -33,16 +33,16 @@ public class ClientOrdinary {
 
      public static void main (String [] args)
      {
-         String[] apServerHostName = new String[2];                     // name of the platform where is located the bar server
+         String[] apServerHostName = new String[2];                     // name of the platform where is located the aps server
          int[] apServerPortNumb = new int[2];                           // port number for listening to service requests
 
-         String csServerHostName;                                       // name of the platform where is located the kitchen server
+         String csServerHostName;                                       // name of the platform where is located the cs server
          int csServerPortNumb = -1;                                     // port number for listening to service requests
 
-         String ccsServerHostName;                                      // name of the platform where is located the bar server
+         String ccsServerHostName;                                      // name of the platform where is located the ccs server
          int ccsServerPortNumb = -1;                                    // port number for listening to service requests
 
-         String museumServerHostName;                                   // name of the platform where is located the kitchen server
+         String museumServerHostName;                                   // name of the platform where is located the museum server
          int museumServerPortNumb = -1;                                 // port number for listening to service requests
 
          String genReposServerHostName;                                 // name of the platform where is located the general repository server
@@ -58,7 +58,7 @@ public class ClientOrdinary {
  
          /* getting problem runtime parameters */
  
-         if (args.length != 10)
+         if (args.length != 12)
          { GenericIO.writelnString ("Wrong number of parameters!");
              System.exit (1);
          }

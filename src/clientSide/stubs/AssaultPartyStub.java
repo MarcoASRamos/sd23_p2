@@ -41,7 +41,7 @@ public class AssaultPartyStub {
      * @param ap assault paty asssigned
      * @return member id
      */
-    public synchronized int assignMember(int ap) {
+    public int assignMember(int ap) {
         ClientCom com;                      // communication channel
         Message outMessage,                 // outgoing message
                 inMessage;                  // incoming message
@@ -73,7 +73,7 @@ public class AssaultPartyStub {
      * 
      * @return room id
      */
-    public synchronized int getRoom() {
+    public int getRoom() {
         ClientCom com;                     // communication channel
         Message outMessage,                // outgoing message
                 inMessage;                 // incoming message
@@ -105,7 +105,7 @@ public class AssaultPartyStub {
      * 
      * @param member id
      */
-    public synchronized void reverseDirection(int member) {
+    public void reverseDirection(int member) {
         ClientCom com;                      // communication channel
         Message outMessage,                 // outgoing message
                 inMessage;                  // incoming message
@@ -134,7 +134,7 @@ public class AssaultPartyStub {
      * 
      * @param room to heist
      */
-    public synchronized void sendAssaultParty(int room) {
+    public void sendAssaultParty(int room) {
         ClientCom com;                       // communication channel
         Message outMessage,                  // outgoing message
                 inMessage;                   // incoming message
@@ -166,7 +166,7 @@ public class AssaultPartyStub {
      * @param md     maximum distance capable by the thive
      * @return true if the thieve get to the room
      */
-    public synchronized boolean crawlIn(int ap, int member, int md) {
+    public boolean crawlIn(int ap, int member, int md) {
         ClientCom com;                 // communication channel
         Message outMessage,            // outgoing message
                 inMessage;             // incoming message
@@ -199,7 +199,7 @@ public class AssaultPartyStub {
      * @param md     maximum distance capable by the thive
      * @return true if the thieve get to the site
      */
-    public synchronized boolean crawlOut(int ap, int member, int md) {
+    public boolean crawlOut(int ap, int member, int md) {
         ClientCom com;                  // communication channel
         Message outMessage,             // outgoing message
                 inMessage;              // incoming message

@@ -109,26 +109,34 @@ public class Ordinary extends Thread {
     @Override
     public void run() {
         int memberId, room, canvas, ap = -1;
+        System.out.println("getOrdinaryMD");
         int md = reposStub.getOrdinaryMD(ordinaryId);
-
+        System.out.println("amINeeded");
         while (csStub.amINeeded(ap)) {
-       
+            System.out.println("prepareExcursion");
             ap = csStub.prepareExcursion();
-
+            System.out.println("assignMember");
             memberId = partyStub[ap].assignMember(ap);
             boolean atRoom = true;
-            while (atRoom)
+            while (atRoom){
+                System.out.println("crawlIn");
                 atRoom = partyStub[ap].crawlIn(ap, memberId, md);
+            }
 
+            System.out.println("getRoom");
             room = partyStub[ap].getRoom();
+            System.out.println("rollACanvas");
             canvas = museumStub.rollACanvas(room, ap, memberId);
-
+            System.out.println("assignMember");
             memberId = partyStub[ap].assignMember(ap);
+            System.out.println("reverseDirection");
             partyStub[ap].reverseDirection(memberId);
             boolean atSite = true;
-            while (atSite)
+            while (atSite){
+                System.out.println("crawlOut");
                 atSite = partyStub[ap].crawlOut(ap, memberId, md);
-
+            }   
+            System.out.println("handACanvas");
             ccsStub.handACanvas(canvas, csStub.getRoom(ap), ap, memberId);
         }
     }
