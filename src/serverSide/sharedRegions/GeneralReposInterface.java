@@ -93,7 +93,7 @@ public class GeneralReposInterface {
                 break;
 
             case MessageType.STAPE:
-                repos.setApElement(inMessage.getElem(), inMessage.getOrdinaryId());
+                repos.setApElement(inMessage.getElem(), inMessage.getTid());
                 outMessage = new Message(MessageType.SACK);
                 break;
 

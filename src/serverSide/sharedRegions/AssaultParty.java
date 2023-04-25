@@ -22,7 +22,7 @@ public class AssaultParty {
      */
     public synchronized int assignMember(int ap) {
         members = (members + 1) % SimulConsts.E;
-        reposStub.setApElement(ap * SimulConsts.E + members, ((Ordinary) Thread.currentThread()).getOrdinaryId());
+        reposStub.setApElement(ap * SimulConsts.E + members, ((AssaultPartyClientProxy) Thread.currentThread()).getOrdinaryId());
         return members;
     }
 

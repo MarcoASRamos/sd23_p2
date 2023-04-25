@@ -55,7 +55,8 @@ public class MuseumInterface {
       switch (inMessage.getMsgType ()) { 
          
          case MessageType.RAC: 
-            museum.rollACanvas(inMessage.getRoom(), inMessage.getAp(), inMessage.getMember());
+            int rac = museum.rollACanvas(inMessage.getRoom(), inMessage.getAp(), inMessage.getMember());
+            outMessage = new Message (MessageType.RACDONE, rac);
             break;
                                     
          case MessageType.SHUT:     

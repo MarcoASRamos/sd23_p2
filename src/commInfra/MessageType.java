@@ -115,7 +115,7 @@ public class MessageType
      *  Set robbed paitings (service request).
      */
 
-     public static final int STRBP = 117;
+     public static final int STRBP = 17;
 
     /**
      *  Setting acknowledged (reply).

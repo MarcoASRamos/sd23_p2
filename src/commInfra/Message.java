@@ -416,6 +416,12 @@ public class Message implements Serializable
             pe = i;
         } else if(msgType == MessageType.GRCSDONE) {
             grcs = i;
+        } else if(msgType == MessageType.GRAPDONE) {
+            grap = i;
+        } else if(msgType == MessageType.AMDONE) {
+            am = i;
+        } else if(msgType == MessageType.RACDONE) {
+            rac = i;     
         } else {
             GenericIO.writelnString ("Message type = " + msgType + ": non-implemented instantiation!");
             System.exit (1);
@@ -436,32 +442,25 @@ public class Message implements Serializable
         if((msgType == MessageType.AM) ){
             ap = i0;
             ordinaryId = i1;
-        }
-        else if((msgType == MessageType.SAP)){
+        } else if((msgType == MessageType.SAP)){
             room = i0;
             masterState = i1;
-        }
-        else if((msgType == MessageType.PE) || (msgType == MessageType.STOST)) {
+        } else if((msgType == MessageType.PE) || (msgType == MessageType.STOST)) {
             ordinaryId = i0;
             ordinaryState = i1;
-        }
-        else if((msgType == MessageType.STAPR)){
+        } else if((msgType == MessageType.STAPR)){
             ap = i0;
             room = i1;
-        }
-        else if((msgType == MessageType.STAPE)){
+        } else if((msgType == MessageType.STAPE)){
             elem = i0;
             tid = i1;
-        }
-        else if((msgType == MessageType.STCVS)){
+        } else if((msgType == MessageType.STCVS)){
             elem = i0;
             canvas = i1;
-        }
-        else if((msgType == MessageType.STPOS)){
+        } else if((msgType == MessageType.STPOS)){
             elem = i0;
             pos = i1;
-        }
-        else {
+        } else {
             GenericIO.writelnString ("Message type = " + msgType + ": non-implemented instantiation!");
             System.exit (1);
         }
@@ -521,7 +520,7 @@ public class Message implements Serializable
 
      public Message (int type, int i0, int i1, int i2, int i3) {
         msgType = type;
-        if((msgType == MessageType.AM) ){
+        if((msgType == MessageType.HAC) ){
             canvas = i0;
             room = i1;
             ap = i2;
@@ -548,14 +547,13 @@ public class Message implements Serializable
 
      public Message (int type, int i0, int i1, int i2, int i3, int i4) {
         msgType = type;
-        if((msgType == MessageType.AM) ){
+        if((msgType == MessageType.CI) || (msgType == MessageType.CO)){
             ap = i0;
             member = i1;
             md = i2;
             ordinaryId = i3;
             ordinaryState = i4;
-        }
-        else {
+        } else {
             GenericIO.writelnString ("Message type = " + msgType + ": non-implemented instantiation!");
             System.exit (1);
         }
@@ -577,6 +575,10 @@ public class Message implements Serializable
             roomStt = b;
         else if(msgType == MessageType.AINDONE)
             ain = b;
+        else if(msgType == MessageType.CIDONE)
+            ci = b;
+        else if(msgType == MessageType.CODONE)
+            co = b;
         else if((msgType == MessageType.EOPDONE))
            endOp = b;
         else {
