@@ -323,7 +323,7 @@ public class ConcentrationSite {
 
    public synchronized void shutdown () {
        nEntities += 1;
-       if (nEntities >= SimulConsts.M)
+       if (nEntities >= SimulConsts.SHT)
           ServerConcentrationSite.waitConnection = false;
        notifyAll ();                                        // the master may now terminate
    }

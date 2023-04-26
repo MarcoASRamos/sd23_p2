@@ -78,7 +78,7 @@ public class Museum {
 
    public synchronized void shutdown () {
        nEntities += 1;
-       if (nEntities >= SimulConsts.M-1)
+       if (nEntities >= SimulConsts.SHT-1)
           ServerMuseum.waitConnection = false;
        notifyAll ();                                        // the barber may now terminate
    }

@@ -58,6 +58,7 @@ public class GeneralReposInterface {
             case MessageType.STRMP:
             case MessageType.GTRD:
             case MessageType.STRBP:
+            case MessageType.SHUT:
                 break;
             default:
                 throw new MessageException("Invalid message type!", inMessage);

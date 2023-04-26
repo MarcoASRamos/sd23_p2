@@ -197,7 +197,7 @@ public class ControlCollectionSite {
    public synchronized void shutdown ()
    {
        nEntities += 1;
-       if (nEntities >= SimulConsts.M)
+       if (nEntities >= SimulConsts.SHT)
           ServerControlCollectionSite.waitConnection = false;
        notifyAll ();                                        // the barber may now terminate
    }

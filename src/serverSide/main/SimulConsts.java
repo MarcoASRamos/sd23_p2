@@ -57,6 +57,12 @@ public class SimulConsts {
     public static final int S = 3;
 
     /**
+     * Number of entities requesting shutdown.
+     */
+
+     public static final int SHT = 2;
+
+    /**
      * It can not be instantiated.
      */
 

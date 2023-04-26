@@ -340,8 +340,9 @@ public class AssaultParty {
    public synchronized void shutdown ()
    {
        nEntities += 1;
-       if (nEntities >= SimulConsts.M)
-          ServerAssaultParty.waitConnection = false;
-       notifyAll ();                                        // the barber may now terminate
+       if (nEntities >= SimulConsts.SHT)
+            ServerAssaultParty.waitConnection = false;
+          
+       notifyAll ();
    }
 }
