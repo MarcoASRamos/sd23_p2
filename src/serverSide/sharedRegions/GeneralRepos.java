@@ -169,7 +169,7 @@ public class GeneralRepos {
      /**
       * Set ordinary situation
       * @param id of the ordinary
-      * @apram sit situation of the thieve
+      * @param sit situation of the thieve
       */
      public synchronized void setOrdinarySituation(int id, char sit) {
          ordinarySituation[id] = sit;

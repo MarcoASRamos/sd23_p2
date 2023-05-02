@@ -35,7 +35,7 @@ public class AssaultParty {
 
     /**
      * Getter room
-     * @param room id
+     * @return room id
      */
     public synchronized int getRoom() {
         return room;

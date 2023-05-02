@@ -46,7 +46,7 @@ public class MuseumClientProxy extends Thread implements OrdinaryCloning {
      * Instantiation of a client proxy.
      *
      * @param sconi   communication channel
-     * @param CSInter interface to the barber shop
+     * @param MuseumInter interface to the barber shop
      */
 
     public MuseumClientProxy(ServerCom sconi, MuseumInterface MuseumInter) {

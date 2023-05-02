@@ -55,7 +55,7 @@ public class ControlCollectionSiteClientProxy extends Thread implements Ordinary
      * Instantiation of a client proxy.
      *
      * @param sconi   communication channel
-     * @param CSInter interface to the barber shop
+     * @param CCSInter interface to the barber shop
      */
 
     public ControlCollectionSiteClientProxy(ServerCom sconi, ControlCollectionSiteInterface CCSInter) {
