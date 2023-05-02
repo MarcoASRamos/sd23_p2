@@ -317,9 +317,8 @@ public class GeneralReposStub {
     }
 
     /**
-     * Set distance of the rooms
+     * Get distance of the rooms
      * 
-     * @param distances of each room
      * @return museum rooms distance
      */
     public int[] getRoomDistances() {
@@ -378,7 +377,6 @@ public class GeneralReposStub {
       *
       *   New operation.
       */
- 
      public void shutdown ()
      {
          ClientCom com;                                                 // communication channel

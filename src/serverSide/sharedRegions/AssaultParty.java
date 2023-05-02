@@ -19,6 +19,8 @@ public class AssaultParty {
 
     /**
      * Getter/Assign an assault party id to the thieve
+     * @param ap assault party
+     * @return member id
      */
     public synchronized int assignMember(int ap) {
         members = (members + 1) % SimulConsts.E;
@@ -33,6 +35,7 @@ public class AssaultParty {
 
     /**
      * Getter room
+     * @param room id
      */
     public synchronized int getRoom() {
         return room;
@@ -102,7 +105,7 @@ public class AssaultParty {
     /**
      * AP instantiation
      *
-     * @param repos reference to the general repository
+     * @param reposStub reference to the general repository
      */
 
     public AssaultParty(GeneralReposStub reposStub) {
@@ -128,8 +131,8 @@ public class AssaultParty {
     }
 
     /**
-     * 
-     * @param member
+     * Operation Reverse direction
+     * @param member id
      */
     public synchronized void reverseDirection(int member) {
 

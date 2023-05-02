@@ -1,7 +1,6 @@
 package clientSide.entities;
 
 import clientSide.stubs.*;
-import serverSide.main.SimulConsts;
 
 public class Ordinary extends Thread {
 
@@ -42,11 +41,13 @@ public class Ordinary extends Thread {
 
     /**
      * Instantiation of a ordinary thread.
-     * 
-     * 
      * @param ordinaryId    ordinary Id
      * @param ordinaryState ordinary state
-     * @param repos         Reference to GeneralRepos
+     * @param partyStub       Reference to AssaultpartyStub
+     * @param csStub          Reference to ConcentrationSite
+     * @param ccsStub         Reference to ControlCollectionSite
+     * @param museumStub      Reference to Museum
+     * @param reposStub       Reference to GeneralreposStub
      */
     public Ordinary(int ordinaryId, int ordinaryState, GeneralReposStub reposStub, ConcentrationSiteStub csStub, ControlCollectionSiteStub ccsStub, AssaultPartyStub[] partyStub, MuseumStub museumStub) {
         this.ordinaryState = ordinaryState;
@@ -65,7 +66,6 @@ public class Ordinary extends Thread {
      * @return ordinary Id
      */
     public int getOrdinaryId() {
-       
         return ordinaryId;
     }
 

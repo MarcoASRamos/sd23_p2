@@ -96,8 +96,7 @@ public class ConcentrationSiteStub {
 
 
     /**
-     * The master thief appraise the situation of how the heist is going 
-     * and takes a decision of is next step based on that
+     * The master thief appraise the situation of how the heist is going and takes a decision of is next step based on that
      * 
      * @param roomState indicate if all rooms are empty
      * @return the master decision
@@ -254,7 +253,11 @@ public class ConcentrationSiteStub {
 
 
      
-
+    /**
+      *   Operation server shutdown.
+      *
+      *   New operation.
+      */
     public void shutdown () {
         ClientCom com;              // communication channel
         Message outMessage,         // outgoing message

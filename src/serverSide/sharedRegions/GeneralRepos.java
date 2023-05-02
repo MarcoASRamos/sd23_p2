@@ -134,11 +134,13 @@ public class GeneralRepos {
    */
 
    public synchronized void shutdown () {
-       nEntities += 1;
-       if (nEntities >= SimulConsts.SHT)
-          ServerGeneralRepos.waitConnection = false;
+        nEntities += 1;
+        if (nEntities >= SimulConsts.SHT){
+            ServerGeneralRepos.waitConnection = false;
+            reportFinalStatus();
+        }
+          
    }
-
 
 
      /**
@@ -166,6 +168,8 @@ public class GeneralRepos {
  
      /**
       * Set ordinary situation
+      * @param id of the ordinary
+      * @apram sit situation of the thieve
       */
      public synchronized void setOrdinarySituation(int id, char sit) {
          ordinarySituation[id] = sit;
@@ -183,7 +187,7 @@ public class GeneralRepos {
      }
  
      /**
-      * 
+      * Set assault party heiting room 
       * @param ap assault party
       * @param room room to heist
       */

@@ -74,9 +74,9 @@ public class ControlCollectionSite {
     private final GeneralReposStub reposStub;
 
     /**
-     * Bar instantiation
+     * ControlCollectionSite instantiation
      *
-     * @param repos reference to the general repository
+     * @param reposStub reference to the general repository
      */
     public ControlCollectionSite(GeneralReposStub reposStub){
         this.reposStub = reposStub;

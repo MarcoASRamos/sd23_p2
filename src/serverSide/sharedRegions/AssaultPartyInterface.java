@@ -79,10 +79,8 @@ public class AssaultPartyInterface {
         switch (inMessage.getMsgType ()) { 
             
             case MessageType.AM: 
-                System.out.println("assign member processing");
                 ((AssaultPartyClientProxy) Thread.currentThread ()).setOrdinaryId (inMessage.getOrdinaryId ());
                 int am = ap.assignMember(inMessage.getAp());
-                System.out.println("assign member done");
                 outMessage = new Message (MessageType.AMDONE, am);
                 break;
 

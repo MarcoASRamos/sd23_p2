@@ -24,22 +24,26 @@ public class ConcentrationSiteClientProxy extends Thread implements OrdinaryClon
      */
 
     private ServerCom sconi;
+
+    /**
+     * Ordinary id
+     */
     private int OrdinaryID;
 
     /**
-     * Barber state.
+     * Ordinary state.
      */
 
     private int OrdinaryState;
 
     /**
-     * Customer identification.
+     * Master identification.
      */
 
     private int MasterId;
 
     /**
-     * Customer state.
+     * Master state.
      */
 
     private int MasterState;
@@ -110,41 +114,73 @@ public class ConcentrationSiteClientProxy extends Thread implements OrdinaryClon
         sconi.close(); // close the communication channel
     }
 
+    /**
+     * Getter master id
+     * @return master id
+     */
     @Override
     public int getMasterId() {
         return MasterId;
     }
 
+    /**
+     * Setter master id
+     * @param masterId
+     */
     @Override
     public void setMasterId(int masterId) {
         MasterId = masterId;
     }
 
+    /**
+     * Getter master state
+     * @return master state
+     */
     @Override
     public int getMasterState() {
         return MasterState;
     }
 
+    /**
+     * Setter master state
+     * @param masterState
+     */
     @Override
     public void setMasterState(int masterState) {
         MasterState = masterState;
     }
 
+    /**
+     * Getter ordinary id
+     * @return ordinary id
+     */
     @Override
     public int getOrdinaryId() {
         return OrdinaryID;
     }
 
+    /**
+     * Setter ordinary id
+     * @param ordinaryId
+     */
     @Override
     public void setOrdinaryId(int ordinaryId) {
         OrdinaryID = ordinaryId;
     }
 
+    /**
+     * Getter ordinary state
+     * @return ordinary state
+     */
     @Override
     public int getOrdinaryState() {
         return OrdinaryState;
     }
 
+    /**
+     * Setter ordinary state
+     * @param ordinaryState
+     */
     @Override
     public void setOrdinaryState(int ordinaryState) {
         OrdinaryState = ordinaryState;

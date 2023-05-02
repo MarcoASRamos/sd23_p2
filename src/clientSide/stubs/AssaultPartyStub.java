@@ -226,7 +226,11 @@ public class AssaultPartyStub {
 
 
 
-
+    /**
+      *   Operation server shutdown.
+      *
+      *   New operation.
+      */
     public void shutdown () {
         ClientCom com;          // communication channel
         Message outMessage,     // outgoing message

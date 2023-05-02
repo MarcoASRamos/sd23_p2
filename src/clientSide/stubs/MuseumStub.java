@@ -34,12 +34,7 @@ public class MuseumStub {
 
 
      /**
-     * The thieve detaches the canvas from the framing, 
-     * rolls it over and inserts it in a cylinder container 
-     * Operation say Goodbye
-     *
-     * It is called by the waiter to say goodbye to a student that's leaving the restaurant
-     * @param clientId id of the thread student that request this waiter operation
+     * Operation roll a canvas
      * 
      * @param room where assault is happening
      * @param ap assault party
@@ -72,7 +67,11 @@ public class MuseumStub {
     }
 
 
-
+    /**
+      *   Operation server shutdown.
+      *
+      *   New operation.
+      */
     public void shutdown () {
         ClientCom com;                    // communication channel
         Message outMessage,               // outgoing message

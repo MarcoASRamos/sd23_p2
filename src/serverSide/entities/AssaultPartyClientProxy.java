@@ -1,4 +1,3 @@
-
 package serverSide.entities;
 
 import serverSide.sharedRegions.*;
@@ -32,17 +31,6 @@ public class AssaultPartyClientProxy extends Thread implements MasterCloning, Or
 
     private AssaultPartyInterface APInt;
 
-    /**
-     * AssaultParty identification.
-     */
-
-    private int AssaultPartyId;
-
-    /**
-     * AssaultParty state.
-     */
-
-    private int AssaultPartyState;
 
     /**
      * Customer identification.
@@ -63,7 +51,7 @@ public class AssaultPartyClientProxy extends Thread implements MasterCloning, Or
      * Master identification.
      */
 
-    private int MasterID;
+    private int MasterId;
 
     /**
      * Instantiation of a client proxy.
@@ -102,105 +90,7 @@ public class AssaultPartyClientProxy extends Thread implements MasterCloning, Or
         return proxyId;
     }
 
-    /**
-     * Set AssaultParty id.
-     *
-     * @param id AssaultParty id
-     */
-
-    public void setAssaultPartyId(int id) {
-        AssaultPartyId = id;
-    }
-
-    /**
-     * Get AssaultParty id.
-     *
-     * @return AssaultParty id
-     */
-
-    public int getAssaultPartyId() {
-        return AssaultPartyId;
-    }
-
-    /**
-     * Set ordinary id.
-     *
-     * @param id ordinary id
-     */
-
-    public void setOrdinaryId(int id) {
-        OrdinaryID = id;
-    }
-
-    /**
-     * Get customer id.
-     *
-     * @return customer id
-     */
-
-    public int getOrdinaryId() {
-        return OrdinaryID;
-    }
-
-    /**
-     * Set ordinary id.
-     *
-     * @param id ordinary id
-     */
-
-    public void setMasterID(int id) {
-        MasterID = id;
-    }
-
-    /**
-     * Get customer id.
-     *
-     * @return customer id
-     */
-
-    public int getMasterID() {
-        return MasterID;
-    }
-
-    /**
-     * Set customer state.
-     *
-     * @param state new customer state
-     */
-
-    public void setOrdinaryState(int state) {
-        OrdinaryState = state;
-    }
-
-    /**
-     * Get customer state.
-     *
-     * @return customer state
-     */
-
-    public int getOrdinaryState() {
-        return OrdinaryState;
-    }
-
-    /**
-     * Set customer state.
-     *
-     * @param state new customer state
-     */
-
-    public void setMasterState(int state) {
-        MasterState = state;
-    }
-
-    /**
-     * Get customer state.
-     *
-     * @return customer state
-     */
-
-    public int getMasterState() {
-        return MasterState;
-    }
+    
 
     /**
      * Life cycle of the service provider agent.
@@ -225,15 +115,75 @@ public class AssaultPartyClientProxy extends Thread implements MasterCloning, Or
         sconi.close(); // close the communication channel
     }
 
+    /**
+     * Getter master id
+     * @return master id
+     */
     @Override
     public int getMasterId() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getMasterId'");
+        return MasterId;
     }
 
+    /**
+     * Setter master id
+     * @param masterId
+     */
     @Override
     public void setMasterId(int masterId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setMasterId'");
+        MasterId = masterId;
+    }
+
+    /**
+     * Getter master state
+     * @return master state
+     */
+    @Override
+    public int getMasterState() {
+        return MasterState;
+    }
+
+    /**
+     * Setter master state
+     * @param masterState
+     */
+    @Override
+    public void setMasterState(int masterState) {
+        MasterState = masterState;
+    }
+
+    /**
+     * Getter ordinary id
+     * @return ordinary id
+     */
+    @Override
+    public int getOrdinaryId() {
+        return OrdinaryID;
+    }
+
+    /**
+     * Setter ordinary id
+     * @param ordinaryId
+     */
+    @Override
+    public void setOrdinaryId(int ordinaryId) {
+        OrdinaryID = ordinaryId;
+    }
+
+    /**
+     * Getter ordinary state
+     * @return ordinary state
+     */
+    @Override
+    public int getOrdinaryState() {
+        return OrdinaryState;
+    }
+
+    /**
+     * Setter ordinary state
+     * @param ordinaryState
+     */
+    @Override
+    public void setOrdinaryState(int ordinaryState) {
+        OrdinaryState = ordinaryState;
     }
 }

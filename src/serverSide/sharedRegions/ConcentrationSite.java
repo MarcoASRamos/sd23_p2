@@ -101,9 +101,9 @@ public class ConcentrationSite {
     private final GeneralReposStub reposStub;
 
     /**
-     * Bar instantiation
+     * ConcentrationSite instantiation
      *
-     * @param reposStub. reference to the general reposStub.itory
+     * @param reposStub reference to the general reposStub.itory
      */
     public ConcentrationSite(GeneralReposStub reposStub) {
 
@@ -141,8 +141,7 @@ public class ConcentrationSite {
 
 
     /**
-     * The master thief appraise the situation of how the heist is going 
-     * and takes a decision of is next step based on that
+     * The master thief appraise the situation of how the heist is going and takes a decision of is next step based on that
      * 
      * @param roomState indicate if all rooms are empty
      * @return the master decision
@@ -162,7 +161,6 @@ public class ConcentrationSite {
         } 
 
         while (waitingThieves<SimulConsts.E) {
-            GenericIO.writelnString("master wait "+waitingThieves);
             try {  wait();
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -264,15 +262,12 @@ public class ConcentrationSite {
         notifyAll();
 
         while(summon!=ordinaryId && !results){
-            GenericIO.writelnString("ordinary "+ordinaryId+" ain wait "+waitingThieves);
 			try { wait();
 			} catch (InterruptedException e) {
 				GenericIO.writelnString(" "+e.getMessage());
                 System.exit(0);
 			}
 		}
-
-        
 
         return summon==ordinaryId;
     }
@@ -297,8 +292,7 @@ public class ConcentrationSite {
    *  Operation end of work.
    *
    *   New operation.
-   *
-   *      @param ordId ordinary id
+   *   @param ordId ordinary id
    */
 
    public synchronized void endOperation (int ordId)

@@ -36,10 +36,6 @@ public class ControlCollectionSiteStub {
 
      /**
      * Getter room state list
-     * Operation say Goodbye
-     *
-     * It is called by the waiter to say goodbye to a student that's leaving the restaurant
-     * @param clientId id of the thread student that request this waiter operation
      * 
      * @return room state list
      */
@@ -189,7 +185,11 @@ public class ControlCollectionSiteStub {
     }
 
 
-
+    /**
+      *   Operation server shutdown.
+      *
+      *   New operation.
+      */
     public void shutdown () {
         ClientCom com;                    // communication channel
         Message outMessage,               // outgoing message

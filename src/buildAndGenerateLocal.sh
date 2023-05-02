@@ -144,3 +144,5 @@ unzip -q dirCCS.zip
 unzip -q dirMuseum.zip
 unzip -q dirMaster.zip
 unzip -q dirOrdinary.zip
+
+javadoc -cp src/genclass.jar -d doc/ -sourcepath src/ -subpackages commInfra clientSide clientSide.entities clientSide.main clientSide.stubs serverSide serverSide.entities serverSide.main serverSide.sharedRegions

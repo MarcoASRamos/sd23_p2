@@ -30,9 +30,9 @@ public class Museum {
     private final GeneralReposStub reposStub;
 
     /**
-     * Bar instantiation
+     * Museum instantiation
      *
-     * @param repos reference to the general repository
+     * @param reposStub reference to the general repository
      */
     public Museum(GeneralReposStub reposStub) {
 

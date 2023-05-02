@@ -24,16 +24,20 @@ public class MuseumClientProxy extends Thread implements OrdinaryCloning {
      */
 
     private ServerCom sconi;
+
+    /**
+     * Ordinary identification
+     */
     private int OrdinaryID;
 
     /**
-     * Barber state.
+     * Ordinary state.
      */
 
     private int OrdinaryState;
 
     /**
-     * Customer identification.
+     * Museum interface.
      */
 
     private MuseumInterface MuseumInter;
@@ -79,7 +83,7 @@ public class MuseumClientProxy extends Thread implements OrdinaryCloning {
      * Life cycle of the service provider agent.
      */
 
-    @Override
+     @Override
     public void run() {
         Message inMessage = null, // service request
                 outMessage = null; // service reply
@@ -98,22 +102,38 @@ public class MuseumClientProxy extends Thread implements OrdinaryCloning {
         sconi.close(); // close the communication channel
     }
 
-    @Override
+    /**
+     * Getter ordinary id
+     * @return get ordinary id
+     */
+    
     public int getOrdinaryId() {
         return OrdinaryID;
     }
 
-    @Override
+    /**
+     * Setter ordinary id
+     * @param ordinaryId thieve id
+     */
+    
     public void setOrdinaryId(int ordinaryId) {
         OrdinaryID = ordinaryId;
     }
 
-    @Override
+    /**
+     * Getter ordinary state
+     * @return get ordinary state
+     */
+    
     public int getOrdinaryState() {
         return OrdinaryState;
     }
 
-    @Override
+    /**
+     * Setter ordinary state
+     * @param ordinaryState thieve state
+     */
+    
     public void setOrdinaryState(int ordinaryState) {
         OrdinaryState = ordinaryState;
     }
