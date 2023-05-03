@@ -6,7 +6,7 @@ import commInfra.*;
 import genclass.GenericIO;
 
 /**
- * Service provider agent for access to the Barber Shop.
+ * Service provider agent for access to the Concentration Site.
  *
  * Implementation of a client-server model of type 2 (server replication).
  * Communication is based on a communication channel under the TCP protocol.
@@ -49,7 +49,7 @@ public class ConcentrationSiteClientProxy extends Thread implements OrdinaryClon
     private int MasterState;
 
     /**
-     * Interface to the Barber Shop.
+     * Interface to the Concentration Site.
      */
 
     private ConcentrationSiteInterface CSInter;
@@ -58,7 +58,7 @@ public class ConcentrationSiteClientProxy extends Thread implements OrdinaryClon
      * Instantiation of a client proxy.
      *
      * @param sconi   communication channel
-     * @param CSInter interface to the barber shop
+     * @param CSInter interface to the Concentration Site
      */
 
     public ConcentrationSiteClientProxy(ServerCom sconi, ConcentrationSiteInterface CSInter) {

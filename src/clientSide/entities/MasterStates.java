@@ -1,5 +1,10 @@
 package clientSide.entities;
 
+
+/**
+ *   Definition of the internal states of the Master during his life cycle.
+ */
+
 public class MasterStates {
     /**
      *	The Master thief is PLANNING_THE_HEIST.

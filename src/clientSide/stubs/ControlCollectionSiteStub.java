@@ -6,6 +6,14 @@ import commInfra.*;
 import genclass.GenericIO;
 import serverSide.sharedRegions.GeneralReposInterface;
 
+/**
+ *  Stub to the control collection site.
+ *
+ *    It instantiates a remote reference to the control collection site.
+ *    Implementation of a client-server model of type 2 (server replication).
+ *    Communication is based on a communication channel under the TCP protocol.
+ */
+
 public class ControlCollectionSiteStub {
     /**
      * Name of the platform where is located the bar server.

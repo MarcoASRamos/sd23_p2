@@ -7,7 +7,7 @@ import commInfra.*;
 import genclass.GenericIO;
 
 /**
- * Service provider agent for access to the Barber Shop.
+ * Service provider agent for access to the Control Collection Site.
  *
  * Implementation of a client-server model of type 2 (server replication).
  * Communication is based on a communication channel under the TCP protocol.
@@ -46,7 +46,7 @@ public class ControlCollectionSiteClientProxy extends Thread implements Ordinary
     private int MasterState;
 
     /**
-     * Interface to the Barber Shop.
+     * Interface to the Control Collection Site.
      */
 
     private ControlCollectionSiteInterface ccsInter;
@@ -55,7 +55,7 @@ public class ControlCollectionSiteClientProxy extends Thread implements Ordinary
      * Instantiation of a client proxy.
      *
      * @param sconi   communication channel
-     * @param CCSInter interface to the barber shop
+     * @param CCSInter interface to the Control Collection Site
      */
 
     public ControlCollectionSiteClientProxy(ServerCom sconi, ControlCollectionSiteInterface CCSInter) {

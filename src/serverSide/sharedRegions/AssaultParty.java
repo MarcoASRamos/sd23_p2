@@ -8,6 +8,16 @@ import clientSide.stubs.*;
 import commInfra.*;
 import genclass.GenericIO;
 
+
+/**
+ *  Assault Party.
+ *
+ *    The Assault Party is implemented as an implicit monitor.
+ *    All public methods are executed in mutual exclusion.
+ *    Implementation of a client-server model of type 2 (server replication).
+ *    Communication is based on a communication channel under the TCP protocol.
+ */
+
 public class AssaultParty {
 
 

@@ -8,6 +8,15 @@ import commInfra.*;
 import genclass.GenericIO;
 
 
+/**
+ *  Concentration Site.
+ *
+ *    The Concentration Site is implemented as an implicit monitor.
+ *    All public methods are executed in mutual exclusion.
+ *    Implementation of a client-server model of type 2 (server replication).
+ *    Communication is based on a communication channel under the TCP protocol.
+ */
+
 public class ConcentrationSite {
     
     /**
@@ -31,7 +40,7 @@ public class ConcentrationSite {
     private boolean results;
 
     /**
-     * Summon thieve to an assault party
+     * Summon thieve to an Concentration Site
      */
     private int summon;
 
@@ -41,7 +50,7 @@ public class ConcentrationSite {
     private boolean summoned;
 
     /**
-     * Preparingassault Party
+     * PreparingConcentration Site
      */
     private int preparingAP;
 
@@ -56,14 +65,14 @@ public class ConcentrationSite {
     private int heisting;
 
     /**
-     * Indicate which the Assault party is heisting
+     * Indicate which the Concentration Site is heisting
      */
     private int rooms[];
 
     /**
-     * Getter room assign to the assault party
+     * Getter room assign to the Concentration Site
      * 
-     * @param ap assault party
+     * @param ap Concentration Site
      * @return room address to heist
      */
     public synchronized int getRoom(int ap){
@@ -71,9 +80,9 @@ public class ConcentrationSite {
     }
 
     /**
-     * Return one assault party available
+     * Return one Concentration Site available
      * 
-     * @return assault party
+     * @return Concentration Site
      */
     public synchronized int getAssautlParty(){
         return rooms[0]<0? 0:1;
@@ -171,9 +180,9 @@ public class ConcentrationSite {
 
 
     /**
-     * The master thief prepares an assault party to lauch in excursion
+     * The master thief prepares an Concentration Site to lauch in excursion
      * 
-     * @param ap assault party to prepare
+     * @param ap Concentration Site to prepare
      * @param room to assault
      */
     public synchronized void prepareAssaultParty(int ap, int room) {
@@ -214,7 +223,7 @@ public class ConcentrationSite {
     /**
      * The ordinary thieve makes the last preparations before going in an excursion
      * 
-     * @return joined assault party
+     * @return joined Concentration Site
      */
     public synchronized int prepareExcursion() {
         // Update Ordinary state
@@ -238,7 +247,7 @@ public class ConcentrationSite {
     /**
      * The ordinary thief indicates to the master that he is available
      * 
-     * @param ap assault party from which the ordinary thieve work before
+     * @param ap Concentration Site from which the ordinary thieve work before
      * @return master service decision
      */
     public synchronized boolean amINeeded(int ap){

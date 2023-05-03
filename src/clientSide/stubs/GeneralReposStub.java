@@ -1,4 +1,3 @@
-
 package clientSide.stubs;
 
 import serverSide.main.*;

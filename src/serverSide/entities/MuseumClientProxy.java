@@ -6,7 +6,7 @@ import commInfra.*;
 import genclass.GenericIO;
 
 /**
- * Service provider agent for access to the Barber Shop.
+ * Service provider agent for access to the Museum.
  *
  * Implementation of a client-server model of type 2 (server replication).
  * Communication is based on a communication channel under the TCP protocol.
@@ -46,7 +46,7 @@ public class MuseumClientProxy extends Thread implements OrdinaryCloning {
      * Instantiation of a client proxy.
      *
      * @param sconi   communication channel
-     * @param MuseumInter interface to the barber shop
+     * @param MuseumInter interface to the Museum
      */
 
     public MuseumClientProxy(ServerCom sconi, MuseumInterface MuseumInter) {

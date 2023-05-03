@@ -3,6 +3,15 @@ package clientSide.entities;
 import clientSide.stubs.*;
 import serverSide.main.SimulConsts;
 
+
+/**
+ *    Master thread.
+ *
+ *      It simulates the Master life cycle.
+ *      Implementation of a client-server model of type 2 (server replication).
+ *      Communication is based on a communication channel under the TCP protocol.
+ */
+
 public class Master extends Thread {
 
     /**
