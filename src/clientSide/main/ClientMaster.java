@@ -7,7 +7,7 @@ import commInfra.*;
 import genclass.GenericIO;
 
 /**
- *    Client side of the Sleeping Barbers (customers).
+ *    Client side of the Museum Heist (master).
  *
  *    Implementation of a client-server model of type 2 (server replication).
  *    Communication is based on a communication channel under the TCP protocol.

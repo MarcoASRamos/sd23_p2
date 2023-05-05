@@ -1,5 +1,11 @@
 package clientSide.entities;
 
+
+
+/**
+ *    Definition of the internal states of the Ordinary during his life cycle.
+ */
+
 public class OrdinaryStates {
     /**
      *	The Ordinary thief is CONCENTRATION_SITE.

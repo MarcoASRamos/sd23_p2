@@ -2,6 +2,15 @@ package clientSide.entities;
 
 import clientSide.stubs.*;
 
+
+/**
+ *    Ordinary thread.
+ *
+ *      It simulates the Ordinary life cycle.
+ *      Implementation of a client-server model of type 2 (server replication).
+ *      Communication is based on a communication channel under the TCP protocol.
+ */
+
 public class Ordinary extends Thread {
 
     /**

@@ -7,12 +7,12 @@
 
 # global execution
 echo "Transfering data to the CS node."
-sshpass -f password ssh sd202@l040101-ws03.ua.pt 'mkdir -p test/MuseumHeist'
-sshpass -f password ssh sd202@l040101-ws03.ua.pt 'rm -rf test/MuseumHeist/*'
-sshpass -f password scp dirCS.zip sd202@l040101-ws03.ua.pt:test/MuseumHeist
+sshpass -f password ssh sd403@l040101-ws03.ua.pt 'mkdir -p test/MuseumHeist'
+sshpass -f password ssh sd403@l040101-ws03.ua.pt 'rm -rf test/MuseumHeist/*'
+sshpass -f password scp dirCS.zip sd403@l040101-ws03.ua.pt:test/MuseumHeist
 echo "Decompressing data sent to the CS node."
-sshpass -f password ssh sd202@l040101-ws03.ua.pt 'cd test/MuseumHeist ; unzip -uq dirCS.zip'
-sshpass -f password scp genclass.zip sd202@l040101-ws03.ua.pt:test/MuseumHeist/dirCS
-sshpass -f password ssh sd202@l040101-ws03.ua.pt 'cd test/MuseumHeist/dirCS ; unzip -uq genclass.zip'
+sshpass -f password ssh sd403@l040101-ws03.ua.pt 'cd test/MuseumHeist ; unzip -uq dirCS.zip'
+sshpass -f password scp genclass.zip sd403@l040101-ws03.ua.pt:test/MuseumHeist/dirCS
+sshpass -f password ssh sd403@l040101-ws03.ua.pt 'cd test/MuseumHeist/dirCS ; unzip -uq genclass.zip'
 echo "Executing program at the CS node."
-sshpass -f password ssh sd202@l040101-ws03.ua.pt 'cd test/MuseumHeist/dirCS ; java serverSide.main.ServerConcentrationSite 22423 l040101-ws07.ua.pt 22427'
+sshpass -f password ssh sd403@l040101-ws03.ua.pt 'cd test/MuseumHeist/dirCS ; java serverSide.main.ServerConcentrationSite 22423 l040101-ws07.ua.pt 22427'

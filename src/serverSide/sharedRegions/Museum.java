@@ -8,6 +8,15 @@ import commInfra.*;
 import genclass.GenericIO;
 
 
+/**
+ *  Museum.
+ *
+ *    The Museum is implemented as an implicit monitor.
+ *    All public methods are executed in mutual exclusion.
+ *    Implementation of a client-server model of type 2 (server replication).
+ *    Communication is based on a communication channel under the TCP protocol.
+ */
+
 public class Museum {
     /**
      * Number of paintings hanging in each room
@@ -53,7 +62,7 @@ public class Museum {
      * rolls it over and inserts it in a cylinder container 
      * 
      * @param room where assault is happening
-     * @param ap assault party
+     * @param ap Museum
      * @param members id member
      * @return number of canvas stolen by the thieve
      */

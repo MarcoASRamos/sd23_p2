@@ -8,6 +8,15 @@ import commInfra.*;
 import genclass.GenericIO;
 
 
+/**
+ *  Concentration Site.
+ *
+ *    The Concentration Site is implemented as an implicit monitor.
+ *    All public methods are executed in mutual exclusion.
+ *    Implementation of a client-server model of type 2 (server replication).
+ *    Communication is based on a communication channel under the TCP protocol.
+ */
+
 public class ControlCollectionSite {
     
     /**
@@ -140,7 +149,7 @@ public class ControlCollectionSite {
      * Ordinary thieves takes the canvas out of the cylinder and hands it to the master thief, or tells her he is coming empty-handed
      * 
      * @param canvas or empty handed
-     * @param ap assault party
+     * @param ap Concentration Site
      * @param members member id
      * @param room heisted by the thief
      */
@@ -199,6 +208,6 @@ public class ControlCollectionSite {
        nEntities += 1;
        if (nEntities >= SimulConsts.SHT)
           ServerControlCollectionSite.waitConnection = false;
-       notifyAll ();                                        // the barber may now terminate
+       notifyAll ();
    }
 }
